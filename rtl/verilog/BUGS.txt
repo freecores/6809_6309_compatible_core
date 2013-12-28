@@ -1,0 +1,9 @@
+Known bugs are described here
+
+28.12.13
+--------
+
+- EXG doesn't work, the register file can only be written once in the WriteBack cycle.
+- LEAX/LEAY do not modify the Z flag
+- The E flag is not read back when RTI is processed. This means that FIRQ will not return
+  correctly.
