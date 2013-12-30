@@ -366,6 +366,10 @@ always @(*)
 				begin
 					q16 = { b_in[7] ? 8'hff:8'h00, b_in[7:0] };
 				end
+			`LEA:
+				begin
+					q16 = a_in[15:0];
+				end			
 		endcase
 	end
 
@@ -465,6 +469,10 @@ always @(*)
 					n16 = reg_n_in;
 					z16 = reg_z_in;
 				end
+			`LEA: // only Z will be affected
+				begin
+					n16 = reg_n_in;
+				end
 		endcase
 	end
 
@@ -476,7 +484,6 @@ always @(*)
 			q_out[7:0] = regq16[7:0];
 		else
 			q_out[7:0] = regq8;
-		
 		case (opcode_in)
 			`ORCC:
 				CCRo = CCR | b_in[7:0];

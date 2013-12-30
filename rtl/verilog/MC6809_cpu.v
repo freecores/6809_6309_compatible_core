@@ -33,11 +33,13 @@ reg [5:0] state, // state of the main state machine
           next_state, // next state to exit to from the read from [PC] state machine
 		  next_mem_state, // next state to exit to from the read from memory state machine
 		  next_push_state; // next state to exit to from push multiple state machine
-reg k_cpu_oe, k_cpu_we, k_inc_pc, k_pull_reg_write;
+reg k_cpu_oe, k_cpu_we, k_inc_pc;
 reg [15:0] k_cpu_addr, k_new_pc;
 reg k_write_pc, k_inc_su, k_dec_su, k_set_e, k_clear_e;
 reg [1:0] k_mem_dest;
+reg k_write_dest; // set for 1 clock when a register has to be written, dec_o_dest_reg_addr has the register source
 reg k_write_post_incdec; // asserted when in the last write cycle or in write back for loads
+reg k_forced_mem_size; // used to force the size of a memory read to be 16 bits, used for vector fetch
 /****
  * Decoder outputs 
  */
@@ -51,7 +53,7 @@ wire dec_o_ea_ofs8, dec_o_ea_ofs16, dec_o_ea_wpost, dec_o_ea_ofs0, dec_o_ea_indi
 wire [4:0] dec_o_alu_opcode;
 wire [1:0] dec_o_right_path_mod; /* Modifier for alu's right path input */
 /* register decoder */
-wire dec_o_wdest_8, dec_o_wdest_16, dec_o_write_flags;
+wire dec_o_wdest, dec_o_source_size, dec_o_write_flags;
 wire [3:0] dec_o_left_path_addr, dec_o_right_path_addr, dec_o_dest_reg_addr;
 /* test condition */
 wire dec_o_cond_taken;
@@ -69,7 +71,8 @@ reg [15:0] datamux_o_alu_in_left_path_data, datamux_o_alu_in_right_path_data, da
 
 reg k_p2_valid, k_p3_valid; /* 1 when k_postbyte0 has been loaded for page 2 or page 3 */
 
-/* Interrupt sync registers */
+/* * Interrupt sync registers 
+ */
 
 reg [2:0] k_reg_nmi, k_reg_irq, k_reg_firq;
 wire k_nmi_req, k_firq_req, k_irq_req;
@@ -96,9 +99,9 @@ regblock regs(
 	.write_reg_addr(datamux_o_dest_reg_addr),
 	.eapostbyte( k_ind_ea ),
 	.offset16({ k_ofshi, k_ofslo }),
-	.write_reg_8(dec_o_wdest_8 & (state == `SEQ_GRAL_WBACK)),
-	.write_reg_16(dec_o_wdest_16 & (state == `SEQ_GRAL_WBACK)),
-	.write_pull_reg(k_pull_reg_write),
+	.write_reg(k_write_dest),
+	//.write_reg_16(dec_o_wdest_16 & (state == `SEQ_GRAL_WBACK)),
+	//.write_pull_reg(k_pull_reg_write),
 	.write_post(k_write_post_incdec),
 	.write_pc(k_write_pc),
 	.inc_pc(k_inc_pc),
@@ -128,8 +131,8 @@ decode_regs dec_regs(
 	.path_left_addr(dec_o_left_path_addr),
 	.path_right_addr(dec_o_right_path_addr),
 	.dest_reg(dec_o_dest_reg_addr),
-	.write_dest_8(dec_o_wdest_8),
-	.write_dest_16(dec_o_wdest_16),
+	.write_dest(dec_o_wdest),
+	.source_size(dec_o_source_size),
 	.result_size(dec_o_alu_size)
 	);
 
@@ -228,7 +231,7 @@ always @(*)
 			`OP_PULL, `OP_RTS: // destination register
 				datamux_o_dest = { k_memhi, k_memlo };
 			`OP_LEA:
-				if (dec_o_ea_indirect & dec_o_alu_size)
+				if (dec_o_ea_indirect)// & dec_o_alu_size)
 					datamux_o_dest = { k_memhi, k_memlo };
 				else
 					datamux_o_dest = regs_o_eamem_addr;
@@ -242,11 +245,33 @@ always @(*)
 		if (dec_o_left_path_addr == `RN_MEM8)
 			datamux_o_alu_in_left_path_data = { k_memhi, k_memlo };
 		else
-			begin
+		case (dec_o_p1_optype)
+			`OP_LEA:
+				if (dec_o_ea_indirect)// & dec_o_alu_size)
+					datamux_o_alu_in_left_path_data = { k_memhi, k_memlo };
+				else
+					datamux_o_alu_in_left_path_data = regs_o_eamem_addr;
+			default:
 				datamux_o_alu_in_left_path_data = regs_o_left_path_data;
-			end
+		endcase
 	end
-
+/* PC as destination from jmp/bsr mux */
+always @(*)
+	begin
+		k_new_pc = { k_memhi,k_memlo }; // used to fetch reset vector
+		case (dec_o_p1_mode)
+			`REL16: k_new_pc = regs_o_pc + { k_memhi,k_memlo };
+			`REL8: k_new_pc = regs_o_pc + { {8{k_memlo[7]}}, k_memlo };
+			`EXTENDED: k_new_pc = { k_eahi,k_ealo };
+			`DIRECT: k_new_pc = { regs_o_dp, k_ealo };
+			`INDEXED:
+				if (dec_o_ea_indirect)
+					k_new_pc = { k_memhi,k_memlo };
+				else
+					k_new_pc = regs_o_eamem_addr;
+			
+		endcase
+	end
 /* ALU right input mux */
 always @(*)
 	begin
@@ -302,15 +327,18 @@ always @(posedge k_clk or posedge k_reset)
 					k_dec_su <= 0;
 				if (k_inc_su)
 					k_inc_su <= 0;
-				if (k_pull_reg_write)
-					k_pull_reg_write <= 0;
+				//if (k_pull_reg_write)
+				//	k_pull_reg_write <= 0;
 				if (k_set_e)
 					k_set_e <= 0;
 				if (k_clear_e)
 					k_clear_e <= 0;
+				if (k_write_dest)
+					k_write_dest <= 0;
 			case (state)
 				`SEQ_COLDRESET: 
 					begin
+						k_forced_mem_size <= 1;
 						state <= `SEQ_MEM_READ_H;
 						k_eahi <= 8'hff;
 						k_ealo <= 8'hfe;
@@ -318,6 +346,7 @@ always @(posedge k_clk or posedge k_reset)
 					end
 				`SEQ_NMI:
 					begin
+						k_forced_mem_size <= 1;
 						k_reg_nmi <= 2'h0;
 						{ k_eahi, k_ealo } <= 16'hfffc;
 						k_pp_regs <= 8'hff;
@@ -328,6 +357,7 @@ always @(posedge k_clk or posedge k_reset)
 					end
 				`SEQ_SWI:
 					begin
+						k_forced_mem_size <= 1;
 						state <= `SEQ_MEM_READ_H;
 						{ k_eahi, k_ealo } <= 16'hfffa;
 						k_pp_regs <= 8'hff;
@@ -338,6 +368,7 @@ always @(posedge k_clk or posedge k_reset)
 					end
 				`SEQ_IRQ:
 					begin
+						k_forced_mem_size <= 1;
 						k_reg_irq <= 2'h0;
 						state <= `SEQ_MEM_READ_H;
 						{ k_eahi, k_ealo } <= 16'hfff8;
@@ -350,6 +381,7 @@ always @(posedge k_clk or posedge k_reset)
 					end
 				`SEQ_FIRQ:
 					begin
+						k_forced_mem_size <= 1;
 						k_reg_firq <= 2'h0;
 						{ k_eahi, k_ealo } <= 16'hfff6;
 						k_pp_regs <= 8'h81; // PC & CC
@@ -360,6 +392,7 @@ always @(posedge k_clk or posedge k_reset)
 					end
 				`SEQ_SWI2:
 					begin
+						k_forced_mem_size <= 1;
 						{ k_eahi, k_ealo } <= 16'hfff4;
 						k_pp_regs <= 8'hff;
 						k_set_e <= 1;
@@ -369,6 +402,7 @@ always @(posedge k_clk or posedge k_reset)
 					end
 				`SEQ_SWI3:
 					begin
+						k_forced_mem_size <= 1;
 						{ k_eahi, k_ealo } <= 16'hfff2;
 						k_pp_regs <= 8'hff;
 						k_set_e <= 1;
@@ -378,6 +412,7 @@ always @(posedge k_clk or posedge k_reset)
 					end
 				`SEQ_UNDEF:
 					begin
+						k_forced_mem_size <= 1;
 						{ k_eahi, k_ealo } <= 16'hfff0;
 						k_pp_regs <= 8'hff;
 						k_set_e <= 1;
@@ -410,6 +445,7 @@ always @(posedge k_clk or posedge k_reset)
 					begin
 						k_cpu_oe <= 1;
 						state <= `SEQ_FETCH_2;
+						k_inc_pc <= 1;
 					end
 				`SEQ_FETCH_2:
 					begin
@@ -435,7 +471,6 @@ always @(posedge k_clk or posedge k_reset)
 							end
 						endcase
 						k_pp_active_reg <= 8'h00; // prevents wrong register in left/dest data muxes
-						k_inc_pc <= 1;
 					end
 				`SEQ_FETCH_3:
 					begin
@@ -460,7 +495,7 @@ always @(posedge k_clk or posedge k_reset)
 						 * ALU opcodes need routing of registers to/from the ALU to the registers
 						 */
 						case (dec_o_p1_mode)
-							`NONE: // unknown k_opcode and push/pull... refetch ?
+							`NONE: // unknown k_opcode or push/pull... refetch ?
 								begin
 									casex (k_opcode)
 										8'h39: // RTS
@@ -510,10 +545,7 @@ always @(posedge k_clk or posedge k_reset)
 									if ((dec_o_right_path_addr == `RN_MEM8) || (dec_o_right_path_addr == `RN_MEM16) ||
 										(dec_o_left_path_addr == `RN_MEM8))
 										begin
-											if (dec_o_alu_size)
-												next_state <= `SEQ_MEM_READ_H;
-											else
-												next_state <= `SEQ_MEM_READ_L;
+											next_state <= `SEQ_MEM_READ_H;
 											next_mem_state <= `SEQ_GRAL_ALU; // read then alu
 										end
 									else
@@ -529,10 +561,7 @@ always @(posedge k_clk or posedge k_reset)
 									if ((dec_o_right_path_addr == `RN_MEM8) || (dec_o_right_path_addr == `RN_MEM16) ||
 										(dec_o_left_path_addr == `RN_MEM8))
 										begin
-											if (dec_o_alu_size)
-												next_state <= `SEQ_MEM_READ_H;
-											else
-												next_state <= `SEQ_MEM_READ_L;
+											next_state <= `SEQ_MEM_READ_H;
 											next_mem_state <= `SEQ_GRAL_ALU; // read then alu
 										end
 									else
@@ -583,10 +612,7 @@ always @(posedge k_clk or posedge k_reset)
 									if ((dec_o_right_path_addr == `RN_MEM8) || (dec_o_right_path_addr == `RN_MEM16) ||
 										(dec_o_left_path_addr == `RN_MEM8))
 										begin
-											if (dec_o_alu_size)
-												next_state <= `SEQ_MEM_READ_H;
-											else
-												next_state <= `SEQ_MEM_READ_L;
+											next_state <= `SEQ_MEM_READ_H;
 											next_mem_state <= `SEQ_GRAL_ALU; // read then alu
 										end
 									else
@@ -602,10 +628,7 @@ always @(posedge k_clk or posedge k_reset)
 									if ((dec_o_right_path_addr == `RN_MEM8) || (dec_o_right_path_addr == `RN_MEM16) ||
 										(dec_o_left_path_addr == `RN_MEM8))
 										begin
-											if (dec_o_alu_size)
-												next_state <= `SEQ_MEM_READ_H;
-											else
-												next_state <= `SEQ_MEM_READ_L;
+											next_state <= `SEQ_MEM_READ_H;
 											next_mem_state <= `SEQ_GRAL_ALU; // read then alu
 										end
 									else
@@ -619,7 +642,10 @@ always @(posedge k_clk or posedge k_reset)
 						endcase
 					end
 				`SEQ_GRAL_ALU:
-					state <= `SEQ_GRAL_WBACK;
+					begin
+						state <= `SEQ_GRAL_WBACK;
+						k_write_dest <= 1; /* write destination on wback */
+					end
 				`SEQ_GRAL_WBACK:
 					begin
 						next_mem_state <= `SEQ_FETCH;
@@ -672,10 +698,7 @@ always @(posedge k_clk or posedge k_reset)
 											begin
 												k_mem_dest <= `MEMDEST_MH; // operand land in k_memhi/lo
 												next_mem_state <= `SEQ_GRAL_ALU;
-												if (dec_o_alu_size)
-													state <= `SEQ_MEM_READ_H;
-												else
-													state <= `SEQ_MEM_READ_L;
+												state <= `SEQ_MEM_READ_H;
 											end
 										else
 											state <= `SEQ_GRAL_ALU; // no load, then store
@@ -688,50 +711,14 @@ always @(posedge k_clk or posedge k_reset)
 							begin
 								k_mem_dest <= `MEMDEST_MH; // operand land in k_memhi/lo
 								next_mem_state <= `SEQ_GRAL_ALU;
-								if (dec_o_alu_size)
-									state <= `SEQ_MEM_READ_H;
-								else
-									state <= `SEQ_MEM_READ_L;
+								state <= `SEQ_MEM_READ_H;
 							end
 						else
 							state <= `SEQ_GRAL_ALU; // no load, then store
 					end
 				`SEQ_JMP_LOAD_PC:
 					begin
-						case (dec_o_p1_mode)
-							`REL16:
-								begin
-									k_new_pc <= regs_o_pc + { k_memhi,k_memlo };
-									if (dec_o_cond_taken)
-										k_write_pc <= 1;
-								end
-							`REL8:
-								begin
-									k_new_pc <= regs_o_pc + { {8{k_memlo[7]}}, k_memlo };
-									if (dec_o_cond_taken)
-										k_write_pc <= 1;
-								end
-							`EXTENDED:
-								begin
-									k_new_pc <= { k_eahi,k_ealo };
-									k_write_pc <= 1;
-								end
-							`DIRECT:
-								begin
-									k_new_pc <= { regs_o_dp, k_ealo };
-									k_write_pc <= 1;
-								end
-							`INDEXED:
-								begin
-									if (dec_o_ea_indirect)
-										k_new_pc <= { k_memhi,k_memlo };
-									else
-										k_new_pc <= regs_o_eamem_addr;
-									k_write_pc <= 1;
-								end
-						endcase
 						state <= `SEQ_FETCH;
-						
 					end
 				`SEQ_JSR_PUSH:
 					begin
@@ -743,7 +730,10 @@ always @(posedge k_clk or posedge k_reset)
 					begin
 						next_state <= `SEQ_PREPUSH;
 						if (k_pp_regs > 0)
-							state <= `SEQ_PUSH_WRITE_L;
+							begin
+								state <= `SEQ_PUSH_WRITE_L;
+								//k_dec_su <= 1;
+							end
 						else
 							state <= next_push_state;
 						if (k_pp_regs[7]) begin k_pp_regs[7] <= 0; k_pp_active_reg <= 8'h80; end
@@ -764,9 +754,13 @@ always @(posedge k_clk or posedge k_reset)
 					end
 				`SEQ_PREPULL:
 					begin
-						k_inc_su <= 1;
-						k_mem_dest <= `MEMDEST_MH;
-						next_mem_state <= `SEQ_PREPULL;
+						if (k_pp_regs != 8'h0)
+							begin
+								k_mem_dest <= `MEMDEST_MH;
+								next_mem_state <= `SEQ_PREPULL;
+							end
+						else
+							state <= `SEQ_FETCH; // end of sequence
 						if (k_pp_regs[0]) begin k_pp_active_reg <= 8'h01; k_pp_regs[0] <= 0; state <= `SEQ_MEM_READ_L; end
 						else
 						if (k_pp_regs[1]) begin k_pp_active_reg <= 8'h02; k_pp_regs[1] <= 0; state <= `SEQ_MEM_READ_L; end
@@ -781,18 +775,15 @@ always @(posedge k_clk or posedge k_reset)
 						else
 						if (k_pp_regs[6]) begin k_pp_active_reg <= 8'h40; k_pp_regs[6] <= 0; state <= `SEQ_MEM_READ_H; end
 						else
-							begin
-								next_mem_state <= `SEQ_FETCH; // end of sequence
-								if (k_pp_regs[7]) begin k_pp_active_reg <= 8'h80;  k_pp_regs[7] <= 0; state <= `SEQ_MEM_READ_H; end
-							end
+						if (k_pp_regs[7]) begin k_pp_active_reg <= 8'h80;  k_pp_regs[7] <= 0; state <= `SEQ_MEM_READ_H; end
 					end
 				`SEQ_PUSH_WRITE_L: // first low byte push 
 					begin
 						k_cpu_data_o <= regs_o_left_path_data[7:0];
 						state <= `SEQ_PUSH_WRITE_L_1;
 						k_cpu_we <= 1; // write
-						k_cpu_addr <= regs_o_su;
-						k_dec_su <= 1; // decrement stack pointer
+						k_cpu_addr <= regs_o_su - 16'h1;
+						k_dec_su <= 1;
 					end
 				`SEQ_PUSH_WRITE_L_1:
 					begin
@@ -803,17 +794,21 @@ always @(posedge k_clk or posedge k_reset)
 								state <= `SEQ_PREPUSH;
 							else
 								state <= next_push_state;
+						k_cpu_addr <= k_cpu_addr - 16'h1; // when pushing 16 bits the second decrement comes too late 
 					end
 				`SEQ_PUSH_WRITE_H: // reads high byte
 					begin
 						k_cpu_data_o <= regs_o_left_path_data[15:8];
 						state <= `SEQ_PUSH_WRITE_H_1;
 						k_cpu_we <= 1; // write
-						k_cpu_addr <= regs_o_su;
+						if (k_pp_active_reg[3:0] > 0)
+							k_cpu_addr <= regs_o_su;
 						k_dec_su <= 1; // decrement stack pointer
 					end
 				`SEQ_PUSH_WRITE_H_1:
 					begin
+						if (next_state == `SEQ_JMP_LOAD_PC)
+							k_write_pc <= 1; // load PC in the next cycle, the mux output will have the right source
 						state <= next_state;
 					end
 				`SEQ_PC_READ_H: // reads high byte for [PC], used by IMM, DIR, EXT
@@ -855,6 +850,8 @@ always @(posedge k_clk or posedge k_reset)
 							`DIRECT, `EXTENDED: k_ealo <= cpu_data_i;
 							`INDEXED: k_ofslo <= cpu_data_i;
 						endcase
+						if ((next_state == `SEQ_JMP_LOAD_PC) & (dec_o_cond_taken))
+							k_write_pc <= 1; // load PC in the next cycle, the mux output will have the right source
 						state <= next_state;
 					end
 				`SEQ_MEM_READ_H: // reads high byte
@@ -864,7 +861,11 @@ always @(posedge k_clk or posedge k_reset)
 							`INDEXED: k_cpu_addr <= regs_o_eamem_addr;
 							default: k_cpu_addr <= { k_eahi, k_ealo };
 						endcase
-						state <= `SEQ_MEM_READ_H_1;
+						if (k_forced_mem_size | dec_o_source_size | (k_pp_active_reg[7:4] != 0))
+							state <= `SEQ_MEM_READ_H_1;
+						else
+							state <= `SEQ_MEM_READ_L_1;
+						k_forced_mem_size <= 0; // used for vector fetch
 					end
 				`SEQ_MEM_READ_H_1:
 					begin
@@ -874,19 +875,21 @@ always @(posedge k_clk or posedge k_reset)
 				`SEQ_MEM_READ_H_2:
 					begin
 						case (k_mem_dest)
-							`MEMDEST_PC: k_new_pc[15:8] <= cpu_data_i;
+							`MEMDEST_PC,//: k_new_pc[15:8] <= cpu_data_i;
 							`MEMDEST_MH: k_memhi <= cpu_data_i;
 							`MEMDEST_AH: k_eahi <= cpu_data_i;
 						endcase
 						state <= `SEQ_MEM_READ_L_1;
 						k_cpu_addr  <= k_cpu_addr + 16'h1;
-					end
-				`SEQ_MEM_READ_L: // reads high byte
-					begin
 						case (dec_o_p1_mode)
-							`NONE: k_cpu_addr <= regs_o_su; // pull, rts, rti
-							`INDEXED: k_cpu_addr <= regs_o_eamem_addr;
-							default: k_cpu_addr <= { k_eahi, k_ealo };
+							`NONE: begin k_inc_su <= 1; end // pull, rts, rti
+						endcase
+					end
+				`SEQ_MEM_READ_L: // reads low byte
+					begin
+						// falls through from READ_MEM_H with the right address
+						case (dec_o_p1_mode)
+							`NONE: begin k_cpu_addr <= regs_o_su; k_inc_su <= 1; end // pull, rts, rti
 						endcase
 						state <= `SEQ_MEM_READ_L_1;
 					end
@@ -898,12 +901,12 @@ always @(posedge k_clk or posedge k_reset)
 				`SEQ_MEM_READ_L_2:
 					begin
 						case (k_mem_dest)
-							`MEMDEST_PC: begin k_new_pc[7:0] <= cpu_data_i; k_write_pc <= 1; end
+							`MEMDEST_PC: begin k_memlo <= cpu_data_i; k_write_pc <= 1; end
 							`MEMDEST_MH: k_memlo <= cpu_data_i;
 							`MEMDEST_AH: k_ealo <= cpu_data_i;
 						endcase
 						case (dec_o_p1_mode)
-							`NONE, `INHERENT: k_pull_reg_write <= 1; // pull, rts, rti
+							`NONE, `INHERENT: k_write_dest <= 1; // pull, rts, rti
 						endcase
 						state <= next_mem_state;
 					end
@@ -913,7 +916,7 @@ always @(posedge k_clk or posedge k_reset)
 							`INDEXED: k_cpu_addr <= regs_o_eamem_addr;
 							default: k_cpu_addr <= { k_eahi, k_ealo };
 						endcase
-						k_cpu_data_o <= datamux_o_dest[7:0];
+						k_cpu_data_o <= datamux_o_dest[15:8];
 						state <= `SEQ_MEM_WRITE_H_1;
 						k_cpu_we <= 1; // read
 					end
@@ -924,7 +927,7 @@ always @(posedge k_clk or posedge k_reset)
 					end
 				`SEQ_MEM_WRITE_L: // reads high byte
 					begin
-						if (!dec_o_alu_size)
+						if (!dec_o_alu_size) // only if it is a n 8 bit write
 							case (dec_o_p1_mode)
 								`INDEXED: k_cpu_addr <= regs_o_eamem_addr;
 								default: k_cpu_addr <= { k_eahi, k_ealo };

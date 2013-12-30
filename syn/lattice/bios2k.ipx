@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DiamondModule name="bios2k" module="RAM_DP_TRUE" VendorName="Lattice Semiconductor Corporation" generator="IPexpress" date="2013 12 28 21:50:51.279" version="7.2" type="Module" synthesis="" source_format="Verilog">
+  <Package>
+		<File name="bios2k.lpc" type="lpc" modified="2013 12 28 21:50:48.000"/>
+		<File name="bios2k.v" type="top_level_verilog" modified="2013 12 28 21:50:48.000"/>
+		<File name="bios2k_tmpl.v" type="template_verilog" modified="2013 12 28 21:50:48.000"/>
+		<File name="tb_bios2k_tmpl.v" type="testbench_verilog" modified="2013 12 28 21:50:49.000"/>
+		<File name="test1.mem" type="mem" modified="2013 12 22 20:19:59.000"/>
+  </Package>
+</DiamondModule>

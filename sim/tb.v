@@ -4,10 +4,6 @@
  * Distributed under the terms of the Lesser GPL
  */
 `timescale 1ns/1ns
-`include "MC6809_cpu.v"
-`include "alu16.v"
-`include "decoders.v"
-`include "regblock.v"
 
 module tb(output wire [15:0] addr_o, output wire [7:0] data_o_o);
 
@@ -23,7 +19,7 @@ always
 	
 MC6809_cpu cpu(
 	.cpu_clk(clk),
-	.cpu_reset_n(reset),
+	.cpu_reset(reset),
 	.cpu_we_o(we),
 	.cpu_oe_o(oe),
 	.cpu_addr_o(addr),
@@ -37,11 +33,11 @@ initial
 	begin
 		$dumpvars;
 		clk = 0;
-		reset = 0;
+		reset = 1;
 		#0
 		#46
-		reset = 1;
-		#2000
+		reset = 0;
+		#5000
 		$finish;
 	end
 
@@ -78,7 +74,7 @@ always @(negedge oe)
 	begin
 		$display("R %04x = %02x %t", addr, mem[addr], $time);
 	end
-//`define READTESTBIN
+`define READTESTBIN
 integer i;
 initial
 	begin
@@ -90,7 +86,7 @@ initial
 `else
 		for (i = 0; i < 65536; i=i+1)
 			mem[i] = 8'ha5;
-
+/*
 		mem[16'h1000] = 8'h3f; // lda #$10
 		mem[16'h1001] = 8'h10; // 
 		mem[16'h1002] = 8'hc6; // ldb #$12
@@ -118,11 +114,11 @@ initial
 		mem[16'h200a] = 8'h3b; // rti
 		mem[16'h200c] = 8'h3b; // rti
 		mem[16'h200e] = 8'h3b; // rti
-		
+*/		
 		
 /*
 // test indexed store
-		mem[16'h1000] = 8'h86; // lda #$fe
+		mem[16'h1000] = 8'h86; // lda #$02
 		mem[16'h1001] = 8'h02; // 
 		mem[16'h1002] = 8'h9e; // ldx $00 (direct)
 		mem[16'h1003] = 8'h00; // 
@@ -187,16 +183,16 @@ initial
 		mem[16'h1016] = 8'h00; // 
 */		
 		
-/* test extended
-		mem[16'h1000] = 8'hc6; // ldb #$fe
-		mem[16'h1001] = 8'hfe; // 
-		mem[16'h1002] = 8'h86; // lda #$0
+/* test extended*/
+		mem[16'h1000] = 8'h86; // ldb #$fe
+		mem[16'h1001] = 8'h02; // 
+		mem[16'h1002] = 8'hc6; // lda #$0
 		mem[16'h1003] = 8'h00; // 
 		
-		mem[16'h1004] = 8'h4c; // inca		
-		mem[16'h1005] = 8'hb7; // sta $0000
-		mem[16'h1006] = 8'h00; //
-		mem[16'h1007] = 8'h00; // 
+		mem[16'h1004] = 8'h97; // inca		
+		mem[16'h1005] = 8'h00; // sta $0000
+		mem[16'h1006] = 8'hd7; //
+		mem[16'h1007] = 8'h01; // 
 		
 
 		mem[16'h1008] = 8'hb6; // lda $0000
@@ -214,7 +210,7 @@ initial
 		
 		mem[16'h1011] = 8'h20; // bra
 		mem[16'h1012] = 8'hec; // $.-18
-*/		
+//*/		
 		mem[16'hfff0] = 8'h20; // reset
 		mem[16'hfff1] = 8'h00;
 		mem[16'hfff2] = 8'h20; // reset

@@ -37,18 +37,18 @@
 `define EXG    5'b01111
 
 `define NEG    5'b10000
-`define COM    5'b10011
-`define LSR    5'b10100
-`define ROR    5'b10110
-`define ASR    5'b10111
-`define LSL    5'b11000
-`define ROL    5'b11001
-`define ORCC   5'b11010
-`define ANDCC  5'b11011
-
-`define DAA    5'b11100  
-`define MUL    5'b11101
-`define T816   5'b11110
+`define COM    5'b10001
+`define LSR    5'b10010
+`define ROR    5'b10011
+`define ASR    5'b10100
+`define LSL    5'b10101
+`define ROL    5'b10110
+`define ORCC   5'b10111
+`define ANDCC  5'b11000
+`define DAA    5'b11001  
+`define MUL    5'b11010
+`define T816   5'b11011
+`define LEA    5'b11100
 
 /* Sequencer states */
 

@@ -1,0 +1,67 @@
+Running in Lattice mode
+
+
+Starting:    /usr/local/diamond/2.2_x64/synpbase/linux_a_64/mbin/synbatch
+Install:     /usr/local/diamond/2.2_x64/synpbase
+Date:        Mon Dec 30 07:52:25 2013
+Version:     G-2012.09L-SP1 
+
+Arguments:   -product synplify_pro  -batch P6809_P6809_synplify.tcl
+ProductType: synplify_pro
+
+
+
+
+
+
+log file: "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.srr"
+
+
+Running proj_1|P6809
+
+Running Compile on proj_1|P6809
+
+Running Compile Process on proj_1|P6809
+
+Running Compile Input on proj_1|P6809
+
+Copied /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/synwork/P6809_P6809_compiler.srs to /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.srs
+
+compiler Completed with warnings
+Return Code: 1
+Run Time:00h:00m:02s
+
+
+Copied /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.srr to /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.srf
+
+Job Compile Process completed on proj_1|P6809
+
+Running Premap on proj_1|P6809
+
+premap Completed with warnings
+Return Code: 1
+Run Time:00h:00m:00s
+
+
+Job Compile completed on proj_1|P6809
+
+Running Map on proj_1|P6809
+
+Running Map & Optimize on proj_1|P6809
+
+fpga_mapper Completed with warnings
+Return Code: 1
+Run Time:00h:00m:18s
+
+
+Job Map completed on proj_1|P6809
+
+Copied /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.srr to /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.srf
+
+Job Logic Synthesis completed on proj_1|P6809
+
+TCL script complete: "P6809_P6809_synplify.tcl"
+
+exit status=0
+
+

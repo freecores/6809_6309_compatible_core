@@ -14,40 +14,59 @@ module decode_regs(
 	output reg [3:0] path_left_addr,
 	output reg [3:0] path_right_addr,
 	output reg [3:0] dest_reg,
-	output wire write_dest_8,
-	output wire write_dest_16,
+	output wire write_dest,
+	output wire source_size,
 	output wire result_size
 	);
 // for registers, memory writes are handled differently
-assign write_dest_8 = ((dest_reg >= `RN_ACCA) && (dest_reg <= `RN_DP)) ? 1:0;
-assign write_dest_16 = (dest_reg < `RN_IMM16) ? 1:0;
+assign write_dest = (dest_reg != `RN_INV);
+assign source_size = (path_left_addr < `RN_ACCA);
 assign result_size = (dest_reg < `RN_IMM16) ? 1:0;
 always @(opcode, postbyte0, page2_valid, page3_valid)
 	begin
 		path_left_addr = `RN_INV;
 		path_right_addr = `RN_INV;
 		dest_reg = `RN_INV;
-		
-		if (page2_valid | page3_valid)
+		if (page2_valid)
 			begin
 				casex(postbyte0)
-					8'h83, 8'h93, 8'ha3, 8'hb3: path_left_addr = `RN_ACCD; 
-					8'h8c, 8'h9c, 8'hac, 8'hbc: path_left_addr = `RN_IY; 
-					8'h8e, 8'h9e, 8'hae, 8'hbe: path_left_addr = `RN_IY; 
-					8'h8f, 8'h9f, 8'haf, 8'hbf: path_left_addr = `RN_IY; 
+					8'h83, 8'h93, 8'ha3, 8'hb3: path_left_addr = `RN_ACCD; // cmpd
+					8'h8c, 8'h9c, 8'hac, 8'hbc: path_left_addr = `RN_IY; // cmpy
+					8'h8e, 8'h9e, 8'hae, 8'hbe: path_left_addr = `RN_IY; // ldy
+					8'h8f, 8'h9f, 8'haf, 8'hbf: path_left_addr = `RN_IY; // sty
+					8'hdf, 8'hef, 8'hff: path_left_addr = `RN_S; // STS
 				endcase
 				casex (postbyte0) // right arm
-					8'h83, 8'h8c, 8'h8e, 8'h8f: path_right_addr = `RN_IMM16;
+					8'h83, 8'h8c, 8'h8e, 8'hce: path_right_addr = `RN_IMM16;
 					8'h93, 8'ha3, 8'hb3: path_right_addr = `RN_MEM16;
 					8'h9c, 8'hac, 8'hbc: path_right_addr = `RN_MEM16;
 					8'h9e, 8'hae, 8'hbe: path_right_addr = `RN_MEM16;
 					8'h9f, 8'haf, 8'hbf: path_right_addr = `RN_MEM16;
+					8'hde, 8'hee, 8'hfe: path_right_addr = `RN_MEM16; // lds
 				endcase
 				casex(postbyte0) // dest
-					8'h83, 8'h93, 8'ha3, 8'hb3: begin end // only flags
-					8'h8c, 8'h9c, 8'hac, 8'hbc: begin end // only flags 
+					8'h83, 8'h93, 8'ha3, 8'hb3: begin end // cmpu/cmpd
+					8'h8c, 8'h9c, 8'hac, 8'hbc: begin end // cmpy/cmps
 					8'h8e, 8'h9e, 8'hae, 8'hbe: dest_reg = `RN_IY; 
-					8'h8f, 8'h9f, 8'haf, 8'hbf: dest_reg = `RN_MEM16; 
+					8'hce, 8'hde, 8'hee, 8'hfe: dest_reg = `RN_S; // LDS
+					8'h8f, 8'h9f, 8'haf, 8'hbf: dest_reg = `RN_MEM16; // STY
+					8'h9f, 8'haf, 8'hbf: dest_reg = `RN_MEM16; // STS
+				endcase
+			end
+		if (page3_valid)
+			begin
+				casex(postbyte0)
+					8'h83, 8'h93, 8'ha3, 8'hb3: path_left_addr = `RN_U; // CMPU
+					8'h8c, 8'h9c, 8'hac, 8'hbc: path_left_addr = `RN_S; // CMPS
+				endcase
+				casex (postbyte0) // right arm
+					8'h83, 8'h8c: path_right_addr = `RN_IMM16;
+					8'h93, 8'ha3, 8'hb3: path_right_addr = `RN_MEM16;
+					8'h9c, 8'hac, 8'hbc: path_right_addr = `RN_MEM16;
+				endcase
+				casex(postbyte0) // dest
+					8'h83, 8'h93, 8'ha3, 8'hb3: begin end // cmpu
+					8'h8c, 8'h9c, 8'hac, 8'hbc: begin end // cmps
 				endcase
 			end
 		// destination
@@ -68,14 +87,17 @@ always @(opcode, postbyte0, page2_valid, page3_valid)
 				endcase
 			8'h4x, 8'h8x, 8'h9x, 8'hax, 8'hbx: 
 				case (opcode[3:0]) 
+					4'h1: path_left_addr = `RN_ACCA; // CMP
 					4'h3: begin path_left_addr = `RN_ACCD; dest_reg = `RN_ACCD; end
 					4'h7: begin path_left_addr = `RN_ACCA; dest_reg = `RN_MEM8; end
-					4'hc, 4'he, 4'hf: begin path_left_addr = `RN_IX; dest_reg = `RN_IX; end
+					4'hc: path_left_addr = `RN_IX; // cmpx
+					4'he, 4'hf: begin path_left_addr = `RN_IX; dest_reg = `RN_IX; end
 					4'hd: begin end // nothing active, jsr
 					default: begin path_left_addr = `RN_ACCA; dest_reg = `RN_ACCA; end
 				endcase
 			8'h5x, 8'hcx, 8'hdx, 8'hex, 8'hfx:
 				case (opcode[3:0]) 
+					4'h1: path_left_addr = `RN_ACCB; // CMP
 					4'h3, 4'hc: begin path_left_addr = `RN_ACCD; dest_reg = `RN_ACCD; end
 					4'h7: begin path_left_addr = `RN_ACCB; dest_reg = `RN_MEM8; end // store to mem
 					4'he: begin path_left_addr = `RN_U; dest_reg = `RN_IX; end
@@ -311,6 +333,7 @@ always @(*)
 			8'h1c: alu_opcode = `ANDCC;
 			8'h1d: alu_opcode = `SEXT;
 			8'h1e: alu_opcode = `EXG;
+			8'b0011_000x: alu_opcode = `LEA;
 			8'h3d: alu_opcode = `MUL;
 		endcase
 		if (page2_valid)

@@ -11,9 +11,7 @@ module regblock(
 	input wire [3:0] write_reg_addr,
 	input wire [7:0] eapostbyte, // effective address post byte
 	input wire [15:0] offset16, // up to 16 bit offset for effective address calculation
-	input wire write_reg_8,
-	input wire write_reg_16,
-	input wire write_pull_reg,
+	input wire write_reg,
 	input wire write_post,
 	input wire write_pc,
 	input wire inc_pc,
@@ -169,7 +167,7 @@ always @(*)
 
 always @(posedge clk_in)
 	begin
-		if (write_reg_8 | write_reg_16 | write_pull_reg)
+		if (write_reg)
 			case (write_reg_addr)
 				0: `ACCD <= data_w;
 				1: IX <= data_w;

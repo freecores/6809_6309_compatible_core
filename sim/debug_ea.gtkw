@@ -1,0 +1,66 @@
+[*]
+[*] GTKWave Analyzer v3.3.51 (w)1999-2013 BSI
+[*] Mon Dec 30 07:33:46 2013
+[*]
+[dumpfile] "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/sim/dump.vcd"
+[dumpfile_mtime] "Mon Dec 30 07:33:05 2013"
+[dumpfile_size] 100101
+[savefile] "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/sim/debug_ea.gtkw"
+[timestart] 2424
+[size] 1914 887
+[pos] -1 -1
+*-6.000000 2889 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tb.
+[treeopen] tb.cpu.
+[sst_width] 219
+[signals_width] 334
+[sst_expanded] 1
+[sst_vpaned_height] 323
+@28
+tb.cpu.cpu_clk
+@22
+tb.cpu.state[5:0]
+tb.cpu.cpu_addr_o[15:0]
+tb.cpu.cpu_data_i[7:0]
+tb.cpu.cpu_data_o[7:0]
+@28
+tb.cpu.cpu_oe_o
+tb.cpu.cpu_we_o
+tb.cpu.k_inc_pc
+@22
+tb.cpu.alu_o_result[15:0]
+tb.cpu.alu_o_CCR[7:0]
+tb.cpu.regs.reg_pc[15:0]
+@28
+tb.cpu.k_write_pc
+@22
+tb.cpu.regs_o_CCR[7:0]
+tb.cpu.k_new_pc[15:0]
+tb.cpu.datamux_o_alu_in_left_path_addr[3:0]
+tb.cpu.datamux_o_alu_in_left_path_data[15:0]
+tb.cpu.datamux_o_alu_in_right_path_data[15:0]
+tb.cpu.datamux_o_dest_reg_addr[3:0]
+tb.cpu.dec_o_dest_reg_addr[3:0]
+tb.cpu.dec_o_left_path_addr[3:0]
+tb.cpu.dec_o_right_path_addr[3:0]
+tb.cpu.k_pp_active_reg[7:0]
+tb.cpu.regs.ACCA[7:0]
+tb.cpu.regs.ACCB[7:0]
+tb.cpu.regs.IX[15:0]
+tb.cpu.regs.IY[15:0]
+@23
+tb.cpu.regs.SU[15:0]
+@22
+tb.cpu.regs.PC[15:0]
+@28
+tb.cpu.k_write_dest
+tb.cpu.test_cond.cond_taken
+@22
+tb.cpu.test_cond.CCR[7:0]
+tb.cpu.regs.SS[15:0]
+tb.cpu.k_pp_regs[7:0]
+@28
+tb.cpu.k_inc_su
+tb.cpu.k_dec_su
+[pattern_trace] 1
+[pattern_trace] 0
