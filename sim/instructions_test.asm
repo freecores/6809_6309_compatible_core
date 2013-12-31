@@ -1,5 +1,16 @@
 
 ; simple instruction excerciser
+
+		ldd	#$AABB
+		ldx	#$1234
+		ldy	#$5678
+		tfr	x,u	; 16 bit transfer
+		tfr	a,u	; high to high
+		tfr	b,u	
+		tfr	x,a	; gets high byte
+		tfr	x,b	; gets low byte
+
+
 		lda	#$02
 		ldb	#$00
 		sta	$0

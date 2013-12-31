@@ -9,11 +9,14 @@ module regblock(
 	input wire [3:0] path_left_addr,
 	input wire [3:0] path_right_addr,
 	input wire [3:0] write_reg_addr,
+	input wire [3:0] exg_dest_r,
 	input wire [7:0] eapostbyte, // effective address post byte
 	input wire [15:0] offset16, // up to 16 bit offset for effective address calculation
 	input wire write_reg,
 	input wire write_post,
 	input wire write_pc,
+	input wire write_tfr,
+	input wire write_exg,
 	input wire inc_pc,
 	input wire inc_su, /* increments S or U */
 	input wire dec_su, /* decrements s or u */
@@ -57,17 +60,18 @@ assign reg_su = (use_s) ? SS:SU; /* stack pointer */
 always @(*)
 	begin
 		case (path_left_addr)
-			`RN_ACCA: 	path_left_data = { 8'h0, ACCA };
-			`RN_ACCB: 	path_left_data = { 8'h0, ACCB };
+			`RN_ACCA: 	path_left_data = { 8'hff, ACCA };
+			`RN_ACCB: 	path_left_data = { 8'hff, ACCB };
 			`RN_ACCD: 	path_left_data = `ACCD;
 			`RN_IX: 	path_left_data = IX;
 			`RN_IY: 	path_left_data = IY;
 			`RN_U: 		path_left_data = SU;
 			`RN_S: 		path_left_data = SS;
 			`RN_PC: 	path_left_data = PC;
-			`RN_DP: 	path_left_data = { 8'h0, DP };
+			`RN_DP: 	path_left_data = { DP, DP };
+			`RN_CC: 	path_left_data = { `CCR, `CCR };
 			default:
-				path_left_data = 16'hBEEF;
+				path_left_data = 16'hFFFF;
 		endcase
 	end
 	
@@ -75,17 +79,18 @@ always @(*)
 always @(*)
 	begin
 		case (path_right_addr)
-			`RN_ACCA: path_right_data = { 8'h0, ACCA };
-			`RN_ACCB: path_right_data = { 8'h0, ACCB };
-			`RN_ACCD: path_right_data = `ACCD;
-			`RN_IX: path_right_data = IX;
-			`RN_IY: path_right_data = IY;
-			`RN_U: path_right_data = SU;
-			`RN_S: path_right_data = SS;
-			`RN_DP: path_right_data = { 8'h0, DP };
+			`RN_ACCA: 	path_right_data = { 8'hff, ACCA };
+			`RN_ACCB: 	path_right_data = { 8'hff, ACCB };
+			`RN_ACCD: 	path_right_data = `ACCD;
+			`RN_IX: 	path_right_data = IX;
+			`RN_IY: 	path_right_data = IY;
+			`RN_U: 		path_right_data = SU;
+			`RN_S: 		path_right_data = SS;
+			`RN_DP: 	path_right_data = { DP, DP };
+			`RN_CC: 	path_right_data = { `CCR, `CCR };
 			default:
-				path_right_data = 16'hBEEF;
-		endcase
+				path_right_data = 16'hFFFF;
+		endcase		
 	end
 
 always @(*)
@@ -165,20 +170,42 @@ always @(*)
 		endcase
 	end
 
+wire [15:0] left;
+
+assign left = (write_tfr | write_exg) ? path_left_data:data_w;
+
+wire [15:0] new_su, old_su;
+
+assign old_su = (use_s) ? SS:SU;
+assign new_su = (inc_su) ? old_su + 16'h1:(dec_su) ? old_su - 16'h1:old_su;
+
 always @(posedge clk_in)
 	begin
-		if (write_reg)
+		if (write_exg)
+			case (exg_dest_r)
+				0: `ACCD <= path_right_data;
+				1: IX <= path_right_data;
+				2: IY <= path_right_data;
+				3: SU <= path_right_data;
+				4: SS <= path_right_data;
+				5: PC <= path_right_data;
+				8: ACCA <= path_right_data[7:0];
+				9: ACCB <= path_right_data[7:0];
+				10: `CCR <= path_right_data[7:0];
+				11: DP <= path_right_data[7:0];
+			endcase
+		if (write_tfr | write_exg | write_reg)
 			case (write_reg_addr)
-				0: `ACCD <= data_w;
-				1: IX <= data_w;
-				2: IY <= data_w;
-				3: SU <= data_w;
-				4: SS <= data_w;
-				5: PC <= data_w;
-				8: ACCA <= data_w[7:0];
-				9: ACCB <= data_w[7:0];
-				10: `CCR <= data_w[7:0];
-				11: DP <= data_w[7:0];
+				0: `ACCD <= left;
+				1: IX <= left;
+				2: IY <= left;
+				3: SU <= left;
+				4: SS <= left;
+				5: PC <= left;
+				8: ACCA <= left[7:0];
+				9: ACCB <= left[7:0];
+				10: `CCR <= left[7:0];
+				11: DP <= left[7:0];
 			endcase
 		if (write_post) // write back predecrement/postincremented values
 			begin
@@ -193,18 +220,24 @@ always @(posedge clk_in)
 			begin
 				`CCR <= CCR_in;
 			end
-		if (set_e)
-			eflag <= 1;
-		if (clear_e)
-			eflag <= 0;
+		if (set_e) eflag <= 1;
+		if (clear_e) eflag <= 0;
 		if (write_pc) PC <= new_pc;
 		if (inc_pc) PC <= PC + 16'h1;
+			
+		if (inc_su | dec_su)
+			begin
+				if (use_s) SS <= new_su;
+				else SU <= new_su;
+			end
+/*
 		if (inc_su) 
 			if (use_s) SS <= SS + 16'h1;
 			else SU <= SU + 16'h1;
 		if (dec_su) 
 			if (use_s) SS <= SS - 16'h1;
 			else SU <= SU - 16'h1;
+*/
 	end
 		
 `ifdef SIMULATION

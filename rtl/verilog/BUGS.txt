@@ -1,8 +1,16 @@
 Known bugs are described here
 
+31.12.13
+--------
+- CWAI, SYNC don't work as expected
+- The E flag is not read back when RTI is processed. This means that FIRQ will not return
+  correctly.
+
 30.12.13
 --------
-
+- EXG doesn't work, the register file can only be written once in the WriteBack cycle.
+- The E flag is not read back when RTI is processed. This means that FIRQ will not return
+  correctly.
 
 
 28.12.13

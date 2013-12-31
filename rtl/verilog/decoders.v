@@ -71,6 +71,7 @@ always @(opcode, postbyte0, page2_valid, page3_valid)
 			end
 		// destination
 		casex(opcode)
+			8'h1e, 8'h1f: begin dest_reg = postbyte0[3:0]; path_left_addr = postbyte0[7:4]; path_right_addr = postbyte0[3:0]; end // tfr, exg
 			8'h30: dest_reg = `RN_IX;
 			8'h31: dest_reg = `RN_IY;
 			8'h32: dest_reg = `RN_S;
@@ -156,7 +157,7 @@ always @(opcode, postbyte0, page2_valid, page3_valid, oplo)
 			8'h14, 8'h15, 8'h18, 8'h1b: mode = `NONE; // undefined opcodes
 			8'h16: mode = `REL16;
 			8'h17: begin mode = `REL16; optype = `OP_JSR; end
-			8'h1a, 8'h1c, 8'h1d, 8'h1e, 8'h1f: mode = `IMMEDIATE; // handled in ALU ORCC, ANDCC, SEX, EXG, TFR
+			8'h1a, 8'h1c, 8'h1d, 8'h1e, 8'h1f: mode = `IMMEDIATE; // handled in ALU ORCC, ANDCC, SEX
 			
 			8'h2x: mode = `REL8;
 			8'h30, 8'h31, 8'h32, 8'h33: begin mode = `INDEXED;  optype = `OP_LEA; end

@@ -1,6 +1,15 @@
 Changelong
 ----------
 
+31.12.13
+--------
+
+- Implemented TFR/EXG
+- MC6809_cpu.v: Added one more state to execute TFR or EXG
+- decoders.v: added source/dest for TFR and EXG
+- regblock.v : added second write path to the registers for TFR&EXG
+- defs.v defined new SEQ_TFREXG for tfr&exg execution
+
 30.12.13
 --------
 

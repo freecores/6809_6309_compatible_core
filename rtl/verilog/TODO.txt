@@ -1,5 +1,10 @@
 Unfinished tasks are described here
 
+30.12.13
+--------
+- HD6309 compatibility totally missing. Only the ALU paths have been layed out.
+- E flags not taken into account after RTI
+
 28.12.13
 --------
 

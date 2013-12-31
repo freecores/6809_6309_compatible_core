@@ -71,10 +71,10 @@
 `define SEQ_DECODE 			'h0f
 `define SEQ_DECODE_P23		'h10
 
-`define SEQ_GRAL_ALU		'h11 // x
-`define SEQ_GRAL_WBACK		'h12 // x
+`define SEQ_GRAL_ALU		'h11 
+`define SEQ_GRAL_WBACK		'h12 
 `define SEQ_INH_ALU			'h13
-`define SEQ_INH_SWI			'h14
+`define SEQ_TFREXG			'h14
 
 `define SEQ_IND_READ_EA		'h15 // offset 8 or 16 bits
 `define SEQ_IND_READ_EA_1	'h16

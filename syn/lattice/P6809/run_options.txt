@@ -1,7 +1,7 @@
 #--  Synopsys, Inc.
 #--  Version G-2012.09L-SP1 
 #--  Project file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/run_options.txt
-#--  Written on Mon Dec 30 07:52:25 2013
+#--  Written on Tue Dec 31 08:52:23 2013
 
 
 #project files

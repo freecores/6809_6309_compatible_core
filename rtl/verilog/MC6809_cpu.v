@@ -25,7 +25,7 @@ wire k_reset;
 wire k_clk;
 assign k_clk = cpu_clk;
 
-reg [7:0] k_opcode, k_postbyte0, k_ind_ea; /* all bytes of an instruction */
+reg [7:0] k_opcode, k_postbyte, k_ind_ea; /* all bytes of an instruction */
 reg [7:0] k_pp_regs, k_pp_active_reg; // push/pull mask 
 reg [7:0] k_memhi, k_memlo, k_cpu_data_o; /* operand read from memory */
 reg [7:0] k_ofslo, k_ofshi, k_eahi, k_ealo;
@@ -33,6 +33,7 @@ reg [5:0] state, // state of the main state machine
           next_state, // next state to exit to from the read from [PC] state machine
 		  next_mem_state, // next state to exit to from the read from memory state machine
 		  next_push_state; // next state to exit to from push multiple state machine
+reg k_write_tfr, k_write_exg;
 reg k_cpu_oe, k_cpu_we, k_inc_pc;
 reg [15:0] k_cpu_addr, k_new_pc;
 reg k_write_pc, k_inc_su, k_dec_su, k_set_e, k_clear_e;
@@ -69,7 +70,7 @@ wire [7:0] regs_o_CCR;
 reg [3:0] datamux_o_dest_reg_addr, datamux_o_alu_in_left_path_addr;
 reg [15:0] datamux_o_alu_in_left_path_data, datamux_o_alu_in_right_path_data, datamux_o_dest;
 
-reg k_p2_valid, k_p3_valid; /* 1 when k_postbyte0 has been loaded for page 2 or page 3 */
+reg k_p2_valid, k_p3_valid; /* 1 when k_postbyte has been loaded for page 2 or page 3 */
 
 /* * Interrupt sync registers 
  */
@@ -97,11 +98,12 @@ regblock regs(
 	.path_left_addr(datamux_o_alu_in_left_path_addr),
 	.path_right_addr(dec_o_right_path_addr),
 	.write_reg_addr(datamux_o_dest_reg_addr),
+	.exg_dest_r(k_postbyte[3:0]),
 	.eapostbyte( k_ind_ea ),
 	.offset16({ k_ofshi, k_ofslo }),
 	.write_reg(k_write_dest),
-	//.write_reg_16(dec_o_wdest_16 & (state == `SEQ_GRAL_WBACK)),
-	//.write_pull_reg(k_pull_reg_write),
+	.write_tfr(k_write_tfr),
+	.write_exg(k_write_exg),
 	.write_post(k_write_post_incdec),
 	.write_pc(k_write_pc),
 	.inc_pc(k_inc_pc),
@@ -125,7 +127,7 @@ regblock regs(
 
 decode_regs dec_regs(
 	.opcode(k_opcode),
-	.postbyte0(k_postbyte0),
+	.postbyte0(k_postbyte),
 	.page2_valid(k_p2_valid),
 	.page3_valid(k_p3_valid),
 	.path_left_addr(dec_o_left_path_addr),
@@ -138,7 +140,7 @@ decode_regs dec_regs(
 
 decode_op dec_op(
 	.opcode(k_opcode),
-	.postbyte0(k_postbyte0),
+	.postbyte0(k_postbyte),
 	.page2_valid(k_p2_valid),
 	.page3_valid(k_p3_valid),
 	.mode(dec_o_p1_mode),
@@ -160,7 +162,7 @@ decode_ea dec_ea(
  */
 decode_alu dec_alu(
 	.opcode(k_opcode),
-	.postbyte0(k_postbyte0),
+	.postbyte0(k_postbyte),
 	.page2_valid(k_p2_valid),
 	.page3_valid(k_p3_valid),
 	.alu_opcode(dec_o_alu_opcode),
@@ -170,7 +172,7 @@ decode_alu dec_alu(
 /* Condition decoder */
 test_condition test_cond(
 	.opcode(k_opcode),
-	.postbyte0(k_postbyte0),
+	.postbyte0(k_postbyte),
 	.page2_valid(k_p2_valid),
 	.CCR(regs_o_CCR),
 	.cond_taken(dec_o_cond_taken)
@@ -327,14 +329,16 @@ always @(posedge k_clk or posedge k_reset)
 					k_dec_su <= 0;
 				if (k_inc_su)
 					k_inc_su <= 0;
-				//if (k_pull_reg_write)
-				//	k_pull_reg_write <= 0;
 				if (k_set_e)
 					k_set_e <= 0;
 				if (k_clear_e)
 					k_clear_e <= 0;
 				if (k_write_dest)
 					k_write_dest <= 0;
+				if (k_write_exg)
+					k_write_exg <= 0;
+				if (k_write_tfr)
+					k_write_tfr <= 0;
 			case (state)
 				`SEQ_COLDRESET: 
 					begin
@@ -463,6 +467,12 @@ always @(posedge k_clk or posedge k_reset)
 								k_p3_valid <= 1;
 								state <= `SEQ_FETCH_3;
 							end
+							8'h1e, 8'h1f:
+								begin
+									state <= `SEQ_FETCH_3; // tfr, exg, treated separately
+									k_p2_valid <= 0; // set when an k_opcode is page 2
+									k_p3_valid <= 0; // set when an k_opcode is page 3
+								end
 							default:
 							begin
 								state <= `SEQ_DECODE;
@@ -484,7 +494,7 @@ always @(posedge k_clk or posedge k_reset)
 					end
 				`SEQ_FETCH_5: /* fetches a page 2 or 3 opcode */
 					begin
-						k_postbyte0 <= cpu_data_i;
+						k_postbyte <= cpu_data_i;
 						k_inc_pc <= 1;
 						state <= `SEQ_DECODE_P23;
 					end
@@ -587,17 +597,23 @@ always @(posedge k_clk or posedge k_reset)
 					end
 				`SEQ_DECODE_P23:
 					begin // has prefix 10 or 11
-						k_inc_pc <= 0;
 						case (dec_o_p1_mode)
 							`NONE: // unknown k_opcode... re-fetch ?
 								state <= `SEQ_FETCH;
 							`IMMEDIATE:	// 8 or 16 bits as result decides..
 								begin
-									if (dec_o_alu_size)
-										state <= `SEQ_PC_READ_H;
-									else
-										state <= `SEQ_PC_READ_L;
-									next_state <= `SEQ_GRAL_ALU;
+									case (k_opcode)
+										8'h1e: begin k_write_exg <= 1; state <= `SEQ_TFREXG; end
+										8'h1f: begin k_write_tfr <= 1; state <= `SEQ_TFREXG; end
+										default: 
+											begin
+												next_state <= `SEQ_GRAL_ALU;
+												if (dec_o_alu_size)
+													state <= `SEQ_PC_READ_H;
+												else
+													state <= `SEQ_PC_READ_L;
+										end
+									endcase
 								end
 							`INHERENT:
 								case (k_opcode)
@@ -661,6 +677,8 @@ always @(posedge k_clk or posedge k_reset)
 					end
 				`SEQ_INH_ALU:
 					state <= `SEQ_GRAL_WBACK;
+				`SEQ_TFREXG:
+					state <= `SEQ_FETCH;
 				`SEQ_IND_READ_EA: // reads EA byte
 					begin
 						k_cpu_addr <= regs_o_pc;
@@ -952,5 +970,7 @@ initial
 		k_cpu_we = 0;
 		k_mem_dest = 0;
 		k_new_pc = 16'hffff;
+		k_write_tfr = 0;
+		k_write_exg = 0;
 	end
 endmodule
