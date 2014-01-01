@@ -2,6 +2,7 @@
 ; simple instruction excerciser
 
 		ldd	#$AABB
+		mul
 		ldx	#$1234
 		ldy	#$5678
 		tfr	x,u	; 16 bit transfer

@@ -174,10 +174,10 @@ wire [15:0] left;
 
 assign left = (write_tfr | write_exg) ? path_left_data:data_w;
 
-wire [15:0] new_su, old_su;
+//wire [15:0] new_su, old_su;
 
-assign old_su = (use_s) ? SS:SU;
-assign new_su = (inc_su) ? old_su + 16'h1:(dec_su) ? old_su - 16'h1:old_su;
+//assign old_su = (use_s) ? SS:SU;
+//assign new_su = (inc_su) ? old_su + 16'h1:(dec_su) ? old_su - 16'h1:old_su;
 
 always @(posedge clk_in)
 	begin
@@ -224,20 +224,19 @@ always @(posedge clk_in)
 		if (clear_e) eflag <= 0;
 		if (write_pc) PC <= new_pc;
 		if (inc_pc) PC <= PC + 16'h1;
-			
+/*			
 		if (inc_su | dec_su)
 			begin
 				if (use_s) SS <= new_su;
 				else SU <= new_su;
 			end
-/*
+*/
 		if (inc_su) 
 			if (use_s) SS <= SS + 16'h1;
 			else SU <= SU + 16'h1;
 		if (dec_su) 
 			if (use_s) SS <= SS - 16'h1;
 			else SU <= SU - 16'h1;
-*/
 	end
 		
 `ifdef SIMULATION

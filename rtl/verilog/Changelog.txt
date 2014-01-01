@@ -1,6 +1,13 @@
 Changelong
 ----------
 
+01.01.14
+--------
+
+- alu16.v : the alu has been bronken in two units
+- MC6809_cpu.v : added CWAI states and decoding
+- decodres.v : added CWAI decoding
+
 31.12.13
 --------
 

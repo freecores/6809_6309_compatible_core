@@ -8,36 +8,36 @@
             <Task name="Bitgen" build_result="0" update_result="2" update_time="1388263923"/>
             <Task name="BitgenXO2" build_result="0" update_result="3" update_time="0"/>
         </Milestone>
-        <Milestone name="Map" build_result="2" build_time="1388476369">
-            <Task name="Map" build_result="2" update_result="0" update_time="1388476369"/>
-            <Task name="MapTrace" build_result="2" update_result="0" update_time="1388476369"/>
+        <Milestone name="Map" build_result="2" build_time="1388570744">
+            <Task name="Map" build_result="2" update_result="0" update_time="1388570744"/>
+            <Task name="MapTrace" build_result="2" update_result="0" update_time="1388570744"/>
             <Task name="MapVerilogSimFile" build_result="0" update_result="3" update_time="0"/>
             <Task name="MapVHDLSimFile" build_result="0" update_result="3" update_time="0"/>
         </Milestone>
-        <Milestone name="PAR" build_result="0" build_time="1388475903">
-            <Task name="PAR" build_result="0" update_result="2" update_time="1388475903"/>
-            <Task name="PARTrace" build_result="0" update_result="2" update_time="1388475904"/>
+        <Milestone name="PAR" build_result="2" build_time="1388570774">
+            <Task name="PAR" build_result="2" update_result="0" update_time="1388570774"/>
+            <Task name="PARTrace" build_result="2" update_result="0" update_time="1388570776"/>
             <Task name="IOTiming" build_result="0" update_result="3" update_time="0"/>
         </Milestone>
-        <Milestone name="Synthesis" build_result="2" build_time="1388476367">
-            <Task name="Synplify_Synthesis" build_result="2" update_result="0" update_time="1388476367"/>
+        <Milestone name="Synthesis" build_result="2" build_time="1388570742">
+            <Task name="Synplify_Synthesis" build_result="2" update_result="0" update_time="1388570742"/>
         </Milestone>
         <Milestone name="TOOL_Report" build_result="0" build_time="0">
-            <Task name="HDLE" build_result="2" update_result="0" update_time="1388476340"/>
+            <Task name="HDLE" build_result="2" update_result="0" update_time="1388570720"/>
             <Task name="BKM" build_result="0" update_result="2" update_time="0"/>
             <Task name="SSO" build_result="0" update_result="2" update_time="0"/>
             <Task name="PIODRC" build_result="0" update_result="2" update_time="0"/>
         </Milestone>
-        <Milestone name="Translate" build_result="2" build_time="1388476367">
-            <Task name="Translate" build_result="2" update_result="0" update_time="1388476367"/>
+        <Milestone name="Translate" build_result="2" build_time="1388570742">
+            <Task name="Translate" build_result="2" update_result="0" update_time="1388570742"/>
         </Milestone>
         <Report name="P6809_P6809.bgn" last_build_time="1388263923" last_build_size="4382"/>
-        <Report name="P6809_P6809.edi" last_build_time="1388476365" last_build_size="1948093"/>
+        <Report name="P6809_P6809.edi" last_build_time="1388570740" last_build_size="1906021"/>
         <Report name="P6809_P6809.jed" last_build_time="1388263923" last_build_size="1454725"/>
-        <Report name="P6809_P6809.ncd" last_build_time="1388475903" last_build_size="2189071"/>
-        <Report name="P6809_P6809.ngd" last_build_time="1388476367" last_build_size="1767528"/>
-        <Report name="P6809_P6809.tw1" last_build_time="1388476369" last_build_size="18915"/>
-        <Report name="P6809_P6809.twr" last_build_time="1388475904" last_build_size="86285"/>
-        <Report name="P6809_P6809_map.ncd" last_build_time="1388476369" last_build_size="1538229"/>
+        <Report name="P6809_P6809.ncd" last_build_time="1388570774" last_build_size="2136211"/>
+        <Report name="P6809_P6809.ngd" last_build_time="1388570742" last_build_size="1660807"/>
+        <Report name="P6809_P6809.tw1" last_build_time="1388570744" last_build_size="17790"/>
+        <Report name="P6809_P6809.twr" last_build_time="1388570775" last_build_size="78670"/>
+        <Report name="P6809_P6809_map.ncd" last_build_time="1388570744" last_build_size="1394332"/>
     </Strategy>
 </BuildStatus>

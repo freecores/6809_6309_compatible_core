@@ -331,7 +331,7 @@ always @(*)
 			
 			8'h19: alu_opcode = `DAA;
 			8'h1a: alu_opcode = `ORCC;
-			8'h1c: alu_opcode = `ANDCC;
+			8'h1c, 8'h3c: alu_opcode = `ANDCC;
 			8'h1d: alu_opcode = `SEXT;
 			8'h1e: alu_opcode = `EXG;
 			8'b0011_000x: alu_opcode = `LEA;

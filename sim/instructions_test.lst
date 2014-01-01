@@ -1,53 +1,54 @@
-The Mamou Assembler Version 01.00      12/31/2013 08:40:54      Page 001
+The Mamou Assembler Version 01.00      01/01/2014 10:15:21      Page 001
 
 
 00001                    
 00002                    ; simple instruction excerciser
 00003                    
 00004    0000 CCAABB                    ldd       #$AABB
-00005    0003 8E1234                    ldx       #$1234
-00006    0006 108E5678                  ldy       #$5678
-00007    000A 1F13                      tfr       x,u                 ; 16 bit t
-00008    000C 1F83                      tfr       a,u                 ; high to 
-00009    000E 1F93                      tfr       b,u
-00010    0010 1F18                      tfr       x,a                 ; gets hig
-00011    0012 1F19                      tfr       x,b                 ; gets low
-00012                    
+00005    0003 3D                        mul       
+00006    0004 8E1234                    ldx       #$1234
+00007    0007 108E5678                  ldy       #$5678
+00008    000B 1F13                      tfr       x,u                 ; 16 bit t
+00009    000D 1F83                      tfr       a,u                 ; high to 
+00010    000F 1F93                      tfr       b,u
+00011    0011 1F18                      tfr       x,a                 ; gets hig
+00012    0013 1F19                      tfr       x,b                 ; gets low
 00013                    
-00014    0014 8602                      lda       #$02
-00015    0016 C600                      ldb       #$00
-00016    0018 9700                      sta       $0
-00017    001A D701                      stb       $1
-00018    001C 9E00                      ldx       $0                  ; load sav
-00019    001E 108E0000                  ldy       #$0
-00020    0022 ACA4                      cmpx      ,y                  ; compare
-00021    0024 2702                      beq       test_push_pull
-00022                    
-00023    0026 20FE       error          bra       error
-00024                    
-00025    0028 10CE00FF   test_push_pull lds       #$00ff
-00026    002C 3406                      pshs      a,b
-00027    002E 3510                      puls      x
-00028    0030 ACA4                      cmpx      ,y                  ; compare 
-00029    0032 26F2                      bne       error
-00030                    
-00031    0034 8D09                      bsr       test_bsr
-00032    0036 26EE                      bne       error               ; push/pul
-00033  W 0038 17000B                    lbsr      test_lea
-00034    003B 26E9                      bne       error
-00035    003D 20FE       ok             bra       ok
-00036                    
-00037    003F 3420       test_bsr       pshs      y
-00038    0041 3520                      puls      y
-00039    0043 AC20                      cmpx      0,y
-00040    0045 39                        rts       
-00041                    
-00042    0046 3321       test_lea       leau      1,y
-00043    0048 3120                      leay      0,y
-00044    004A 39                        rts       
+00014                    
+00015    0015 8602                      lda       #$02
+00016    0017 C600                      ldb       #$00
+00017    0019 9700                      sta       $0
+00018    001B D701                      stb       $1
+00019    001D 9E00                      ldx       $0                  ; load sav
+00020    001F 108E0000                  ldy       #$0
+00021    0023 ACA4                      cmpx      ,y                  ; compare
+00022    0025 2702                      beq       test_push_pull
+00023                    
+00024    0027 20FE       error          bra       error
+00025                    
+00026    0029 10CE00FF   test_push_pull lds       #$00ff
+00027    002D 3406                      pshs      a,b
+00028    002F 3510                      puls      x
+00029    0031 ACA4                      cmpx      ,y                  ; compare 
+00030    0033 26F2                      bne       error
+00031                    
+00032    0035 8D09                      bsr       test_bsr
+00033    0037 26EE                      bne       error               ; push/pul
+00034  W 0039 17000B                    lbsr      test_lea
+00035    003C 26E9                      bne       error
+00036    003E 20FE       ok             bra       ok
+00037                    
+00038    0040 3420       test_bsr       pshs      y
+00039    0042 3520                      puls      y
+00040    0044 AC20                      cmpx      0,y
+00041    0046 39                        rts       
+00042                    
+00043    0047 3321       test_lea       leau      1,y
+00044    0049 3120                      leay      0,y
+00045    004B 39                        rts       
 
 Assembler Summary:
  - 0 errors, 1 warnings
- - 44 lines (34 source, 9 blank, 1 comment)
- - $004B (75) program bytes, $0000 (0) data bytes
+ - 45 lines (35 source, 9 blank, 1 comment)
+ - $004C (76) program bytes, $0000 (0) data bytes
  - Output file: "instructions_test.bin"

@@ -22,11 +22,10 @@ module MC6809_cpu(
 	);
 
 wire k_reset;
-wire k_clk;
-assign k_clk = cpu_clk;
 
 reg [7:0] k_opcode, k_postbyte, k_ind_ea; /* all bytes of an instruction */
-reg [7:0] k_pp_regs, k_pp_active_reg; // push/pull mask 
+reg [7:0] k_pp_regs; // push/pull registers to process
+reg [3:0] k_pp_active_reg; // push/pull active register 
 reg [7:0] k_memhi, k_memlo, k_cpu_data_o; /* operand read from memory */
 reg [7:0] k_ofslo, k_ofshi, k_eahi, k_ealo;
 reg [5:0] state, // state of the main state machine
@@ -38,6 +37,7 @@ reg k_cpu_oe, k_cpu_we, k_inc_pc;
 reg [15:0] k_cpu_addr, k_new_pc;
 reg k_write_pc, k_inc_su, k_dec_su, k_set_e, k_clear_e;
 reg [1:0] k_mem_dest;
+reg k_mul_cnt; // multiplier couner
 reg k_write_dest; // set for 1 clock when a register has to be written, dec_o_dest_reg_addr has the register source
 reg k_write_post_incdec; // asserted when in the last write cycle or in write back for loads
 reg k_forced_mem_size; // used to force the size of a memory read to be 16 bits, used for vector fetch
@@ -61,6 +61,8 @@ wire dec_o_cond_taken;
 /* ALU outputs */
 wire [15:0] alu_o_result;
 wire [7:0] alu_o_CCR;
+wire [7:0] alu8_o_result;
+wire [7:0] alu8_o_CCR;
 /* Register Module outputs */
 wire [15:0] regs_o_left_path_data, regs_o_right_path_data, regs_o_eamem_addr, regs_o_su;
 wire [7:0] regs_o_dp;
@@ -82,19 +84,20 @@ assign k_nmi_req = k_reg_nmi[2] & k_reg_nmi[1];
 assign k_firq_req = k_reg_firq[2] & k_reg_firq[1];
 assign k_irq_req = k_reg_irq[2] & k_reg_irq[1];
 
-alu16 alu(
-	.clk(k_clk),
+alu alu(
+	.clk_in(cpu_clk),
 	.a_in(datamux_o_alu_in_left_path_data),
 	.b_in(datamux_o_alu_in_right_path_data),
 	.CCR(regs_o_CCR), /* flags */
 	.opcode_in(dec_o_alu_opcode), /* ALU k_opcode */
-	.sz_in(dec_o_alu_size), /* size, low 8 bit, high 16 bit */
+	.sz_in(dec_o_alu_size),
 	.q_out(alu_o_result), /* ALU result */
 	.CCRo(alu_o_CCR)
 	);
-	
+
+
 regblock regs(
-	.clk_in(k_clk),
+	.clk_in(cpu_clk),
 	.path_left_addr(datamux_o_alu_in_left_path_addr),
 	.path_right_addr(dec_o_right_path_addr),
 	.write_reg_addr(datamux_o_dest_reg_addr),
@@ -192,7 +195,12 @@ assign cpu_state_o = state;
  */
 always @(*)
 	begin
-		datamux_o_alu_in_left_path_addr = dec_o_left_path_addr;
+		if (k_pp_active_reg != `RN_INV)
+			datamux_o_alu_in_left_path_addr = k_pp_active_reg;
+		else
+			datamux_o_alu_in_left_path_addr = dec_o_left_path_addr;
+		
+		/*
 		case (k_pp_active_reg)
 			8'h80: datamux_o_alu_in_left_path_addr = `RN_PC;
 			8'h40: datamux_o_alu_in_left_path_addr = (dec_o_use_s) ? `RN_U:`RN_S;
@@ -202,14 +210,20 @@ always @(*)
 			8'h04: datamux_o_alu_in_left_path_addr = `RN_ACCB;
 			8'h02: datamux_o_alu_in_left_path_addr = `RN_ACCA;
 			8'h01: datamux_o_alu_in_left_path_addr = `RN_CC;
-			endcase
+			8'h00: datamux_o_alu_in_left_path_addr = dec_o_left_path_addr;
+		endcase
+		*/
 	end
 
 /* Destination register address MUX
  */
 always @(*)
 	begin
-		datamux_o_dest_reg_addr = dec_o_dest_reg_addr;
+		if (k_pp_active_reg != `RN_INV)
+			datamux_o_dest_reg_addr = k_pp_active_reg;
+		else
+			datamux_o_dest_reg_addr = dec_o_dest_reg_addr;
+		/*
 		case (k_pp_active_reg)
 			8'h80: datamux_o_dest_reg_addr = `RN_PC;
 			8'h40: datamux_o_dest_reg_addr = (dec_o_use_s) ? `RN_U:`RN_S;
@@ -219,7 +233,9 @@ always @(*)
 			8'h04: datamux_o_dest_reg_addr = `RN_ACCB;
 			8'h02: datamux_o_dest_reg_addr = `RN_ACCA;
 			8'h01: datamux_o_dest_reg_addr = `RN_CC;
+			8'h00: datamux_o_dest_reg_addr = dec_o_dest_reg_addr;
 		endcase
+		*/
 	end
 
 /* Destination register data mux
@@ -296,7 +312,7 @@ always @(*)
 		endcase
 	end
 
-always @(posedge k_clk or posedge k_reset)
+always @(posedge cpu_clk or posedge k_reset)
 	begin
 		if (k_reset == 1'b1)
 			begin
@@ -448,8 +464,11 @@ always @(posedge k_clk or posedge k_reset)
 				`SEQ_FETCH_1:
 					begin
 						k_cpu_oe <= 1;
-						state <= `SEQ_FETCH_2;
 						k_inc_pc <= 1;
+						k_p2_valid <= 0; // set when an k_opcode is page 2
+						k_p3_valid <= 0; // set when an k_opcode is page 3
+						k_pp_active_reg <= `RN_INV; // ensures that only push/pull control the left/dest muxes
+						state <= `SEQ_FETCH_2;
 					end
 				`SEQ_FETCH_2:
 					begin
@@ -458,29 +477,18 @@ always @(posedge k_clk or posedge k_reset)
 							8'h10: 
 								begin
 									k_p2_valid <= 1;
-									k_p3_valid <= 0; 
 									state <= `SEQ_FETCH_3;
 								end
 							8'h11:
-							begin
-								k_p2_valid <= 0; 
+								begin
 								k_p3_valid <= 1;
 								state <= `SEQ_FETCH_3;
-							end
-							8'h1e, 8'h1f:
-								begin
-									state <= `SEQ_FETCH_3; // tfr, exg, treated separately
-									k_p2_valid <= 0; // set when an k_opcode is page 2
-									k_p3_valid <= 0; // set when an k_opcode is page 3
 								end
+							8'h1e, 8'h1f:
+								state <= `SEQ_FETCH_3; // tfr, exg, treated separately
 							default:
-							begin
 								state <= `SEQ_DECODE;
-								k_p2_valid <= 0; // set when an k_opcode is page 2
-								k_p3_valid <= 0; // set when an k_opcode is page 3
-							end
 						endcase
-						k_pp_active_reg <= 8'h00; // prevents wrong register in left/dest data muxes
 					end
 				`SEQ_FETCH_3:
 					begin
@@ -508,15 +516,11 @@ always @(posedge k_clk or posedge k_reset)
 							`NONE: // unknown k_opcode or push/pull... refetch ?
 								begin
 									casex (k_opcode)
+										8'h13: state <= `SEQ_SYNC;
 										8'h39: // RTS
 											begin
 												state <= `SEQ_PREPULL;
 												k_pp_regs <= 8'h80; // Pull PC (RTS)all regs
-											end
-										8'h3B: // RTI
-											begin
-												state <= `SEQ_PREPULL;
-												k_pp_regs <= 8'hff; // all regs
 											end
 										8'b001101x0: // PUSH S&U
 											begin
@@ -528,6 +532,11 @@ always @(posedge k_clk or posedge k_reset)
 											begin
 												next_state <= `SEQ_PREPULL;
 												state <= `SEQ_PC_READ_L;
+											end
+										8'h3B: // RTI
+											begin
+												state <= `SEQ_PREPULL;
+												k_pp_regs <= 8'hff; // all regs
 											end
 										default: /* we ignore unknown opcodes */
 											state <= `SEQ_FETCH;
@@ -544,6 +553,7 @@ always @(posedge k_clk or posedge k_reset)
 							`INHERENT:
 								begin
 									case (k_opcode)
+										8'h3d: begin k_mul_cnt <= 1'h1; state <= `SEQ_GRAL_ALU; end // counter for mul
 										8'h3f: state <= `SEQ_SWI;
 											default: state <= `SEQ_GRAL_ALU;
 									endcase
@@ -659,24 +669,65 @@ always @(posedge k_clk or posedge k_reset)
 					end
 				`SEQ_GRAL_ALU:
 					begin
-						state <= `SEQ_GRAL_WBACK;
-						k_write_dest <= 1; /* write destination on wback */
+						if (!k_mul_cnt)
+							begin
+								state <= `SEQ_GRAL_WBACK;
+								k_write_dest <= 1; /* write destination on wback */
+							end
+						else
+							k_mul_cnt <= 1'h0;
 					end
 				`SEQ_GRAL_WBACK:
 					begin
 						next_mem_state <= `SEQ_FETCH;
-						case (dec_o_dest_reg_addr)
-							`RN_MEM8: state <= `SEQ_MEM_WRITE_L;
-							`RN_MEM16: state <= `SEQ_MEM_WRITE_H;
-							default: 
-								begin 
-									state <= `SEQ_FETCH; 
-									k_write_post_incdec <= dec_o_ea_wpost; 
-								end
+						casex (k_opcode)
+							8'h3C: state <= `SEQ_CWAI_STACK; // CWAI
+							default:
+								case (dec_o_dest_reg_addr)
+									`RN_MEM8: state <= `SEQ_MEM_WRITE_L;
+									`RN_MEM16: state <= `SEQ_MEM_WRITE_H;
+									default: 
+										begin 
+											state <= `SEQ_FETCH; 
+											k_write_post_incdec <= dec_o_ea_wpost; 
+										end
+								endcase
 						endcase
 					end
-				`SEQ_INH_ALU:
-					state <= `SEQ_GRAL_WBACK;
+				`SEQ_CWAI_STACK:
+					begin
+						k_pp_regs <= 8'hff;
+						k_set_e <= 1;
+						state <= `SEQ_PREPUSH; // first stack the registers
+						next_push_state <= `SEQ_CWAI_WAIT; // wait for interrupts
+					end
+				`SEQ_CWAI_WAIT: /* waits for an interrupt and process it */
+					begin
+						k_forced_mem_size <= 1;
+						next_mem_state <= `SEQ_FETCH; // then continue fetching instructions
+						k_eahi <= 8'hff;
+						k_ealo[7:4] <= 4'hf;
+						if (k_nmi_req)
+							begin
+								k_reg_nmi <= 2'h0;
+								k_ealo[3:0] <= 4'hc;
+								state <= `SEQ_MEM_READ_H; // load new PC
+							end
+						else
+						if (k_firq_req)
+							begin
+								k_reg_firq <= 2'h0;
+								k_ealo[3:0] <= 4'h6;
+								state <= `SEQ_MEM_READ_H; // load new PC
+							end
+						else
+						if (k_irq_req)
+							begin
+								k_reg_irq <= 2'h0;
+								k_ealo[3:0] <= 4'hf8;
+								state <= `SEQ_MEM_READ_H; // load new PC
+							end
+					end
 				`SEQ_TFREXG:
 					state <= `SEQ_FETCH;
 				`SEQ_IND_READ_EA: // reads EA byte
@@ -750,25 +801,24 @@ always @(posedge k_clk or posedge k_reset)
 						if (k_pp_regs > 0)
 							begin
 								state <= `SEQ_PUSH_WRITE_L;
-								//k_dec_su <= 1;
 							end
 						else
 							state <= next_push_state;
-						if (k_pp_regs[7]) begin k_pp_regs[7] <= 0; k_pp_active_reg <= 8'h80; end
+						if (k_pp_regs[7]) begin k_pp_regs[7] <= 0; k_pp_active_reg <= `RN_PC; end
 						else
-						if (k_pp_regs[6]) begin k_pp_regs[6] <= 0; k_pp_active_reg <= 8'h40; end
+						if (k_pp_regs[6]) begin k_pp_regs[6] <= 0; k_pp_active_reg <= (dec_o_use_s) ? `RN_U:`RN_S; end
 						else
-						if (k_pp_regs[5]) begin k_pp_regs[5] <= 0; k_pp_active_reg <= 8'h20; end
+						if (k_pp_regs[5]) begin k_pp_regs[5] <= 0; k_pp_active_reg <= `RN_IY; end
 						else
-						if (k_pp_regs[4]) begin k_pp_regs[4] <= 0; k_pp_active_reg <= 8'h10; end
+						if (k_pp_regs[4]) begin k_pp_regs[4] <= 0; k_pp_active_reg <= `RN_IX; end
 						else
-						if (k_pp_regs[3]) begin k_pp_regs[3] <= 0; k_pp_active_reg <= 8'h08; end
+						if (k_pp_regs[3]) begin k_pp_regs[3] <= 0; k_pp_active_reg <= `RN_DP; end
 						else
-						if (k_pp_regs[2]) begin k_pp_regs[2] <= 0; k_pp_active_reg <= 8'h04; end
+						if (k_pp_regs[2]) begin k_pp_regs[2] <= 0; k_pp_active_reg <= `RN_ACCB; end
 						else
-						if (k_pp_regs[1]) begin k_pp_regs[1] <= 0; k_pp_active_reg <= 8'h02; end
+						if (k_pp_regs[1]) begin k_pp_regs[1] <= 0; k_pp_active_reg <= `RN_ACCA; end
 						else
-						if (k_pp_regs[0]) begin k_pp_regs[0] <= 0; k_pp_active_reg <= 8'h01; end
+						if (k_pp_regs[0]) begin k_pp_regs[0] <= 0; k_pp_active_reg <= `RN_CC; end
 					end
 				`SEQ_PREPULL:
 					begin
@@ -779,21 +829,21 @@ always @(posedge k_clk or posedge k_reset)
 							end
 						else
 							state <= `SEQ_FETCH; // end of sequence
-						if (k_pp_regs[0]) begin k_pp_active_reg <= 8'h01; k_pp_regs[0] <= 0; state <= `SEQ_MEM_READ_L; end
+						if (k_pp_regs[0]) begin k_pp_active_reg <= `RN_CC; k_pp_regs[0] <= 0; state <= `SEQ_MEM_READ_L; end
 						else
-						if (k_pp_regs[1]) begin k_pp_active_reg <= 8'h02; k_pp_regs[1] <= 0; state <= `SEQ_MEM_READ_L; end
+						if (k_pp_regs[1]) begin k_pp_active_reg <= `RN_ACCA; k_pp_regs[1] <= 0; state <= `SEQ_MEM_READ_L; end
 						else
-						if (k_pp_regs[2]) begin k_pp_active_reg <= 8'h04; k_pp_regs[2] <= 0; state <= `SEQ_MEM_READ_L; end
+						if (k_pp_regs[2]) begin k_pp_active_reg <= `RN_ACCB; k_pp_regs[2] <= 0; state <= `SEQ_MEM_READ_L; end
 						else
-						if (k_pp_regs[3]) begin k_pp_active_reg <= 8'h08; k_pp_regs[3] <= 0; state <= `SEQ_MEM_READ_L; end
+						if (k_pp_regs[3]) begin k_pp_active_reg <= `RN_DP; k_pp_regs[3] <= 0; state <= `SEQ_MEM_READ_L; end
 						else
-						if (k_pp_regs[4]) begin k_pp_active_reg <= 8'h10; k_pp_regs[4] <= 0; state <= `SEQ_MEM_READ_H;end
+						if (k_pp_regs[4]) begin k_pp_active_reg <= `RN_IX; k_pp_regs[4] <= 0; state <= `SEQ_MEM_READ_H;end
 						else
-						if (k_pp_regs[5]) begin k_pp_active_reg <= 8'h20; k_pp_regs[5] <= 0; state <= `SEQ_MEM_READ_H;end
+						if (k_pp_regs[5]) begin k_pp_active_reg <= `RN_IY; k_pp_regs[5] <= 0; state <= `SEQ_MEM_READ_H;end
 						else
-						if (k_pp_regs[6]) begin k_pp_active_reg <= 8'h40; k_pp_regs[6] <= 0; state <= `SEQ_MEM_READ_H; end
+						if (k_pp_regs[6]) begin k_pp_active_reg <= (dec_o_use_s) ? `RN_U:`RN_S; k_pp_regs[6] <= 0; state <= `SEQ_MEM_READ_H; end
 						else
-						if (k_pp_regs[7]) begin k_pp_active_reg <= 8'h80;  k_pp_regs[7] <= 0; state <= `SEQ_MEM_READ_H; end
+						if (k_pp_regs[7]) begin k_pp_active_reg <= `RN_PC;  k_pp_regs[7] <= 0; state <= `SEQ_MEM_READ_H; end
 					end
 				`SEQ_PUSH_WRITE_L: // first low byte push 
 					begin
@@ -805,7 +855,7 @@ always @(posedge k_clk or posedge k_reset)
 					end
 				`SEQ_PUSH_WRITE_L_1:
 					begin
-						if (k_pp_active_reg[7:4] > 0)
+						if (k_pp_active_reg < `RN_ACCA)
 							state <= `SEQ_PUSH_WRITE_H;
 						else
 							if (k_pp_regs[3:0] > 0)
@@ -819,8 +869,8 @@ always @(posedge k_clk or posedge k_reset)
 						k_cpu_data_o <= regs_o_left_path_data[15:8];
 						state <= `SEQ_PUSH_WRITE_H_1;
 						k_cpu_we <= 1; // write
-						if (k_pp_active_reg[3:0] > 0)
-							k_cpu_addr <= regs_o_su;
+						if (k_pp_active_reg >= `RN_ACCA)
+							k_cpu_addr <= regs_o_su; // address for 8 bit register
 						k_dec_su <= 1; // decrement stack pointer
 					end
 				`SEQ_PUSH_WRITE_H_1:
@@ -879,7 +929,7 @@ always @(posedge k_clk or posedge k_reset)
 							`INDEXED: k_cpu_addr <= regs_o_eamem_addr;
 							default: k_cpu_addr <= { k_eahi, k_ealo };
 						endcase
-						if (k_forced_mem_size | dec_o_source_size | (k_pp_active_reg[7:4] != 0))
+						if (k_forced_mem_size | dec_o_source_size | (k_pp_active_reg <  `RN_ACCA))
 							state <= `SEQ_MEM_READ_H_1;
 						else
 							state <= `SEQ_MEM_READ_L_1;
@@ -945,7 +995,7 @@ always @(posedge k_clk or posedge k_reset)
 					end
 				`SEQ_MEM_WRITE_L: // reads high byte
 					begin
-						if (!dec_o_alu_size) // only if it is a n 8 bit write
+						if (!dec_o_alu_size) // only if it is an 8 bit write
 							case (dec_o_p1_mode)
 								`INDEXED: k_cpu_addr <= regs_o_eamem_addr;
 								default: k_cpu_addr <= { k_eahi, k_ealo };
@@ -972,5 +1022,6 @@ initial
 		k_new_pc = 16'hffff;
 		k_write_tfr = 0;
 		k_write_exg = 0;
+		k_mul_cnt = 0;
 	end
 endmodule

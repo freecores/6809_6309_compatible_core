@@ -73,21 +73,22 @@
 
 `define SEQ_GRAL_ALU		'h11 
 `define SEQ_GRAL_WBACK		'h12 
-`define SEQ_INH_ALU			'h13
-`define SEQ_TFREXG			'h14
+`define SEQ_CWAI_STACK		'h13 // stacks registers
+`define SEQ_CWAI_WAIT		'h14 // waits for an interrupt
+`define SEQ_TFREXG			'h15
 
-`define SEQ_IND_READ_EA		'h15 // offset 8 or 16 bits
-`define SEQ_IND_READ_EA_1	'h16
-`define SEQ_IND_READ_EA_2	'h17 // real operand from memory indirect
-`define SEQ_IND_DECODE		'h18
-`define SEQ_IND_DECODE_OFS  'h19 // used to load 8 or 16 bits offset
-`define SEQ_JMP_LOAD_PC		'h1a
+`define SEQ_IND_READ_EA		'h16 // offset 8 or 16 bits
+`define SEQ_IND_READ_EA_1	'h17
+`define SEQ_IND_READ_EA_2	'h18 // real operand from memory indirect
+`define SEQ_IND_DECODE		'h19
+`define SEQ_IND_DECODE_OFS  'h1a // used to load 8 or 16 bits offset
+`define SEQ_JMP_LOAD_PC		'h1b
 
 
-`define SEQ_JSR_PUSH		'h1b
-`define SEQ_JSR_PUSH_L		'h1c
-`define SEQ_RTS_POP_L		'h1d
-`define SEQ_RTS_POP_H		'h1e
+`define SEQ_JSR_PUSH		'h1c
+`define SEQ_JSR_PUSH_L		'h1d
+`define SEQ_RTS_POP_L		'h1e
+`define SEQ_RTS_POP_H		'h1f
 
 `define SEQ_PREPUSH			'h20
 `define SEQ_PREPULL			'h21
@@ -95,6 +96,7 @@
 `define SEQ_PUSH_WRITE_L_1	'h23
 `define SEQ_PUSH_WRITE_H	'h24
 `define SEQ_PUSH_WRITE_H_1	'h25
+`define SEQ_SYNC			'h26
 
 `define SEQ_PC_READ_H		'h30
 `define SEQ_PC_READ_H_1		'h31

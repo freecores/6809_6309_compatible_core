@@ -16,7 +16,7 @@ Running in Lattice mode
 
 Starting:    /usr/local/diamond/2.2_x64/synpbase/linux_a_64/mbin/synbatch
 Install:     /usr/local/diamond/2.2_x64/synpbase
-Date:        Tue Dec 31 08:52:23 2013
+Date:        Wed Jan  1 11:05:21 2014
 Version:     G-2012.09L-SP1 
 
 Arguments:   -product synplify_pro  -batch P6809_P6809_synplify.tcl
@@ -42,7 +42,7 @@ Copied /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P68
 
 compiler Completed with warnings
 Return Code: 1
-Run Time:00h:00m:03s
+Run Time:00h:00m:04s
 
 
 Copied /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.srr to /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.srf
@@ -53,7 +53,7 @@ Running Premap on proj_1|P6809
 
 premap Completed with warnings
 Return Code: 1
-Run Time:00h:00m:01s
+Run Time:00h:00m:00s
 
 
 Job Compile completed on proj_1|P6809
@@ -64,7 +64,7 @@ Running Map & Optimize on proj_1|P6809
 
 fpga_mapper Completed with warnings
 Return Code: 1
-Run Time:00h:00m:19s
+Run Time:00h:00m:16s
 
 
 Job Map completed on proj_1|P6809
@@ -91,7 +91,7 @@ Child process exit with 0.
 #Implementation: P6809
 
 $ Start of Compile
-#Tue Dec 31 08:52:23 2013
+#Wed Jan  1 11:05:21 2014
 
 Synopsys Verilog Compiler, version comp201209rcp1, Build 271R, built Mar 11 2013
 @N|Running in 64-bit mode
@@ -109,17 +109,43 @@ Copyright (C) 1994-2012 Synopsys, Inc. This software the associated documentatio
 @I:"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/defs.v"
 @I::"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/decoders.v"
 @I::"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v"
+@W: CG289 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":727:23:727:27|Specified digits overflow the number's size
 @I::"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v"
 @I::"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/bios2k.v"
 Verilog syntax check successful!
-File /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v changed - recompiling
+Options changed - recompiling
 Selecting top level module CC3_top
-@N: CG364 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":13:7:13:11|Synthesizing module alu16
+@N: CG364 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":57:7:57:10|Synthesizing module alu8
 
-@W: CG532 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":500:0:500:6|Initial statement will only initialize memories through the usage of $readmemh and $readmemb. Everything else is ignored
+@W: CG532 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":319:0:319:6|Initial statement will only initialize memories through the usage of $readmemh and $readmemb. Everything else is ignored
+@W: CG360 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":85:5:85:12|No assignment to wire cadd16_w
+
+@W: CG360 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":85:15:85:22|No assignment to wire cadc16_w
+
+@W: CG360 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":85:25:85:32|No assignment to wire csub16_w
+
+@W: CG360 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":85:35:85:42|No assignment to wire csbc16_w
+
+@W: CG133 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":184:12:184:13|No assignment to n8
+@W: CG133 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":184:20:184:21|No assignment to z8
+@W: CL169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":301:0:301:5|Pruning register regq8[7:0] 
+
+@N: CG364 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":650:7:650:12|Synthesizing module mul8x8
+
+@N: CG364 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":325:7:325:11|Synthesizing module alu16
+
+@W: CG532 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":645:0:645:6|Initial statement will only initialize memories through the usage of $readmemh and $readmemb. Everything else is ignored
+@W: CG360 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":433:12:433:18|No assignment to wire q16_mul
+
+@W: CL169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":561:0:561:5|Pruning register regq16[15:0] 
+
+@N: CG364 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":15:7:15:9|Synthesizing module alu
+
+@W: CS263 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":32:18:32:28|Port-width mismatch for port a_in. Formal has width 16, Actual 8
+@W: CS263 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":32:30:32:40|Port-width mismatch for port b_in. Formal has width 16, Actual 8
 @N: CG364 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v":7:7:7:14|Synthesizing module regblock
 
-@W: CG532 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v":244:0:244:6|Initial statement will only initialize memories through the usage of $readmemh and $readmemb. Everything else is ignored
+@W: CG532 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v":243:0:243:6|Initial statement will only initialize memories through the usage of $readmemh and $readmemb. Everything else is ignored
 @N: CG364 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/decoders.v":9:7:9:17|Synthesizing module decode_regs
 
 @N: CG364 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/decoders.v":131:7:131:15|Synthesizing module decode_op
@@ -132,45 +158,50 @@ Selecting top level module CC3_top
 
 @N: CG364 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":10:7:10:16|Synthesizing module MC6809_cpu
 
-@N: CG793 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":429:6:429:13|Ignoring system task $display
-@W: CG532 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":967:0:967:6|Initial statement will only initialize memories through the usage of $readmemh and $readmemb. Everything else is ignored
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal next_state[5:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal next_push_state[5:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal next_mem_state[5:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_write_tfr -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_write_post_incdec -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_write_pc -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_write_exg -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_write_dest -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_set_e -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_pp_regs[7:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_pp_active_reg[7:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_postbyte[7:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_p3_valid -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_p2_valid -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_opcode[7:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_ofslo[7:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_ofshi[7:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_memlo[7:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_memhi[7:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_mem_dest[1:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_ind_ea[7:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_inc_su -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_inc_pc -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_forced_mem_size -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_ealo[7:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_eahi[7:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_dec_su -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_cpu_we -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_cpu_oe -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_cpu_data_o[7:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_cpu_addr[15:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Feedback mux created for signal k_clear_e -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
-@W: CL189 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Register bit k_mem_dest[0] is always 1, optimizing ...
-@W: CL189 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Register bit k_mem_dest[1] is always 0, optimizing ...
-@W: CL189 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Register bit next_mem_state[1] is always 0, optimizing ...
-@W: CL189 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Register bit next_mem_state[2] is always 0, optimizing ...
-@W: CL279 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Pruning register bits 2 to 1 of next_mem_state[5:0] 
+@N: CG793 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":445:6:445:13|Ignoring system task $display
+@W: CG532 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":1017:0:1017:6|Initial statement will only initialize memories through the usage of $readmemh and $readmemb. Everything else is ignored
+@W: CG360 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":64:11:64:23|No assignment to wire alu8_o_result
+
+@W: CG360 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":65:11:65:20|No assignment to wire alu8_o_CCR
+
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal next_state[5:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal next_push_state[5:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal next_mem_state[5:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_write_tfr -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_write_post_incdec -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_write_pc -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_write_exg -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_write_dest -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_set_e -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_pp_regs[7:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_pp_active_reg[3:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_postbyte[7:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_p3_valid -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_p2_valid -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_opcode[7:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_ofslo[7:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_ofshi[7:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_mul_cnt -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_memlo[7:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_memhi[7:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_mem_dest[1:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_ind_ea[7:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_inc_su -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_inc_pc -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_forced_mem_size -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_ealo[7:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_eahi[7:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_dec_su -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_cpu_we -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_cpu_oe -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_cpu_data_o[7:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_cpu_addr[15:0] -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@A: CL282 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Feedback mux created for signal k_clear_e -- possible set/reset assignment for signal missing. Specifying a reset value will improve timing and area.
+@W: CL189 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Register bit k_mem_dest[0] is always 1, optimizing ...
+@W: CL189 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Register bit k_mem_dest[1] is always 0, optimizing ...
+@W: CL189 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Register bit next_mem_state[1] is always 0, optimizing ...
+@W: CL189 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Register bit next_mem_state[2] is always 0, optimizing ...
+@W: CL279 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Pruning register bits 2 to 1 of next_mem_state[5:0] 
 
 @N: CG364 :"/usr/local/diamond/2.2_x64/cae_library/synthesis/verilog/machxo2.v":1120:7:1120:9|Synthesizing module VHI
 
@@ -197,7 +228,7 @@ Selecting top level module CC3_top
 
 @W: CL156 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/CC3_top.v":37:54:37:66|*Input cpu1_data_out[7:0] to expression [instance] has undriven bits that are tied to 0 -- simulation mismatch possible.
 @W: CL156 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/CC3_top.v":36:25:36:35|*Input cpu1_addr_o[10:0] to expression [instance] has undriven bits that are tied to 0 -- simulation mismatch possible.
-@W: CL279 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Pruning register bits 5 to 2 of next_push_state[5:0] 
+@W: CL279 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Pruning register bits 5 to 3 of next_push_state[5:0] 
 
 @W: CL246 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/decoders.v":362:18:362:20|Input port bits 7 to 4 of CCR[7:0] are unused
 
@@ -205,9 +236,21 @@ Selecting top level module CC3_top
 
 @W: CL246 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/decoders.v":260:18:260:27|Input port bits 6 to 5 of eapostbyte[7:0] are unused
 
+@W: CL246 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":329:18:329:20|Input port bits 7 to 4 of CCR[7:0] are unused
+
+@W: CL279 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":660:0:660:5|Pruning register bits 15 to 13 of pipe0[15:0] 
+
+@W: CL189 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":660:0:660:5|Register bit pipe0[12] is always 0, optimizing ...
+@W: CL260 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":660:0:660:5|Pruning register bit 12 of pipe0[12:0] 
+
+@W: CL246 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":59:19:59:22|Input port bits 15 to 8 of a_in[15:0] are unused
+
+@W: CL246 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":60:19:60:22|Input port bits 15 to 8 of b_in[15:0] are unused
+
+@W: CL159 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":58:12:58:17|Input clk_in is unused
 @END
-Process took 0h:00m:01s realtime, 0h:00m:01s cputime
-# Tue Dec 31 08:52:25 2013
+Process took 0h:00m:02s realtime, 0h:00m:02s cputime
+# Wed Jan  1 11:05:23 2014
 
 ###########################################################]
 Premap Report
@@ -254,7 +297,7 @@ Finished Pre Mapping Phase.Pre-mapping successful!
 At Mapper Exit (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 71MB peak: 136MB)
 
 Process took 0h:00m:01s realtime, 0h:00m:01s cputime
-# Tue Dec 31 08:52:27 2013
+# Wed Jan  1 11:05:25 2014
 
 ###########################################################]
 Map & Optimize Report
@@ -290,61 +333,59 @@ Available hyper_sources - for debug and ip models
 
 Finished RTL optimizations (Real Time elapsed 0h:00m:00s; CPU Time elapsed 0h:00m:00s; Memory used current: 133MB peak: 135MB)
 
-@N: BN362 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Removing sequential instance k_reg_firq[0] in hierarchy view:work.MC6809_cpu(verilog) because there are no references to its outputs 
-@N: BN362 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Removing sequential instance k_reg_irq[0] in hierarchy view:work.MC6809_cpu(verilog) because there are no references to its outputs 
-@N: BN362 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Removing sequential instance k_reg_nmi[0] in hierarchy view:work.MC6809_cpu(verilog) because there are no references to its outputs 
+@N: BN362 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Removing sequential instance k_reg_nmi[0] in hierarchy view:work.MC6809_cpu(verilog) because there are no references to its outputs 
+@N: BN362 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Removing sequential instance k_reg_firq[0] in hierarchy view:work.MC6809_cpu(verilog) because there are no references to its outputs 
+@N: BN362 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Removing sequential instance k_reg_irq[0] in hierarchy view:work.MC6809_cpu(verilog) because there are no references to its outputs 
 @N:"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v":182:0:182:5|Found counter in view:work.regblock(verilog) inst PC[15:0]
-@N: BN362 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Removing sequential instance k_reg_firq[1] in hierarchy view:work.MC6809_cpu(verilog) because there are no references to its outputs 
-@N: BN362 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Removing sequential instance k_reg_irq[1] in hierarchy view:work.MC6809_cpu(verilog) because there are no references to its outputs 
-@N: BN362 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Removing sequential instance k_reg_nmi[1] in hierarchy view:work.MC6809_cpu(verilog) because there are no references to its outputs 
+@N: BN362 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Removing sequential instance k_reg_nmi[1] in hierarchy view:work.MC6809_cpu(verilog) because there are no references to its outputs 
+@N: BN362 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Removing sequential instance k_reg_firq[1] in hierarchy view:work.MC6809_cpu(verilog) because there are no references to its outputs 
+@N: BN362 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Removing sequential instance k_reg_irq[1] in hierarchy view:work.MC6809_cpu(verilog) because there are no references to its outputs 
 
-Finished factoring (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 156MB peak: 157MB)
+Finished factoring (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 153MB peak: 156MB)
 
-@N: BN362 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Removing sequential instance cpu0.k_reg_firq[2] in hierarchy view:work.CC3_top(verilog) because there are no references to its outputs 
-@N: BN362 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Removing sequential instance cpu0.k_reg_irq[2] in hierarchy view:work.CC3_top(verilog) because there are no references to its outputs 
-@N: BN362 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Removing sequential instance cpu0.k_reg_nmi[2] in hierarchy view:work.CC3_top(verilog) because there are no references to its outputs 
+@N: BN362 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Removing sequential instance cpu0.k_reg_nmi[2] in hierarchy view:work.CC3_top(verilog) because there are no references to its outputs 
+@N: BN362 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Removing sequential instance cpu0.k_reg_firq[2] in hierarchy view:work.CC3_top(verilog) because there are no references to its outputs 
+@N: BN362 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Removing sequential instance cpu0.k_reg_irq[2] in hierarchy view:work.CC3_top(verilog) because there are no references to its outputs 
 
-Finished gated-clock and generated-clock conversion (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 149MB peak: 160MB)
+Finished gated-clock and generated-clock conversion (Real Time elapsed 0h:00m:01s; CPU Time elapsed 0h:00m:01s; Memory used current: 148MB peak: 156MB)
 
 
 
 Finished generic timing optimizations - Pass 1 (Real Time elapsed 0h:00m:02s; CPU Time elapsed 0h:00m:02s; Memory used current: 148MB peak: 162MB)
 
-@N: FA113 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/decoders.v":24:22:24:42|Pipelining module result_size
-@N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":380:0:380:5|Register regq8[7:0] pushed in.
-@N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":380:0:380:5|Register regq16[15:0] pushed in.
-@N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v":182:0:182:5|Register hflag pushed in.
-@N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v":182:0:182:5|Register intff pushed in.
-@N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":380:0:380:5|Register reg_z_in pushed in.
-@N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":380:0:380:5|Register reg_n_in pushed in.
-@N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v":182:0:182:5|Register vff pushed in.
-@N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v":182:0:182:5|Register cff pushed in.
-@N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":299:0:299:5|Register k_memlo[7:0] pushed in.
-@N: FA113 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v":228:2:228:3|Pipelining module un1_old_su_1[15:0]
-@N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v":182:0:182:5|Register SS[15:0] pushed in.
-@N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v":182:0:182:5|Register DP[7:0] pushed in.
+@N: FA113 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v":237:2:237:3|Pipelining module un1_ea_reg_2[15:0]
+@N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v":182:0:182:5|Register SU[15:0] pushed in.
 @N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v":182:0:182:5|Register ACCB[7:0] pushed in.
-@N: MF169 :|Register NoName pushed in.
+@N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v":182:0:182:5|Register DP[7:0] pushed in.
+@N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v":182:0:182:5|Register SS[15:0] pushed in.
 @N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v":182:0:182:5|Register IX[15:0] pushed in.
 @N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v":182:0:182:5|Register IY[15:0] pushed in.
-@N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v":182:0:182:5|Register SU[15:0] pushed in.
-@N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":380:0:380:5|Register regq16[15:0] pushed in.
+@N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v":182:0:182:5|Register cff pushed in.
+@N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":35:0:35:5|Register rb_in[15:0] pushed in.
+@N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v":182:0:182:5|Register vff pushed in.
 @N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v":182:0:182:5|Register zff pushed in.
-@N: FX404 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":264:2:264:5|Found addmux in view:work.CC3_top(verilog) inst cpu0.alu.k_new_pc_4[15:0] from cpu0.un1_regs_o_pc[15:0] 
+@N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v":182:0:182:5|Register nff pushed in.
+@N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v":182:0:182:5|Register intff pushed in.
+@N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v":182:0:182:5|Register hflag pushed in.
+@N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v":182:0:182:5|Register fflag pushed in.
+@N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v":35:0:35:5|Register ra_in[15:0] pushed in.
+@N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Register k_memlo[7:0] pushed in.
+@N: MF169 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":315:0:315:5|Register k_ind_ea[7:0] pushed in.
+@N: FX404 :"/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v":280:2:280:5|Found addmux in view:work.CC3_top(verilog) inst cpu0.alu.alu8.k_new_pc_4[15:0] from cpu0.un1_regs_o_pc[15:0] 
 
-Starting Early Timing Optimization (Real Time elapsed 0h:00m:12s; CPU Time elapsed 0h:00m:12s; Memory used current: 152MB peak: 162MB)
-
-
-Finished Early Timing Optimization (Real Time elapsed 0h:00m:12s; CPU Time elapsed 0h:00m:12s; Memory used current: 152MB peak: 162MB)
-
-
-Finished generic timing optimizations - Pass 2 (Real Time elapsed 0h:00m:12s; CPU Time elapsed 0h:00m:12s; Memory used current: 151MB peak: 162MB)
-
-
-Finished preparing to map (Real Time elapsed 0h:00m:13s; CPU Time elapsed 0h:00m:13s; Memory used current: 149MB peak: 162MB)
+Starting Early Timing Optimization (Real Time elapsed 0h:00m:10s; CPU Time elapsed 0h:00m:10s; Memory used current: 150MB peak: 162MB)
 
 
-Finished technology mapping (Real Time elapsed 0h:00m:16s; CPU Time elapsed 0h:00m:16s; Memory used current: 191MB peak: 228MB)
+Finished Early Timing Optimization (Real Time elapsed 0h:00m:10s; CPU Time elapsed 0h:00m:10s; Memory used current: 150MB peak: 162MB)
+
+
+Finished generic timing optimizations - Pass 2 (Real Time elapsed 0h:00m:10s; CPU Time elapsed 0h:00m:10s; Memory used current: 149MB peak: 162MB)
+
+
+Finished preparing to map (Real Time elapsed 0h:00m:11s; CPU Time elapsed 0h:00m:11s; Memory used current: 148MB peak: 162MB)
+
+
+Finished technology mapping (Real Time elapsed 0h:00m:13s; CPU Time elapsed 0h:00m:13s; Memory used current: 189MB peak: 227MB)
 
 Pass		 CPU time		Worst Slack		Luts / Registers
 ------------------------------------------------------------
@@ -353,24 +394,24 @@ Pass		 CPU time		Worst Slack		Luts / Registers
 ------------------------------------------------------------
 
 
-Finished technology timing optimizations and critical path resynthesis (Real Time elapsed 0h:00m:16s; CPU Time elapsed 0h:00m:16s; Memory used current: 166MB peak: 228MB)
+Finished technology timing optimizations and critical path resynthesis (Real Time elapsed 0h:00m:13s; CPU Time elapsed 0h:00m:13s; Memory used current: 164MB peak: 227MB)
 
 @N: FX164 |The option to pack flops in the IOB has not been specified 
 
-Finished restoring hierarchy (Real Time elapsed 0h:00m:17s; CPU Time elapsed 0h:00m:17s; Memory used current: 167MB peak: 228MB)
+Finished restoring hierarchy (Real Time elapsed 0h:00m:14s; CPU Time elapsed 0h:00m:14s; Memory used current: 166MB peak: 227MB)
 
 
 
 #### START OF CLOCK OPTIMIZATION REPORT #####[
 
-1 non-gated/non-generated clock tree(s) driving 577 clock pin(s) of sequential element(s)
+1 non-gated/non-generated clock tree(s) driving 504 clock pin(s) of sequential element(s)
 0 gated/generated clock tree(s) driving 0 clock pin(s) of sequential element(s)
-223 @K:conv_instances converted, 0 sequential instances remain driven by gated/generated clocks
+233 @K:conv_instances converted, 0 sequential instances remain driven by gated/generated clocks
 
 =========================== Non-Gated/Non-Generated Clocks ============================
 Clock Tree ID     Driving Element     Drive Element Type     Fanout     Sample Instance
 ---------------------------------------------------------------------------------------
-@K:CKID0001       clk40_i             port                   577        cpu_clk        
+@K:CKID0001       clk40_i             port                   504        cpu_clk        
 =======================================================================================
 ===== Gated/Generated Clocks =====
 ************** None **************
@@ -382,20 +423,20 @@ Clock Tree ID     Driving Element     Drive Element Type     Fanout     Sample I
 
 Writing Analyst data base /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.srm
 
-Finished Writing Netlist Databases (Real Time elapsed 0h:00m:17s; CPU Time elapsed 0h:00m:17s; Memory used current: 169MB peak: 228MB)
+Finished Writing Netlist Databases (Real Time elapsed 0h:00m:14s; CPU Time elapsed 0h:00m:14s; Memory used current: 169MB peak: 227MB)
 
 Writing EDIF Netlist and constraint files
 G-2012.09L-SP1 
 @N: BW106 |Synplicity Constraint File capacitance units using default value of 1pF 
 
-Finished Writing EDIF Netlist and constraint files (Real Time elapsed 0h:00m:18s; CPU Time elapsed 0h:00m:18s; Memory used current: 173MB peak: 228MB)
+Finished Writing EDIF Netlist and constraint files (Real Time elapsed 0h:00m:15s; CPU Time elapsed 0h:00m:15s; Memory used current: 173MB peak: 227MB)
 
 @W: MT420 |Found inferred clock CC3_top|clk40_i with period 1000.00ns. Please declare a user-defined clock on object "p:clk40_i"
 
 
 
 ##### START OF TIMING REPORT #####[
-# Timing Report written on Tue Dec 31 08:52:45 2013
+# Timing Report written on Wed Jan  1 11:05:41 2014
 #
 
 
@@ -414,12 +455,12 @@ Performance Summary
 *******************
 
 
-Worst slack in design: 971.433
+Worst slack in design: 978.215
 
                     Requested     Estimated     Requested     Estimated                 Clock        Clock              
 Starting Clock      Frequency     Frequency     Period        Period        Slack       Type         Group              
 ------------------------------------------------------------------------------------------------------------------------
-CC3_top|clk40_i     1.0 MHz       35.0 MHz      1000.000      28.567        971.433     inferred     Inferred_clkgroup_0
+CC3_top|clk40_i     1.0 MHz       45.9 MHz      1000.000      21.785        978.215     inferred     Inferred_clkgroup_0
 ========================================================================================================================
 
 
@@ -433,7 +474,7 @@ Clocks                            |    rise  to  rise     |    fall  to  fall   
 --------------------------------------------------------------------------------------------------------------------------
 Starting         Ending           |  constraint  slack    |  constraint  slack  |  constraint  slack  |  constraint  slack
 --------------------------------------------------------------------------------------------------------------------------
-CC3_top|clk40_i  CC3_top|clk40_i  |  1000.000    971.434  |  No paths    -      |  No paths    -      |  No paths    -    
+CC3_top|clk40_i  CC3_top|clk40_i  |  1000.000    978.215  |  No paths    -      |  No paths    -      |  No paths    -    
 ==========================================================================================================================
  Note: 'No paths' indicates there are no paths in the design for that pair of clock edges.
        'Diff grp' indicates that paths exist but the starting clock and ending clock are in different clock groups.
@@ -456,41 +497,41 @@ Detailed Report for Clock: CC3_top|clk40_i
 Starting Points with Worst Slack
 ********************************
 
-                       Starting                                                  Arrival            
-Instance               Reference           Type        Pin     Net               Time        Slack  
-                       Clock                                                                        
-----------------------------------------------------------------------------------------------------
-cpu0.k_opcode[4]       CC3_top|clk40_i     FD1P3AX     Q       k_opcode[4]       1.333       971.433
-cpu0.k_opcode[5]       CC3_top|clk40_i     FD1P3AX     Q       k_opcode[5]       1.326       971.441
-cpu0.k_opcode[0]       CC3_top|clk40_i     FD1P3AX     Q       k_opcode[0]       1.358       971.513
-cpu0.k_opcode[3]       CC3_top|clk40_i     FD1P3AX     Q       k_opcode[3]       1.352       971.519
-cpu0.k_opcode[1]       CC3_top|clk40_i     FD1P3AX     Q       k_opcode[1]       1.344       971.527
-cpu0.k_opcode[7]       CC3_top|clk40_i     FD1P3AX     Q       k_opcode[7]       1.344       972.368
-cpu0.k_opcode[6]       CC3_top|clk40_i     FD1P3AX     Q       k_opcode[6]       1.336       972.416
-cpu0.k_opcode[2]       CC3_top|clk40_i     FD1P3AX     Q       k_opcode[2]       1.368       972.560
-cpu0.k_postbyte[5]     CC3_top|clk40_i     FD1P3AX     Q       k_postbyte[5]     1.276       973.285
-cpu0.k_postbyte[4]     CC3_top|clk40_i     FD1P3AX     Q       k_postbyte[4]     1.256       973.306
-====================================================================================================
+                          Starting                                                          Arrival            
+Instance                  Reference           Type        Pin     Net                       Time        Slack  
+                          Clock                                                                                
+---------------------------------------------------------------------------------------------------------------
+cpu0.k_opcode[2]          CC3_top|clk40_i     FD1P3AX     Q       k_opcode[2]               1.374       978.215
+cpu0.k_opcode[0]          CC3_top|clk40_i     FD1P3AX     Q       k_opcode[0]               1.361       978.228
+cpu0.k_opcode[1]          CC3_top|clk40_i     FD1P3AX     Q       k_opcode[1]               1.366       978.263
+cpu0.k_opcode[6]          CC3_top|clk40_i     FD1P3AX     Q       k_opcode[6]               1.336       978.293
+cpu0.k_opcode[7]          CC3_top|clk40_i     FD1P3AX     Q       k_opcode[7]               1.352       978.341
+cpu0.regs.SU_pipe_100     CC3_top|clk40_i     FD1P3AX     Q       un1_SU_4_sqmuxaf          1.268       978.356
+cpu0.regs.SU_pipe_102     CC3_top|clk40_i     FD1P3AX     Q       SU_1_sqmuxa_5f            1.268       978.356
+cpu0.regs.SS_pipe_100     CC3_top|clk40_i     FD1P3AX     Q       SS_1_sqmuxa_2f            1.268       978.420
+cpu0.regs.SS_pipe_102     CC3_top|clk40_i     FD1P3AX     Q       un1_SU_0_sqmuxa_1_snf     1.268       978.420
+cpu0.k_opcode[3]          CC3_top|clk40_i     FD1P3AX     Q       k_opcode[3]               1.385       978.484
+===============================================================================================================
 
 
 Ending Points with Worst Slack
 ******************************
 
-                             Starting                                            Required            
-Instance                     Reference           Type        Pin     Net         Time         Slack  
-                             Clock                                                                   
------------------------------------------------------------------------------------------------------
-cpu0.alu.regq16_pipe_124     CC3_top|clk40_i     FD1P3AX     D       N_911       1000.462     971.433
-cpu0.alu.regq16_pipe_28      CC3_top|clk40_i     FD1P3AX     D       N_910_0     1000.462     971.648
-cpu0.alu.regq16_pipe_32      CC3_top|clk40_i     FD1P3AX     D       N_909       1000.462     971.648
-cpu0.alu.regq16_pipe_38      CC3_top|clk40_i     FD1P3AX     D       N_919       1000.462     971.951
-cpu0.alu.regq16_pipe_49      CC3_top|clk40_i     FD1P3AX     D       N_918       1000.462     972.094
-cpu0.alu.regq16_pipe_60      CC3_top|clk40_i     FD1P3AX     D       N_917       1000.462     972.094
-cpu0.alu.regq16_pipe_71      CC3_top|clk40_i     FD1P3AX     D       N_916       1000.462     972.237
-cpu0.alu.regq16_pipe_82      CC3_top|clk40_i     FD1P3AX     D       N_915       1000.462     972.237
-cpu0.alu.regq16_pipe_93      CC3_top|clk40_i     FD1P3AX     D       N_914       1000.462     972.380
-cpu0.alu.regq16_pipe_104     CC3_top|clk40_i     FD1P3AX     D       N_913       1000.462     972.380
-=====================================================================================================
+                     Starting                                             Required            
+Instance             Reference           Type        Pin     Net          Time         Slack  
+                     Clock                                                                    
+----------------------------------------------------------------------------------------------
+cpu0.regs.PC[14]     CC3_top|clk40_i     FD1P3AX     D       PC_s[14]     999.894      978.215
+cpu0.regs.PC[15]     CC3_top|clk40_i     FD1P3AX     D       PC_s[15]     999.894      978.215
+cpu0.regs.PC[12]     CC3_top|clk40_i     FD1P3AX     D       PC_s[12]     999.894      978.358
+cpu0.regs.PC[13]     CC3_top|clk40_i     FD1P3AX     D       PC_s[13]     999.894      978.358
+cpu0.regs.PC[10]     CC3_top|clk40_i     FD1P3AX     D       PC_s[10]     999.894      978.501
+cpu0.regs.PC[11]     CC3_top|clk40_i     FD1P3AX     D       PC_s[11]     999.894      978.501
+cpu0.regs.PC[8]      CC3_top|clk40_i     FD1P3AX     D       PC_s[8]      999.894      978.644
+cpu0.regs.PC[9]      CC3_top|clk40_i     FD1P3AX     D       PC_s[9]      999.894      978.644
+cpu0.regs.PC[6]      CC3_top|clk40_i     FD1P3AX     D       PC_s[6]      999.894      978.786
+cpu0.regs.PC[7]      CC3_top|clk40_i     FD1P3AX     D       PC_s[7]      999.894      978.786
+==============================================================================================
 
 
 
@@ -500,102 +541,93 @@ Worst Path Information
 
 Path information for path number 1: 
       Requested Period:                      1000.000
-    - Setup time:                            -0.462
+    - Setup time:                            0.106
     + Clock delay at ending point:           0.000 (ideal)
-    = Required time:                         1000.462
+    = Required time:                         999.894
 
-    - Propagation time:                      29.029
+    - Propagation time:                      21.679
     - Clock delay at starting point:         0.000 (ideal)
-    = Slack (critical) :                     971.433
+    = Slack (critical) :                     978.215
 
-    Number of logic level(s):                25
-    Starting point:                          cpu0.k_opcode[4] / Q
-    Ending point:                            cpu0.alu.regq16_pipe_124 / D
+    Number of logic level(s):                22
+    Starting point:                          cpu0.k_opcode[2] / Q
+    Ending point:                            cpu0.regs.PC[15] / D
     The start point is clocked by            CC3_top|clk40_i [rising] on pin CK
     The end   point is clocked by            CC3_top|clk40_i [rising] on pin CK
 
-Instance / Net                                                          Pin      Pin               Arrival     No. of    
-Name                                                       Type         Name     Dir     Delay     Time        Fan Out(s)
--------------------------------------------------------------------------------------------------------------------------
-cpu0.k_opcode[4]                                           FD1P3AX      Q        Out     1.333     1.333       -         
-k_opcode[4]                                                Net          -        -       -         -           38        
-cpu0.dec_regs.state53_2_i_o2                               ORCALUT4     A        In      0.000     1.333       -         
-cpu0.dec_regs.state53_2_i_o2                               ORCALUT4     Z        Out     1.193     2.526       -         
-N_76                                                       Net          -        -       -         -           4         
-cpu0.dec_regs.un1_dest_reg53_2_0_a2                        ORCALUT4     B        In      0.000     2.526       -         
-cpu0.dec_regs.un1_dest_reg53_2_0_a2                        ORCALUT4     Z        Out     1.089     3.615       -         
-N_54_mux                                                   Net          -        -       -         -           2         
-cpu0.dec_regs.un1_dest_reg53_2_0                           ORCALUT4     D        In      0.000     3.615       -         
-cpu0.dec_regs.un1_dest_reg53_2_0                           ORCALUT4     Z        Out     1.089     4.704       -         
-un1_dest_reg53_2                                           Net          -        -       -         -           2         
-cpu0.dec_regs.un1_dest_reg44_1_2                           ORCALUT4     C        In      0.000     4.704       -         
-cpu0.dec_regs.un1_dest_reg44_1_2                           ORCALUT4     Z        Out     1.153     5.857       -         
-un1_dest_reg44_1_2                                         Net          -        -       -         -           3         
-cpu0.dec_regs.un1_dest_reg44_1                             ORCALUT4     B        In      0.000     5.857       -         
-cpu0.dec_regs.un1_dest_reg44_1                             ORCALUT4     Z        Out     1.089     6.945       -         
-un1_dest_reg44_1                                           Net          -        -       -         -           2         
-cpu0.dec_regs.path_left_addr_2_sqmuxa                      ORCALUT4     B        In      0.000     6.945       -         
-cpu0.dec_regs.path_left_addr_2_sqmuxa                      ORCALUT4     Z        Out     1.233     8.178       -         
-path_left_addr_2_sqmuxa                                    Net          -        -       -         -           6         
-cpu0.dec_regs.un1_dest_reg44_1_RNIU7BO                     ORCALUT4     A        In      0.000     8.178       -         
-cpu0.dec_regs.un1_dest_reg44_1_RNIU7BO                     ORCALUT4     Z        Out     1.089     9.267       -         
-N_519                                                      Net          -        -       -         -           2         
-cpu0.dec_regs.path_left_addr_bm[0]                         ORCALUT4     A        In      0.000     9.267       -         
-cpu0.dec_regs.path_left_addr_bm[0]                         ORCALUT4     Z        Out     1.017     10.284      -         
-path_left_addr_bm[0]                                       Net          -        -       -         -           1         
-cpu0.dec_regs.path_left_addr[0]                            PFUMX        ALUT     In      0.000     10.284      -         
-cpu0.dec_regs.path_left_addr[0]                            PFUMX        Z        Out     0.350     10.634      -         
-dec_o_left_path_addr[0]                                    Net          -        -       -         -           3         
-cpu0.regs.datamux_o_alu_in_left_path_addr_1_0[0]           ORCALUT4     B        In      0.000     10.634      -         
-cpu0.regs.datamux_o_alu_in_left_path_addr_1_0[0]           ORCALUT4     Z        Out     1.017     11.651      -         
-N_1062                                                     Net          -        -       -         -           1         
-cpu0.regs.datamux_o_alu_in_left_path_addr_1[0]             ORCALUT4     A        In      0.000     11.651      -         
-cpu0.regs.datamux_o_alu_in_left_path_addr_1[0]             ORCALUT4     Z        Out     1.384     13.035      -         
-datamux_o_alu_in_left_path_addr_1[0]                       Net          -        -       -         -           41        
-cpu0.regs.datamux_o_alu_in_left_path_addr_1_RNIUM5T[1]     ORCALUT4     A        In      0.000     13.035      -         
-cpu0.regs.datamux_o_alu_in_left_path_addr_1_RNIUM5T[1]     ORCALUT4     Z        Out     1.313     14.348      -         
-N_873                                                      Net          -        -       -         -           17        
-cpu0.regs.path_left_data_bm[0]                             ORCALUT4     C        In      0.000     14.348      -         
-cpu0.regs.path_left_data_bm[0]                             ORCALUT4     Z        Out     1.017     15.364      -         
-path_left_data_bm[0]                                       Net          -        -       -         -           1         
-cpu0.regs.path_left_data[0]                                PFUMX        ALUT     In      0.000     15.364      -         
-cpu0.regs.path_left_data[0]                                PFUMX        Z        Out     0.390     15.755      -         
-regs_o_left_path_data[0]                                   Net          -        -       -         -           4         
-cpu0.alu.datamux_o_alu_in_left_path_data[0]                ORCALUT4     A        In      0.000     15.755      -         
-cpu0.alu.datamux_o_alu_in_left_path_data[0]                ORCALUT4     Z        Out     1.387     17.142      -         
-datamux_o_alu_in_left_path_data[0]                         Net          -        -       -         -           43        
-cpu0.alu.mul16_w_madd_0_cry_0_0                            CCU2D        C1       In      0.000     17.142      -         
-cpu0.alu.mul16_w_madd_0_cry_0_0                            CCU2D        COUT     Out     1.544     18.686      -         
-mul16_w_madd_0_cry_0                                       Net          -        -       -         -           1         
-cpu0.alu.mul16_w_madd_0_cry_1_0                            CCU2D        CIN      In      0.000     18.686      -         
-cpu0.alu.mul16_w_madd_0_cry_1_0                            CCU2D        S0       Out     1.621     20.307      -         
-mul16_w_madd_0[2]                                          Net          -        -       -         -           2         
-cpu0.alu.mul16_w_madd_4_cry_0_0                            CCU2D        C1       In      0.000     20.307      -         
-cpu0.alu.mul16_w_madd_4_cry_0_0                            CCU2D        COUT     Out     1.544     21.852      -         
-mul16_w_madd_4_cry_0                                       Net          -        -       -         -           1         
-cpu0.alu.mul16_w_madd_4_cry_1_0                            CCU2D        CIN      In      0.000     21.852      -         
-cpu0.alu.mul16_w_madd_4_cry_1_0                            CCU2D        S1       Out     1.621     23.473      -         
-mul16_w_madd                                               Net          -        -       -         -           2         
-cpu0.alu.mul16_w_madd_cry_0_0                              CCU2D        A1       In      0.000     23.473      -         
-cpu0.alu.mul16_w_madd_cry_0_0                              CCU2D        COUT     Out     1.544     25.017      -         
-mul16_w_madd_cry_0                                         Net          -        -       -         -           1         
-cpu0.alu.mul16_w_madd_cry_1_0                              CCU2D        CIN      In      0.000     25.017      -         
-cpu0.alu.mul16_w_madd_cry_1_0                              CCU2D        COUT     Out     0.143     25.160      -         
-mul16_w_madd_cry_2                                         Net          -        -       -         -           1         
-cpu0.alu.mul16_w_madd_cry_3_0                              CCU2D        CIN      In      0.000     25.160      -         
-cpu0.alu.mul16_w_madd_cry_3_0                              CCU2D        S0       Out     1.621     26.781      -         
-mul16_w[7]                                                 Net          -        -       -         -           2         
-cpu0.alu.q16_20[7]                                         ORCALUT4     A        In      0.000     26.781      -         
-cpu0.alu.q16_20[7]                                         ORCALUT4     Z        Out     1.017     27.798      -         
-N_847                                                      Net          -        -       -         -           1         
-cpu0.alu.q16_24_am[7]                                      ORCALUT4     A        In      0.000     27.798      -         
-cpu0.alu.q16_24_am[7]                                      ORCALUT4     Z        Out     1.017     28.815      -         
-q16_24_am[7]                                               Net          -        -       -         -           1         
-cpu0.alu.q16_24[7]                                         PFUMX        BLUT     In      0.000     28.815      -         
-cpu0.alu.q16_24[7]                                         PFUMX        Z        Out     0.214     29.029      -         
-N_911                                                      Net          -        -       -         -           1         
-cpu0.alu.regq16_pipe_124                                   FD1P3AX      D        In      0.000     29.029      -         
-=========================================================================================================================
+Instance / Net                                                         Pin      Pin               Arrival     No. of    
+Name                                                      Type         Name     Dir     Delay     Time        Fan Out(s)
+------------------------------------------------------------------------------------------------------------------------
+cpu0.k_opcode[2]                                          FD1P3AX      Q        Out     1.374     1.374       -         
+k_opcode[2]                                               Net          -        -       -         -           63        
+cpu0.dec_regs.state_3_sqmuxa_1                            ORCALUT4     B        In      0.000     1.374       -         
+cpu0.dec_regs.state_3_sqmuxa_1                            ORCALUT4     Z        Out     1.193     2.567       -         
+state_3_sqmuxa_1                                          Net          -        -       -         -           4         
+cpu0.dec_op.mode_4_i_a2[0]                                ORCALUT4     C        In      0.000     2.567       -         
+cpu0.dec_op.mode_4_i_a2[0]                                ORCALUT4     Z        Out     1.193     3.760       -         
+dest_reg_5_sqmuxa                                         Net          -        -       -         -           4         
+cpu0.dec_regs.un1_dest_reg44_1_1                          ORCALUT4     B        In      0.000     3.760       -         
+cpu0.dec_regs.un1_dest_reg44_1_1                          ORCALUT4     Z        Out     1.017     4.777       -         
+un1_dest_reg44_1_1                                        Net          -        -       -         -           1         
+cpu0.dec_regs.un1_dest_reg44_1_2                          ORCALUT4     D        In      0.000     4.777       -         
+cpu0.dec_regs.un1_dest_reg44_1_2                          ORCALUT4     Z        Out     1.017     5.793       -         
+un1_dest_reg44_1_2                                        Net          -        -       -         -           1         
+cpu0.dec_regs.un1_dest_reg44_1                            ORCALUT4     A        In      0.000     5.793       -         
+cpu0.dec_regs.un1_dest_reg44_1                            ORCALUT4     Z        Out     1.153     6.946       -         
+un1_dest_reg44_1                                          Net          -        -       -         -           3         
+cpu0.dec_regs.path_left_addr_2_sqmuxa                     ORCALUT4     B        In      0.000     6.946       -         
+cpu0.dec_regs.path_left_addr_2_sqmuxa                     ORCALUT4     Z        Out     1.089     8.035       -         
+path_left_addr_2_sqmuxa                                   Net          -        -       -         -           2         
+cpu0.dec_regs.path_left_addr_1_sqmuxa_2                   ORCALUT4     A        In      0.000     8.035       -         
+cpu0.dec_regs.path_left_addr_1_sqmuxa_2                   ORCALUT4     Z        Out     1.225     9.260       -         
+path_left_addr_1_sqmuxa_2                                 Net          -        -       -         -           5         
+cpu0.dec_regs.k_write_exg10_1_RNITDRD5                    ORCALUT4     A        In      0.000     9.260       -         
+cpu0.dec_regs.k_write_exg10_1_RNITDRD5                    ORCALUT4     Z        Out     1.193     10.453      -         
+path_left_addr_sn_N_2                                     Net          -        -       -         -           4         
+cpu0.dec_regs.path_left_addr[3]                           PFUMX        C0       In      0.000     10.453      -         
+cpu0.dec_regs.path_left_addr[3]                           PFUMX        Z        Out     1.089     11.542      -         
+dec_o_left_path_addr[3]                                   Net          -        -       -         -           4         
+cpu0.regs.datamux_o_alu_in_left_path_addr[3]              ORCALUT4     A        In      0.000     11.542      -         
+cpu0.regs.datamux_o_alu_in_left_path_addr[3]              ORCALUT4     Z        Out     1.369     12.910      -         
+datamux_o_alu_in_left_path_addr[3]                        Net          -        -       -         -           34        
+cpu0.regs.datamux_o_alu_in_left_path_addr_RNIUORB1[1]     ORCALUT4     D        In      0.000     12.910      -         
+cpu0.regs.datamux_o_alu_in_left_path_addr_RNIUORB1[1]     ORCALUT4     Z        Out     1.313     14.223      -         
+N_784                                                     Net          -        -       -         -           16        
+cpu0.regs.path_left_data_bm[3]                            ORCALUT4     C        In      0.000     14.223      -         
+cpu0.regs.path_left_data_bm[3]                            ORCALUT4     Z        Out     1.017     15.240      -         
+path_left_data_bm[3]                                      Net          -        -       -         -           1         
+cpu0.regs.path_left_data[3]                               PFUMX        ALUT     In      0.000     15.240      -         
+cpu0.regs.path_left_data[3]                               PFUMX        Z        Out     0.350     15.590      -         
+regs_o_left_path_data[3]                                  Net          -        -       -         -           3         
+cpu0.regs.path_left_data_RNIU3J91[3]                      ORCALUT4     A        In      0.000     15.590      -         
+cpu0.regs.path_left_data_RNIU3J91[3]                      ORCALUT4     Z        Out     1.265     16.855      -         
+left_1[3]                                                 Net          -        -       -         -           8         
+cpu0.regs.PC_11[3]                                        ORCALUT4     C        In      0.000     16.855      -         
+cpu0.regs.PC_11[3]                                        ORCALUT4     Z        Out     1.017     17.872      -         
+PC_11[3]                                                  Net          -        -       -         -           1         
+cpu0.regs.PC_cry_0[2]                                     CCU2D        B1       In      0.000     17.872      -         
+cpu0.regs.PC_cry_0[2]                                     CCU2D        COUT     Out     1.544     19.416      -         
+PC_cry[3]                                                 Net          -        -       -         -           1         
+cpu0.regs.PC_cry_0[4]                                     CCU2D        CIN      In      0.000     19.416      -         
+cpu0.regs.PC_cry_0[4]                                     CCU2D        COUT     Out     0.143     19.559      -         
+PC_cry[5]                                                 Net          -        -       -         -           1         
+cpu0.regs.PC_cry_0[6]                                     CCU2D        CIN      In      0.000     19.559      -         
+cpu0.regs.PC_cry_0[6]                                     CCU2D        COUT     Out     0.143     19.702      -         
+PC_cry[7]                                                 Net          -        -       -         -           1         
+cpu0.regs.PC_cry_0[8]                                     CCU2D        CIN      In      0.000     19.702      -         
+cpu0.regs.PC_cry_0[8]                                     CCU2D        COUT     Out     0.143     19.845      -         
+PC_cry[9]                                                 Net          -        -       -         -           1         
+cpu0.regs.PC_cry_0[10]                                    CCU2D        CIN      In      0.000     19.845      -         
+cpu0.regs.PC_cry_0[10]                                    CCU2D        COUT     Out     0.143     19.988      -         
+PC_cry[11]                                                Net          -        -       -         -           1         
+cpu0.regs.PC_cry_0[12]                                    CCU2D        CIN      In      0.000     19.988      -         
+cpu0.regs.PC_cry_0[12]                                    CCU2D        COUT     Out     0.143     20.130      -         
+PC_cry[13]                                                Net          -        -       -         -           1         
+cpu0.regs.PC_cry_0[14]                                    CCU2D        CIN      In      0.000     20.130      -         
+cpu0.regs.PC_cry_0[14]                                    CCU2D        S1       Out     1.549     21.679      -         
+PC_s[15]                                                  Net          -        -       -         -           1         
+cpu0.regs.PC[15]                                          FD1P3AX      D        In      0.000     21.679      -         
+========================================================================================================================
 
 
 
@@ -605,38 +637,37 @@ cpu0.alu.regq16_pipe_124                                   FD1P3AX      D       
 Resource Usage Report
 Part: lcmxo2_7000he-4
 
-Register bits: 573 of 6864 (8%)
+Register bits: 500 of 6864 (7%)
 PIC Latch:       0
 I/O cells:       49
 Block Rams : 2 of 26 (7%)
 
 
 Details:
-CCU2D:          162
+CCU2D:          160
 DP8KC:          2
-FD1P3AX:        552
+FD1P3AX:        484
 FD1P3DX:        6
-FD1P3IX:        2
-FD1P3JX:        4
+FD1P3IX:        1
 FD1S3AX:        1
 GSR:            1
 IB:             1
-INV:            11
-L6MUX21:        22
+INV:            13
+L6MUX21:        31
 OB:             48
 OFS1P3DX:       8
-ORCALUT4:       2177
-PFUMX:          315
+ORCALUT4:       1933
+PFUMX:          308
 PUR:            1
-VHI:            4
-VLO:            10
-true:           6
+VHI:            8
+VLO:            13
+true:           5
 Mapper successful!
 
-At Mapper Exit (Real Time elapsed 0h:00m:18s; CPU Time elapsed 0h:00m:18s; Memory used current: 44MB peak: 228MB)
+At Mapper Exit (Real Time elapsed 0h:00m:15s; CPU Time elapsed 0h:00m:15s; Memory used current: 44MB peak: 227MB)
 
-Process took 0h:00m:18s realtime, 0h:00m:18s cputime
-# Tue Dec 31 08:52:45 2013
+Process took 0h:00m:15s realtime, 0h:00m:15s cputime
+# Wed Jan  1 11:05:41 2014
 
 ###########################################################]
 
@@ -652,40 +683,49 @@ Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
 Copyright (c) 2001 Agere Systems   All rights reserved.
 Copyright (c) 2002-2013 Lattice Semiconductor Corporation,  All rights reserved.
 WARNING - edif2ngd: Unsupported property is_pwr found - ignoring...
-  On or above line 291 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
+  On or above line 280 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
 
 WARNING - edif2ngd: Unsupported property is_pwr found - ignoring...
-  On or above line 299 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
+  On or above line 288 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
 
 WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 610 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
+  On or above line 1928 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
 
 WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 1405 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
+  On or above line 5198 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
 
 WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 1481 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
+  On or above line 9990 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
 
 WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 2852 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
+  On or above line 10297 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
 
 WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 6393 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
+  On or above line 11284 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
 
 WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 18874 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
+  On or above line 11361 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
 
 WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 33610 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
+  On or above line 12803 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
 
 WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 34028 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
+  On or above line 15684 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
 
 WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 38347 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
+  On or above line 29797 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
 
 WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 39078 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
+  On or above line 32207 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
+
+WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
+  On or above line 32625 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
+
+WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
+  On or above line 38016 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
+
+WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
+  On or above line 38686 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
 
 Writing the design to P6809_P6809.ngo...
 
@@ -707,118 +747,106 @@ Loading NGL library '/usr/local/diamond/2.2_x64/ispfpga/or5g00/data/orc5glib.ngl
 
 Running DRC...
 
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe1_1_6_cry_8_0_COUT' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe1_1_6_cry_8_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe1_1_6_cry_0_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe1_1_6_cry_0_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe1_1_s_15_0_COUT' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe1_1_s_15_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe1_1_cry_0_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe1_1_cry_0_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe1_1_4_cry_8_0_COUT' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe1_1_4_cry_1_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe1_1_4_cry_1_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe0_1_4_cry_8_0_COUT' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe0_1_4_cry_1_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe0_1_4_cry_1_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe0_1_5_cry_8_0_COUT' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe0_1_5_cry_1_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe0_1_5_cry_1_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe0_1_s_11_0_COUT' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe0_1_s_11_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe0_1_cry_2_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe0_1_cry_2_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/sbc16_w_cry_15_0_COUT' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/sbc16_w_cry_0_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/sub16_w_cry_15_0_COUT' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/sub16_w_cry_0_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/sub16_w_cry_0_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/add16_w_cry_15_0_COUT' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/add16_w_cry_0_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/add16_w_cry_0_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/adc16_w_s_15_0_COUT' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/adc16_w_s_15_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/adc16_w_cry_13_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/adc16_w_cry_13_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/adc16_w_cry_11_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/adc16_w_cry_11_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/adc16_w_cry_9_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/adc16_w_cry_9_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/adc16_w_cry_7_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/adc16_w_cry_7_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/adc16_w_cry_5_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/adc16_w_cry_5_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/adc16_w_cry_3_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/adc16_w_cry_3_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/adc16_w_cry_1_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/adc16_w_cry_1_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/adc16_w_cry_0_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu16/adc16_w_cry_0_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu8/sub8_w_cry_7_0_COUT' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu8/sub8_w_cry_0_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu8/sub8_w_cry_0_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu8/sbc8_w_cry_7_0_COUT' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu8/sbc8_w_cry_0_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu8/add8_w_cry_7_0_COUT' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu8/add8_w_cry_0_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu8/add8_w_cry_0_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu8/neg8_w_s_7_0_COUT' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu8/neg8_w_s_7_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu8/neg8_w_cry_0_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu8/neg8_w_cry_0_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu8/adc8_w_s_7_0_COUT' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu8/adc8_w_s_7_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu8/adc8_w_cry_5_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu8/adc8_w_cry_5_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu8/adc8_w_cry_3_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu8/adc8_w_cry_3_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu8/adc8_w_cry_1_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu8/adc8_w_cry_1_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu8/adc8_w_cry_0_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu8/adc8_w_cry_0_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu8/k_new_pc_4_s_15_0_COUT' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu8/k_new_pc_4_s_15_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu8/k_new_pc_4_cry_0_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/alu/alu8/k_new_pc_4_cry_0_0_S1' has no load
 WARNING - ngdbuild: logical net 'cpu0/regs/eamem_addr_s_15_0_COUT' has no load
 WARNING - ngdbuild: logical net 'cpu0/regs/eamem_addr_s_15_0_S1' has no load
 WARNING - ngdbuild: logical net 'cpu0/regs/eamem_addr_cry_0_0_S0' has no load
 WARNING - ngdbuild: logical net 'cpu0/regs/eamem_addr_cry_0_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/un1_ea_reg_1_s_15_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/un1_ea_reg_1_s_15_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/un1_ea_reg_1_cry_0_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/un1_ea_reg_1_cry_0_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/un1_old_su_1_s_15_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/un1_old_su_1_s_15_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/un1_old_su_1_cry_0_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/un1_old_su_1_cry_0_0_S1' has no load
 WARNING - ngdbuild: logical net 'cpu0/regs/un1_ea_reg_2_s_15_0_COUT' has no load
 WARNING - ngdbuild: logical net 'cpu0/regs/un1_ea_reg_2_s_15_0_S1' has no load
 WARNING - ngdbuild: logical net 'cpu0/regs/un1_ea_reg_2_cry_0_0_S0' has no load
 WARNING - ngdbuild: logical net 'cpu0/regs/un1_ea_reg_2_cry_0_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/regs/un1_SS_1_s_15_0_COUT' has no load
+WARNING - ngdbuild: logical net 'cpu0/regs/un1_SS_1_s_15_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/regs/un1_SS_1_cry_0_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/regs/un1_SS_1_cry_0_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/regs/un1_ea_reg_1_s_15_0_COUT' has no load
+WARNING - ngdbuild: logical net 'cpu0/regs/un1_ea_reg_1_s_15_0_S1' has no load
+WARNING - ngdbuild: logical net 'cpu0/regs/un1_ea_reg_1_cry_0_0_S0' has no load
+WARNING - ngdbuild: logical net 'cpu0/regs/un1_ea_reg_1_cry_0_0_S1' has no load
 WARNING - ngdbuild: logical net 'cpu0/regs/PC_cry_0_COUT[14]' has no load
 WARNING - ngdbuild: logical net 'cpu0/regs/PC_lcry_0_S0' has no load
 WARNING - ngdbuild: logical net 'cpu0/regs/PC_lcry_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/mul16_w_madd_s_11_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/mul16_w_madd_s_11_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/mul16_w_madd_cry_0_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/mul16_w_madd_cry_0_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/mul16_w_madd_5_s_11_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/mul16_w_madd_5_s_11_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/mul16_w_madd_5_cry_2_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/mul16_w_madd_5_cry_2_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/mul16_w_madd_4_cry_9_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/mul16_w_madd_4_cry_0_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/mul16_w_madd_4_cry_0_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/mul16_w_madd_3_cry_8_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/mul16_w_madd_3_cry_1_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/mul16_w_madd_3_cry_1_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/mul16_w_madd_1_cry_8_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/mul16_w_madd_1_cry_1_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/mul16_w_madd_1_cry_1_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/mul16_w_madd_2_cry_8_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/mul16_w_madd_2_cry_1_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/mul16_w_madd_2_cry_1_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/mul16_w_madd_0_cry_7_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/mul16_w_madd_0_cry_0_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/mul16_w_madd_0_cry_0_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/neg16_w_s_15_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/neg16_w_s_15_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/neg16_w_cry_0_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/neg16_w_cry_0_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/sbc8_w_cry_7_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/sbc8_w_cry_7_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/sbc8_w_cry_5_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/sbc8_w_cry_5_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/sbc8_w_cry_3_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/sbc8_w_cry_3_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/sbc8_w_cry_1_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/sbc8_w_cry_1_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/sbc8_w_cry_0_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/sbc16_w_cry_15_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/sbc16_w_cry_0_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/sub16_w_cry_15_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/sub16_w_cry_0_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/sub16_w_cry_0_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/sub8_w_cry_7_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/sub8_w_cry_7_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/sub8_w_cry_5_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/sub8_w_cry_5_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/sub8_w_cry_3_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/sub8_w_cry_3_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/sub8_w_cry_1_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/sub8_w_cry_1_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/sub8_w_cry_0_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/sub8_w_cry_0_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/add16_w_cry_15_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/add16_w_cry_0_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/add16_w_cry_0_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/adc16_w_s_15_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/adc16_w_s_15_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/adc16_w_cry_13_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/adc16_w_cry_13_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/adc16_w_cry_11_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/adc16_w_cry_11_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/adc16_w_cry_9_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/adc16_w_cry_9_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/adc16_w_cry_7_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/adc16_w_cry_5_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/adc16_w_cry_5_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/adc16_w_cry_3_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/adc16_w_cry_3_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/adc16_w_cry_1_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/adc16_w_cry_1_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/adc16_w_cry_0_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/adc16_w_cry_0_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/add8_w_cry_7_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/add8_w_cry_7_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/add8_w_cry_5_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/add8_w_cry_5_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/add8_w_cry_3_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/add8_w_cry_3_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/add8_w_cry_1_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/add8_w_cry_1_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/add8_w_cry_0_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/add8_w_cry_0_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/k_new_pc_4_s_15_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/k_new_pc_4_s_15_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/k_new_pc_4_cry_0_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/k_new_pc_4_cry_0_0_S1' has no load
 WARNING - ngdbuild: logical net 'cpu0/un1_k_cpu_addr_1_s_15_0_COUT' has no load
 WARNING - ngdbuild: logical net 'cpu0/un1_k_cpu_addr_1_s_15_0_S1' has no load
 WARNING - ngdbuild: logical net 'cpu0/un1_k_cpu_addr_1_cry_0_0_S0' has no load
 WARNING - ngdbuild: logical net 'cpu0/un1_k_cpu_addr_1_cry_0_0_S1' has no load
-WARNING - ngdbuild: DRC complete with 108 warnings
+WARNING - ngdbuild: DRC complete with 96 warnings
 
 Design Results:
-   3326 blocks expanded
+   3018 blocks expanded
 complete the first expansion
 Writing 'P6809_P6809.ngd' ...
 
@@ -849,26 +877,26 @@ Running general design DRC...
 Removing unused logic...
 Optimizing...
 7 CCU2 constant inputs absorbed.
-WARNING - map: Using local reset signal 'cpu0.cpu_reset_i_2_i' to infer global GSR net.
+WARNING - map: Using local reset signal 'cpu0.cpu_reset_i_3_i' to infer global GSR net.
 WARNING - map: The reset of EBR 'bios/bios2k_0_1_0' cannot be controlled. The local reset is not connected to any control signal and set to GND. The global reset is disabled via GSR property. To control the EBR reset, either connect the local reset to a control signal or force the GSR property to be enabled.
 WARNING - map: The reset of EBR 'bios/bios2k_0_0_1' cannot be controlled. The local reset is not connected to any control signal and set to GND. The global reset is disabled via GSR property. To control the EBR reset, either connect the local reset to a control signal or force the GSR property to be enabled.
 
 
 
 Design Summary:
-   Number of registers:    573
-      PFU registers:    565
+   Number of registers:    500
+      PFU registers:    492
       PIO registers:    8
-   Number of SLICEs:          1259 out of  3432 (37%)
+   Number of SLICEs:          1135 out of  3432 (33%)
       SLICEs(logic/ROM):       858 out of   858 (100%)
-      SLICEs(logic/ROM/RAM):   401 out of  2574 (16%)
+      SLICEs(logic/ROM/RAM):   277 out of  2574 (11%)
           As RAM:            0 out of  2574 (0%)
-          As Logic/ROM:    401 out of  2574 (16%)
-   Number of logic LUT4s:     2189
+          As Logic/ROM:    277 out of  2574 (11%)
+   Number of logic LUT4s:     1946
    Number of distributed RAM:   0 (0 LUT4s)
-   Number of ripple logic:    162 (324 LUT4s)
+   Number of ripple logic:    160 (320 LUT4s)
    Number of shift registers:   0
-   Total number of LUT4s:     2513
+   Total number of LUT4s:     2266
    Number of PIO sites used: 49 + 4(JTAG) out of 115 (46%)
    Number of block RAMs:  2 out of 26 (8%)
    Number of GSRs:  1 out of 1 (100%)
@@ -893,59 +921,58 @@ Design Summary:
       1. Total number of LUT4s = (Number of logic LUT4s) + 2*(Number of distributed RAMs) + 2*(Number of ripple logic)
       2. Number of logic LUT4s does not include count of distributed RAM and ripple logic.
    Number of clocks:  1
-     Net cpu_clkgen: 374 loads, 374 rising, 0 falling (Driver: PIO clk40_i )
+     Net cpu_clkgen: 312 loads, 312 rising, 0 falling (Driver: PIO clk40_i )
    Number of Clock Enables:  27
-     Net cpu_clk: 187 loads, 187 LSLICEs
-     Net k_cpu_we_RNIKJPB: 8 loads, 0 LSLICEs
+     Net cpu_clk: 127 loads, 127 LSLICEs
+     Net leds_r_cnv[0]: 8 loads, 0 LSLICEs
      Net un1_cen_o_0: 4 loads, 0 LSLICEs
-     Net cpu0/k_ealo_0_sqmuxa_RNICERE1: 5 loads, 5 LSLICEs
-     Net cpu0/k_new_pc26_RNICEI54: 3 loads, 3 LSLICEs
-     Net cpu0/k_ealo_cnv_0[0]: 13 loads, 13 LSLICEs
-     Net cpu0/k_eahi_0_sqmuxa_2_RNIC7377: 4 loads, 4 LSLICEs
-     Net cpu0/k_pp_regs55_RNIJTK99: 2 loads, 2 LSLICEs
-     Net cpu0/un1_state_31_RNIDQAP: 4 loads, 4 LSLICEs
-     Net cpu0/un1_state_28_0_a2_RNIKHLH: 5 loads, 5 LSLICEs
-     Net cpu0/un1_k_opcode_4_RNII2FP8: 8 loads, 8 LSLICEs
-     Net cpu0/k_ofshi_1_sqmuxa_RNI9N8V: 4 loads, 4 LSLICEs
-     Net cpu0/state79_RNICDUH4: 1 loads, 1 LSLICEs
-     Net cpu0/cff_0_sqmuxa_1_i_0_0_RNIAM8L: 44 loads, 44 LSLICEs
+     Net cpu0/state_9_sqmuxa_RNILUGF3: 3 loads, 3 LSLICEs
+     Net cpu0/un1_state_21_RNI2O3K: 4 loads, 4 LSLICEs
+     Net cpu0/mode52_3_RNIE4HVB: 4 loads, 4 LSLICEs
+     Net cpu0/k_ealo_cnv_0[0]: 16 loads, 16 LSLICEs
+     Net cpu0/un1_state_77_RNIJP1NM: 2 loads, 2 LSLICEs
+     Net cpu0/un1_k_opcode_3_RNIGMC4I: 8 loads, 8 LSLICEs
+     Net cpu0/k_new_pc27_0_RNI0JKSH: 4 loads, 4 LSLICEs
+     Net cpu0/un1_state_66_RNIVV3L4: 2 loads, 2 LSLICEs
+     Net cpu0/un1_state_92_i_o4_RNIGQ812: 4 loads, 4 LSLICEs
      Net cpu0/regs/eflag_RNO: 1 loads, 1 LSLICEs
-     Net cpu0/regs/IY_0_sqmuxa_i_a3_0_RNI01N31: 18 loads, 18 LSLICEs
-     Net cpu0/regs/IX_0_sqmuxa_1_i_a2_RNIKUBD1: 17 loads, 17 LSLICEs
-     Net cpu0/regs/DP_0_sqmuxa_i_a3_0_RNIV3T11: 7 loads, 7 LSLICEs
-     Net cpu0/regs/ACCB_0_sqmuxa_1_RNIGOBV: 7 loads, 7 LSLICEs
-     Net cpu0/regs/ACCB45_RNI83PT2: 4 loads, 4 LSLICEs
-     Net cpu0/k_memlo_1_sqmuxa_RNIT89Q: 4 loads, 4 LSLICEs
-     Net cpu0/next_state_0_sqmuxa_2_0_a2_RNII5VUC1: 3 loads, 3 LSLICEs
-     Net cpu0/k_new_pc29_RNIV0H41: 4 loads, 4 LSLICEs
-     Net cpu0/un1_state_74_RNIID554: 4 loads, 4 LSLICEs
-     Net cpu0/un3_cpu_reset_RNIO5453: 4 loads, 4 LSLICEs
-     Net cpu0/un3_cpu_reset_RNIT72KK: 4 loads, 4 LSLICEs
-     Net cpu0/un3_cpu_reset_RNIRKP92: 4 loads, 4 LSLICEs
-   Number of local set/reset loads for net cpu0.cpu_reset_i_2_i merged into GSR:  6
-   Number of LSRs:  2
-     Net cpu0/state_RNI06PR1[5]: 3 loads, 3 LSLICEs
-     Net cpu0/regs/eflag_RNO_0: 1 loads, 1 LSLICEs
+     Net cpu0/un1_state_18_2_RNITPBJ: 4 loads, 4 LSLICEs
+     Net cpu0/k_cpu_we_3_RNIIAUK: 8 loads, 8 LSLICEs
+     Net cpu0/cff_0_sqmuxa_1_RNIICN5: 18 loads, 18 LSLICEs
+     Net cpu0/regs/IY_1_sqmuxa_1_1_RNIHDTU1: 25 loads, 25 LSLICEs
+     Net cpu0/regs/IX_0_sqmuxa_1_1_RNISEKK1: 25 loads, 25 LSLICEs
+     Net cpu0/regs/DP_1_sqmuxa_0_0_RNIBPP91: 9 loads, 9 LSLICEs
+     Net cpu0/regs/ACCB_0_sqmuxa_1_RNIHOBV: 9 loads, 9 LSLICEs
+     Net cpu0/regs/un1_exg_dest_r_4_RNIA9G72: 4 loads, 4 LSLICEs
+     Net cpu0/un1_state_74_1_RNIUBKOG: 4 loads, 4 LSLICEs
+     Net cpu0/state81_RNID4BE4: 2 loads, 2 LSLICEs
+     Net cpu0/un3_cpu_reset_RNIGK359: 4 loads, 4 LSLICEs
+     Net cpu0/un3_cpu_reset_RNI57TP9: 4 loads, 4 LSLICEs
+     Net cpu0/k_memlo_1_sqmuxa_RNI6AUQ: 4 loads, 4 LSLICEs
+     Net cpu0/k_memhi_0_sqmuxa_RNI0T301: 4 loads, 4 LSLICEs
+   Number of local set/reset loads for net cpu0.cpu_reset_i_3_i merged into GSR:  6
+   Number of LSRs:  1
+     Net cpu0/G_5: 1 loads, 1 LSLICEs
    Number of nets driven by tri-state buffers:  0
    Top 10 highest fanout non-clock nets:
-     Net cpu_clk: 211 loads
-     Net cpu0/dec_o_alu_opcode[0]: 192 loads
-     Net cpu0/dec_o_alu_opcode[2]: 124 loads
-     Net cpu0/dec_o_alu_opcode[3]: 104 loads
-     Net state_o_c[5]: 76 loads
-     Net state_o_c[1]: 75 loads
-     Net cpu0/dec_o_p1_mode[0]: 68 loads
-     Net state_o_c[4]: 65 loads
-     Net state_o_c[0]: 63 loads
-     Net state_o_c[3]: 61 loads
+     Net cpu_clk: 149 loads
+     Net cpu0/dec_o_alu_opcode[0]: 95 loads
+     Net state_o_c[1]: 95 loads
+     Net state_o_c[4]: 77 loads
+     Net state_o_c[2]: 73 loads
+     Net cpu0/k_opcode[3]: 70 loads
+     Net cpu0/dec_o_p1_mode[2]: 67 loads
+     Net state_o_c[0]: 67 loads
+     Net cpu0/dec_o_alu_opcode[4]: 66 loads
+     Net cpu0/dec_o_p1_mode[0]: 66 loads
  
    Number of warnings:  3
    Number of errors:    0
 
 
-Total CPU Time: 1 secs  
+Total CPU Time: 0 secs  
 Total REAL Time: 0 secs  
-Peak Memory Usage: 195 MB
+Peak Memory Usage: 193 MB
 
 Dumping design to file P6809_P6809_map.ncd.
 
@@ -972,7 +999,7 @@ Setup and Hold Report
 
 --------------------------------------------------------------------------------
 Lattice TRACE Report - Setup, Version Diamond (64-bit) 2.2.0.101
-Tue Dec 31 08:52:49 2013
+Wed Jan  1 11:05:44 2014
 
 Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
 Copyright (c) 1995 AT&T Corp.   All rights reserved.
@@ -998,14 +1025,14 @@ BLOCK RESETPATHS
 Timing summary (Setup):
 ---------------
 
-Timing errors: 4096  Score: 43964214
-Cumulative negative slack: 43964214
+Timing errors: 4096  Score: 10215342
+Cumulative negative slack: 10215342
 
-Constraints cover 130482274 paths, 1 nets, and 9545 connections (95.7% coverage)
+Constraints cover 3952043 paths, 1 nets, and 8655 connections (95.9% coverage)
 
 --------------------------------------------------------------------------------
 Lattice TRACE Report - Hold, Version Diamond (64-bit) 2.2.0.101
-Tue Dec 31 08:52:49 2013
+Wed Jan  1 11:05:44 2014
 
 Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
 Copyright (c) 1995 AT&T Corp.   All rights reserved.
@@ -1034,7 +1061,7 @@ Timing summary (Hold):
 Timing errors: 0  Score: 0
 Cumulative negative slack: 0
 
-Constraints cover 130482274 paths, 1 nets, and 9903 connections (99.2% coverage)
+Constraints cover 3952043 paths, 1 nets, and 8953 connections (99.2% coverage)
 
 
 
@@ -1042,8 +1069,407 @@ Timing summary (Setup and Hold):
 ---------------
 
 Timing errors: 4096 (setup), 0 (hold)
-Score: 43964214 (setup), 0 (hold)
-Cumulative negative slack: 43964214 (43964214+0)
+Score: 10215342 (setup), 0 (hold)
+Cumulative negative slack: 10215342 (10215342+0)
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+
+Total time: 0 secs 
+
+mpartrce -p "P6809_P6809.p2t" -f "P6809_P6809.p3t" -tf "P6809_P6809.pt" "P6809_P6809_map.ncd" "P6809_P6809.ncd"
+
+---- MParTrce Tool ----
+Removing old design directory at request of -rem command line option to this program.
+Running par. Please wait . . .
+
+Lattice Place and Route Report for Design "P6809_P6809_map.ncd"
+Wed Jan  1 11:05:44 2014
+
+PAR: Place And Route Diamond (64-bit) 2.2.0.101.
+Command Line: par -w -l 5 -i 6 -t 1 -c 0 -e 0 -exp parUseNBR=1:parCDP=0:parCDR=0:parPathBased=OFF P6809_P6809_map.ncd P6809_P6809.dir/5_1.ncd P6809_P6809.prf
+Preference file: P6809_P6809.prf.
+Placement level-cost: 5-1.
+Routing Iterations: 6
+
+Loading design for application par from file P6809_P6809_map.ncd.
+Design name: CC3_top
+NCD version: 3.2
+Vendor:      LATTICE
+Device:      LCMXO2-7000HE
+Package:     TQFP144
+Performance: 4
+Loading device for application par from file 'xo2c7000.nph' in environment: /usr/local/diamond/2.2_x64/ispfpga.
+Package Status:                     Final          Version 1.36
+Performance Hardware Data Status:   Final)         Version 23.4
+License checked out.
+
+
+Ignore Preference Error(s):  True
+Device utilization summary:
+
+   PIO (prelim)   49+4(JTAG)/336     14% used
+                  49+4(JTAG)/115     42% bonded
+   IOLOGIC            8/336           2% used
+
+   SLICE           1135/3432         33% used
+
+   GSR                1/1           100% used
+   EBR                2/26            7% used
+
+
+INFO: Design contains EBR with ASYNC Reset Mode that has a limitation: The use of the EBR block asynchronous reset requires that certain timing be met between the clock and the reset within the memory block. See the device specific datasheet for additional details.
+INFO: Design contains pre-loadable EBR during configuration that has a requirement: Since the GSR is disabled for the EBR, make sure write enable and chip enable are inactive during wake-up, so that the pre-loaded initialization values will not be corrupted during wake-up state.
+Number of Signals: 2562
+Number of Connections: 9028
+
+Pin Constraint Summary:
+   49 out of 49 pins locked (100% locked).
+
+The following 1 signal is selected to use the primary clock routing resources:
+    cpu_clkgen (driver: clk40_i, clk load #: 312)
+
+
+The following 5 signals are selected to use the secondary clock routing resources:
+    cpu_clk (driver: SLICE_441, clk load #: 0, sr load #: 0, ce load #: 127)
+    cpu0/regs/IY_1_sqmuxa_1_1_RNIHDTU1 (driver: cpu0/regs/SLICE_927, clk load #: 0, sr load #: 0, ce load #: 25)
+    cpu0/regs/IX_0_sqmuxa_1_1_RNISEKK1 (driver: cpu0/regs/SLICE_889, clk load #: 0, sr load #: 0, ce load #: 25)
+    cpu0/cff_0_sqmuxa_1_RNIICN5 (driver: cpu0/regs/SLICE_1130, clk load #: 0, sr load #: 0, ce load #: 18)
+    cpu0/k_ealo_cnv_0[0] (driver: cpu0/SLICE_803, clk load #: 0, sr load #: 0, ce load #: 16)
+
+Signal cpu0.cpu_reset_i_3_i is selected as Global Set/Reset.
+Starting Placer Phase 0.
+...........
+Finished Placer Phase 0.  REAL time: 5 secs 
+
+Starting Placer Phase 1.
+......................
+Placer score = 827523.
+Finished Placer Phase 1.  REAL time: 12 secs 
+
+Starting Placer Phase 2.
+.
+Placer score =  814815
+Finished Placer Phase 2.  REAL time: 13 secs 
+
+
+------------------ Clock Report ------------------
+
+Global Clock Resources:
+  CLK_PIN    : 1 out of 8 (12%)
+  PLL        : 0 out of 2 (0%)
+  DCM        : 0 out of 2 (0%)
+  DCC        : 0 out of 8 (0%)
+
+Quadrants All (TL, TR, BL, BR) - Global Clocks:
+  PRIMARY "cpu_clkgen" from comp "clk40_i" on CLK_PIN site "27 (PL22A)", clk load = 312
+  SECONDARY "cpu_clk" from Q0 on comp "SLICE_441" on site "R21C18B", clk load = 0, ce load = 127, sr load = 0
+  SECONDARY "cpu0/k_ealo_cnv_0[0]" from F1 on comp "cpu0/SLICE_803" on site "R21C18D", clk load = 0, ce load = 16, sr load = 0
+  SECONDARY "cpu0/cff_0_sqmuxa_1_RNIICN5" from F1 on comp "cpu0/regs/SLICE_1130" on site "R14C20C", clk load = 0, ce load = 18, sr load = 0
+  SECONDARY "cpu0/regs/IY_1_sqmuxa_1_1_RNIHDTU1" from F0 on comp "cpu0/regs/SLICE_927" on site "R14C18A", clk load = 0, ce load = 25, sr load = 0
+  SECONDARY "cpu0/regs/IX_0_sqmuxa_1_1_RNISEKK1" from F1 on comp "cpu0/regs/SLICE_889" on site "R14C18B", clk load = 0, ce load = 25, sr load = 0
+
+  PRIMARY  : 1 out of 8 (12%)
+  SECONDARY: 5 out of 8 (62%)
+
+Edge Clocks:
+  No edge clock selected.
+
+--------------- End of Clock Report ---------------
+
+
+I/O Usage Summary (final):
+   49 out of 336 (14.6%) PIO sites used.
+   49 out of 115 (42.6%) bonded PIO sites used.
+   Number of PIO comps: 49; differential: 0
+   Number of Vref pins used: 0
+
+I/O Bank Usage Summary:
++----------+----------------+------------+-----------+
+| I/O Bank | Usage          | Bank Vccio | Bank Vref |
++----------+----------------+------------+-----------+
+| 0        | 12 / 28 ( 42%) | 2.5V       | -         |
+| 1        | 13 / 29 ( 44%) | 2.5V       | -         |
+| 2        | 23 / 29 ( 79%) | 2.5V       | -         |
+| 3        | 1 / 9 ( 11%)   | 2.5V       | -         |
+| 4        | 0 / 10 (  0%)  | -          | -         |
+| 5        | 0 / 10 (  0%)  | -          | -         |
++----------+----------------+------------+-----------+
+
+Total placer CPU time: 12 secs 
+
+Dumping design to file P6809_P6809.dir/5_1.ncd.
+
+0 connections routed; 9028 unrouted.
+Starting router resource preassignment
+
+Completed router resource preassignment. Real time: 16 secs 
+
+Start NBR router at Wed Jan 01 11:06:00 CET 2014
+
+*****************************************************************
+Info: NBR allows conflicts(one node used by more than one signal)
+      in the earlier iterations. In each iteration, it tries to  
+      solve the conflicts while keeping the critical connections 
+      routed as short as possible. The routing process is said to
+      be completed when no conflicts exist and all connections   
+      are routed.                                                
+Note: NBR uses a different method to calculate timing slacks. The
+      worst slack and total negative slack may not be the same as
+      that in TRCE report. You should always run TRCE to verify  
+      your design. Thanks.                                       
+*****************************************************************
+
+Start NBR special constraint process at Wed Jan 01 11:06:00 CET 2014
+
+Start NBR section for initial routing
+Level 1, iteration 1
+156(0.04%) conflicts; 7573(83.88%) untouched conns; 89200 (nbr) score; 
+Estimated worst slack/total negative slack: -0.975ns/-89.201ns; real time: 19 secs 
+Level 2, iteration 1
+140(0.04%) conflicts; 6457(71.52%) untouched conns; 89241 (nbr) score; 
+Estimated worst slack/total negative slack: -1.097ns/-89.241ns; real time: 20 secs 
+Level 3, iteration 1
+72(0.02%) conflicts; 5257(58.23%) untouched conns; 98076 (nbr) score; 
+Estimated worst slack/total negative slack: -1.210ns/-98.077ns; real time: 21 secs 
+Level 4, iteration 1
+334(0.09%) conflicts; 0(0.00%) untouched conn; 97875 (nbr) score; 
+Estimated worst slack/total negative slack: -1.218ns/-97.875ns; real time: 22 secs 
+
+Info: Initial congestion level at 75% usage is 3
+Info: Initial congestion area  at 75% usage is 38 (3.80%)
+
+Start NBR section for normal routing
+Level 1, iteration 1
+36(0.01%) conflicts; 424(4.70%) untouched conns; 28584 (nbr) score; 
+Estimated worst slack/total negative slack: -0.386ns/-28.585ns; real time: 22 secs 
+Level 4, iteration 1
+142(0.04%) conflicts; 0(0.00%) untouched conn; 28426 (nbr) score; 
+Estimated worst slack/total negative slack: -0.520ns/-28.426ns; real time: 23 secs 
+Level 4, iteration 2
+61(0.02%) conflicts; 0(0.00%) untouched conn; 45382 (nbr) score; 
+Estimated worst slack/total negative slack: -0.773ns/-45.382ns; real time: 24 secs 
+Level 4, iteration 3
+39(0.01%) conflicts; 0(0.00%) untouched conn; 90697 (nbr) score; 
+Estimated worst slack/total negative slack: -1.024ns/-90.698ns; real time: 24 secs 
+Level 4, iteration 4
+25(0.01%) conflicts; 0(0.00%) untouched conn; 90697 (nbr) score; 
+Estimated worst slack/total negative slack: -1.024ns/-90.698ns; real time: 24 secs 
+Level 4, iteration 5
+16(0.00%) conflicts; 0(0.00%) untouched conn; 69062 (nbr) score; 
+Estimated worst slack/total negative slack: -1.024ns/-69.062ns; real time: 24 secs 
+Level 4, iteration 6
+11(0.00%) conflicts; 0(0.00%) untouched conn; 69062 (nbr) score; 
+Estimated worst slack/total negative slack: -1.024ns/-69.062ns; real time: 24 secs 
+Level 4, iteration 7
+4(0.00%) conflicts; 0(0.00%) untouched conn; 73619 (nbr) score; 
+Estimated worst slack/total negative slack: -1.024ns/-73.619ns; real time: 25 secs 
+Level 4, iteration 8
+2(0.00%) conflicts; 0(0.00%) untouched conn; 73619 (nbr) score; 
+Estimated worst slack/total negative slack: -1.024ns/-73.619ns; real time: 25 secs 
+Level 4, iteration 9
+2(0.00%) conflicts; 0(0.00%) untouched conn; 78251 (nbr) score; 
+Estimated worst slack/total negative slack: -1.024ns/-78.251ns; real time: 25 secs 
+Level 4, iteration 10
+6(0.00%) conflicts; 0(0.00%) untouched conn; 78251 (nbr) score; 
+Estimated worst slack/total negative slack: -1.024ns/-78.251ns; real time: 25 secs 
+Level 4, iteration 11
+3(0.00%) conflicts; 0(0.00%) untouched conn; 76140 (nbr) score; 
+Estimated worst slack/total negative slack: -1.022ns/-76.140ns; real time: 25 secs 
+Level 4, iteration 12
+2(0.00%) conflicts; 0(0.00%) untouched conn; 76140 (nbr) score; 
+Estimated worst slack/total negative slack: -1.022ns/-76.140ns; real time: 25 secs 
+Level 4, iteration 13
+0(0.00%) conflict; 0(0.00%) untouched conn; 76140 (nbr) score; 
+Estimated worst slack/total negative slack: -1.022ns/-76.140ns; real time: 25 secs 
+
+Start NBR section for performance tunning (iteration 1)
+Level 4, iteration 1
+5(0.00%) conflicts; 0(0.00%) untouched conn; 36615 (nbr) score; 
+Estimated worst slack/total negative slack: -0.533ns/-36.615ns; real time: 25 secs 
+Level 4, iteration 2
+2(0.00%) conflicts; 0(0.00%) untouched conn; 76875 (nbr) score; 
+Estimated worst slack/total negative slack: -0.978ns/-76.876ns; real time: 25 secs 
+Level 4, iteration 3
+3(0.00%) conflicts; 0(0.00%) untouched conn; 57060 (nbr) score; 
+Estimated worst slack/total negative slack: -0.720ns/-57.061ns; real time: 25 secs 
+Level 4, iteration 4
+3(0.00%) conflicts; 0(0.00%) untouched conn; 57060 (nbr) score; 
+Estimated worst slack/total negative slack: -0.720ns/-57.061ns; real time: 25 secs 
+Level 4, iteration 5
+4(0.00%) conflicts; 0(0.00%) untouched conn; 57010 (nbr) score; 
+Estimated worst slack/total negative slack: -0.720ns/-57.011ns; real time: 25 secs 
+Level 4, iteration 6
+1(0.00%) conflict; 0(0.00%) untouched conn; 57010 (nbr) score; 
+Estimated worst slack/total negative slack: -0.720ns/-57.011ns; real time: 26 secs 
+Level 4, iteration 7
+1(0.00%) conflict; 0(0.00%) untouched conn; 57010 (nbr) score; 
+Estimated worst slack/total negative slack: -0.720ns/-57.011ns; real time: 26 secs 
+Level 4, iteration 8
+0(0.00%) conflict; 0(0.00%) untouched conn; 57010 (nbr) score; 
+Estimated worst slack/total negative slack: -0.720ns/-57.011ns; real time: 26 secs 
+
+Start NBR section for performance tunning (iteration 2)
+Level 4, iteration 1
+9(0.00%) conflicts; 0(0.00%) untouched conn; 32716 (nbr) score; 
+Estimated worst slack/total negative slack: -0.533ns/-32.716ns; real time: 26 secs 
+Level 4, iteration 2
+1(0.00%) conflict; 0(0.00%) untouched conn; 85934 (nbr) score; 
+Estimated worst slack/total negative slack: -0.975ns/-85.934ns; real time: 26 secs 
+
+Start NBR section for re-routing
+Level 4, iteration 1
+0(0.00%) conflict; 0(0.00%) untouched conn; 56461 (nbr) score; 
+Estimated worst slack/total negative slack: -0.711ns/-56.462ns; real time: 26 secs 
+
+Start NBR section for post-routing
+
+End NBR router with 0 unrouted connection
+
+NBR Summary
+-----------
+  Number of unrouted connections : 0 (0.00%)
+  Number of connections with timing violations : 157 (1.74%)
+  Estimated worst slack : -0.711ns
+  Timing score : 36125
+-----------
+Notes: The timing info is calculated for SETUP only and all PAR_ADJs are ignored.
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+WARNING - par: Hold timing correction is skipped because the worst (setup) slack(-0.711ns) is worse than the default value(0.000ns).
+------------------------------------------------------------------------------------------------------------------------------------
+
+Total CPU time 26 secs 
+Total REAL time: 27 secs 
+Completely routed.
+End of route.  9028 routed (100.00%); 0 unrouted.
+Checking DRC ... 
+No errors found.
+
+Hold time timing score: 0, hold timing errors: 0
+
+Timing score: 36125 
+
+Dumping design to file P6809_P6809.dir/5_1.ncd.
+
+
+PAR_SUMMARY::Run status = completed
+PAR_SUMMARY::Number of unrouted conns = 0
+PAR_SUMMARY::Worst  slack<setup/<ns>> = -0.711
+PAR_SUMMARY::Timing score<setup/<ns>> = 36.125
+PAR_SUMMARY::Worst  slack<hold /<ns>> = <n/a>
+PAR_SUMMARY::Timing score<hold /<ns>> = <n/a>
+
+Total CPU  time to completion: 27 secs 
+Total REAL time to completion: 28 secs 
+
+par done!
+
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995 AT&T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems   All rights reserved.
+Copyright (c) 2002-2013 Lattice Semiconductor Corporation,  All rights reserved.
+Exiting par with exit code 0
+Exiting mpartrce with exit code 0
+
+trce -f "P6809_P6809.pt" -o "P6809_P6809.twr" "P6809_P6809.ncd" "P6809_P6809.prf"
+trce:  version Diamond (64-bit) 2.2.0.101
+
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995 AT&T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems   All rights reserved.
+Copyright (c) 2002-2013 Lattice Semiconductor Corporation,  All rights reserved.
+
+Loading design for application trce from file P6809_P6809.ncd.
+Design name: CC3_top
+NCD version: 3.2
+Vendor:      LATTICE
+Device:      LCMXO2-7000HE
+Package:     TQFP144
+Performance: 4
+Loading device for application trce from file 'xo2c7000.nph' in environment: /usr/local/diamond/2.2_x64/ispfpga.
+Package Status:                     Final          Version 1.36
+Performance Hardware Data Status:   Final)         Version 23.4
+Setup and Hold Report
+
+--------------------------------------------------------------------------------
+Lattice TRACE Report - Setup, Version Diamond (64-bit) 2.2.0.101
+Wed Jan  1 11:06:15 2014
+
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995 AT&T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems   All rights reserved.
+Copyright (c) 2002-2013 Lattice Semiconductor Corporation,  All rights reserved.
+
+Report Information
+------------------
+Command line:    trce -v 10 -gt -sethld -sp 4 -sphld m -o P6809_P6809.twr P6809_P6809.ncd P6809_P6809.prf 
+Design file:     P6809_P6809.ncd
+Preference file: P6809_P6809.prf
+Device,speed:    LCMXO2-7000HE,4
+Report level:    verbose report, limited to 10 items per preference
+--------------------------------------------------------------------------------
+
+BLOCK ASYNCPATHS
+BLOCK RESETPATHS
+--------------------------------------------------------------------------------
+
+
+
+Timing summary (Setup):
+---------------
+
+Timing errors: 204  Score: 36125
+Cumulative negative slack: 36125
+
+Constraints cover 3952043 paths, 1 nets, and 8953 connections (99.2% coverage)
+
+--------------------------------------------------------------------------------
+Lattice TRACE Report - Hold, Version Diamond (64-bit) 2.2.0.101
+Wed Jan  1 11:06:15 2014
+
+Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
+Copyright (c) 1995 AT&T Corp.   All rights reserved.
+Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
+Copyright (c) 2001 Agere Systems   All rights reserved.
+Copyright (c) 2002-2013 Lattice Semiconductor Corporation,  All rights reserved.
+
+Report Information
+------------------
+Command line:    trce -v 10 -gt -sethld -sp 4 -sphld m -o P6809_P6809.twr P6809_P6809.ncd P6809_P6809.prf 
+Design file:     P6809_P6809.ncd
+Preference file: P6809_P6809.prf
+Device,speed:    LCMXO2-7000HE,m
+Report level:    verbose report, limited to 10 items per preference
+--------------------------------------------------------------------------------
+
+BLOCK ASYNCPATHS
+BLOCK RESETPATHS
+--------------------------------------------------------------------------------
+
+
+
+Timing summary (Hold):
+---------------
+
+Timing errors: 0  Score: 0
+Cumulative negative slack: 0
+
+Constraints cover 3952043 paths, 1 nets, and 8953 connections (99.2% coverage)
+
+
+
+Timing summary (Setup and Hold):
+---------------
+
+Timing errors: 204 (setup), 0 (hold)
+Score: 36125 (setup), 0 (hold)
+Cumulative negative slack: 36125 (36125+0)
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
