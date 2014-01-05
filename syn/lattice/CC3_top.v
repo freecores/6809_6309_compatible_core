@@ -41,16 +41,17 @@ wire [5:0] cpu0_state;
 
 assign addr_o = cpu0_addr_o;
 assign data_io = cpu0_we ? cpu0_data_out:cpu0_data_in;
-
+/*
 assign hsync_o = 0;
 assign vsync_o = 0;
 assign red_o = 0;
 assign green_o = 0;
 assign blue_o = 0;
+*/
 assign leds_o = leds_r;
 
 assign oen_o = !cpu0_oe;
-assign wen_o = !cpu0_we;
+assign wen_o = cpu0_we & (cpu0_addr_o[15:12] == 4'h0);
 assign cen_o = !(cpu0_oe | cpu0_we);
 assign cpuclk_o = cpu_clk;
 assign reset_o = cpu_reset;
@@ -85,6 +86,15 @@ MC6809_cpu cpu0(
 	
 /* Memory */
 
+wire bios_en, video_en;
+wire [7:0] data_from_bios, data_from_video;
+
+assign bios_en = cpu0_addr_o[15:12] == 4'hf;
+assign video_en = cpu0_addr_o[15:12] == 4'h0;
+
+assign cpu0_data_in = bios_en ? data_from_bios:
+                     video_en ? data_from_video:8'hzz;
+
 bios2k bios(
 	.DataInA(cpu0_data_out[7:0]), 
 	.DataInB(cpu1_data_out[7:0]), 
@@ -92,17 +102,32 @@ bios2k bios(
 	.AddressB(cpu1_addr_o[10:0]), 
 	.ClockA(clk40_i), 
 	.ClockB(clk40_i), 
-    .ClockEnA((cpu0_we | cpu0_oe)), 
+    .ClockEnA((cpu0_oe | cpu_we) & bios_en),
 	.ClockEnB(1'b0), 
-	.WrA(cpu0_we), 
+	.WrA(cpu0_we & bios_en), 
 	.WrB(1'b0),//cpu1_we), 
 	.ResetA(1'b0), 
 	.ResetB(1'b0), 
-	.QA(cpu0_data_in), 
+	.QA(data_from_bios), 
 	.QB()
 	);
 
 
+vgatext textctrl(
+	.CLK(clk40_i),
+	.RESET(cpu_reset),
+	.HSYNC(hsync_o),
+	.VSYNC(vsync_o),
+	.RED(red_o),
+	.GREEN(green_o),
+	.BLUE(blue_o),
+	.CPU_CLK(clk40_i),
+	.CPU_ADDR(cpu0_addr_o[11:0]),
+	.CPU_OE_EN(cpu0_oe & video_en),
+	.CPU_WR_EN(cpu0_we & video_en),
+	.CPU_DATA_O(cpu0_data_out),
+	.CPU_DATA_I(data_from_video)
+	);
 
 
 

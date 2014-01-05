@@ -1,5 +1,12 @@
 Known bugs are described here
 
+05.01.14
+--------
+
+- The E flag is not read back when RTI is processed. This means that FIRQ will not return
+  correctly.
+
+
 01.01.14
 --------
 - SYNC doesn't work as expected

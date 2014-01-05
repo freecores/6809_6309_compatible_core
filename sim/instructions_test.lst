@@ -1,4 +1,4 @@
-The Mamou Assembler Version 01.00      01/01/2014 10:15:21      Page 001
+The Mamou Assembler Version 01.00      01/05/2014 08:05:53      Page 001
 
 
 00001                    
@@ -8,47 +8,73 @@ The Mamou Assembler Version 01.00      01/01/2014 10:15:21      Page 001
 00005    0003 3D                        mul       
 00006    0004 8E1234                    ldx       #$1234
 00007    0007 108E5678                  ldy       #$5678
-00008    000B 1F13                      tfr       x,u                 ; 16 bit t
-00009    000D 1F83                      tfr       a,u                 ; high to 
-00010    000F 1F93                      tfr       b,u
-00011    0011 1F18                      tfr       x,a                 ; gets hig
-00012    0013 1F19                      tfr       x,b                 ; gets low
-00013                    
-00014                    
-00015    0015 8602                      lda       #$02
-00016    0017 C600                      ldb       #$00
-00017    0019 9700                      sta       $0
-00018    001B D701                      stb       $1
-00019    001D 9E00                      ldx       $0                  ; load sav
-00020    001F 108E0000                  ldy       #$0
-00021    0023 ACA4                      cmpx      ,y                  ; compare
-00022    0025 2702                      beq       test_push_pull
-00023                    
-00024    0027 20FE       error          bra       error
-00025                    
-00026    0029 10CE00FF   test_push_pull lds       #$00ff
-00027    002D 3406                      pshs      a,b
-00028    002F 3510                      puls      x
-00029    0031 ACA4                      cmpx      ,y                  ; compare 
-00030    0033 26F2                      bne       error
-00031                    
-00032    0035 8D09                      bsr       test_bsr
-00033    0037 26EE                      bne       error               ; push/pul
-00034  W 0039 17000B                    lbsr      test_lea
-00035    003C 26E9                      bne       error
-00036    003E 20FE       ok             bra       ok
-00037                    
-00038    0040 3420       test_bsr       pshs      y
-00039    0042 3520                      puls      y
-00040    0044 AC20                      cmpx      0,y
-00041    0046 39                        rts       
-00042                    
-00043    0047 3321       test_lea       leau      1,y
-00044    0049 3120                      leay      0,y
-00045    004B 39                        rts       
+00008    000B 1E89                      exg       a,b
+00009                    		;exg	a,x
+00010    000D 1E21                      exg       y,x
+00011    000F 1F13                      tfr       x,u                 ; 16 bit t
+00012    0011 1F83                      tfr       a,u                 ; high to 
+00013    0013 1F93                      tfr       b,u
+00014    0015 1F18                      tfr       x,a                 ; gets hig
+00015    0017 1F19                      tfr       x,b                 ; gets low
+00016    0019 2002                      bra       eatests
+00017    001B 0000       addr           fcb       0,                  4	; an add
+00018                    
+00019    001D 8602       eatests        lda       #$02
+00020    001F C600                      ldb       #$00
+00021    0021 9700                      sta       $0
+00022    0023 D701                      stb       $1
+00023    0025 9E00                      ldx       $0                  ; load sav
+00024    0027 108E0000                  ldy       #$0
+00025    002B ACA4                      cmpx      ,y                  ; compare
+00026    002D 2702                      beq       test_push_pull
+00027                    
+00028    002F 20FE       error          bra       error
+00029                    
+00030    0031 10CE00FF   test_push_pull lds       #$00ff
+00031    0035 3406                      pshs      a,b
+00032    0037 3510                      puls      x
+00033    0039 ACA4                      cmpx      ,y                  ; compare 
+00034    003B 26F2                      bne       error
+00035                    
+00036    003D 8D09                      bsr       test_bsr
+00037    003F 26EE                      bne       error               ; push/pul
+00038  W 0041 17000B                    lbsr      test_lea
+00039    0044 26E9                      bne       error
+00040    0046 20FE       ok             bra       ok
+00041                    
+00042    0048 3420       test_bsr       pshs      y
+00043    004A 3520                      puls      y
+00044    004C AC20                      cmpx      0,y
+00045    004E 39                        rts       
+00046                    
+00047    004F 3321       test_lea       leau      1,y
+00048    0051 3120                      leay      0,y
+00049    0053 39                        rts       
+00050                    
+00051    0054 8E0064     _boot          ldx       #100
+00052    0057 CC4100     _loop0         ldd       #$4100
+00053    005A A785       _loop1         sta       b,x
+00054    005C 5C                        incb      
+00055    005D C110                      cmpb      #16
+00056    005F 26F9                      bne       _loop1
+00057    0061 4C                        inca      
+00058    0062 5C         _loop2         incb      
+00059    0063 26FD                      bne       _loop2              ; delay
+00060    0065 8180                      cmpa      #128
+
+
+
+The Mamou Assembler Version 01.00      01/05/2014 08:05:53      Page 002
+
+
+00061    0067 27F1                      beq       _loop1              ; another 
+00062    0069 20EC                      bra       _loop0
+00063                    
+00064                    
+00065                    
 
 Assembler Summary:
  - 0 errors, 1 warnings
- - 45 lines (35 source, 9 blank, 1 comment)
- - $004C (76) program bytes, $0000 (0) data bytes
+ - 65 lines (51 source, 12 blank, 2 comment)
+ - $006B (107) program bytes, $0000 (0) data bytes
  - Output file: "instructions_test.bin"

@@ -47,7 +47,7 @@ reg k_forced_mem_size; // used to force the size of a memory read to be 16 bits,
 wire [2:0] dec_o_p1_mode; // addressing mode
 wire [2:0] dec_o_p1_optype; // k_opcode type
 wire dec_o_use_s; // signals when S should be used instead of U
-wire dec_o_alu_size;
+wire dec_o_alu_size; /* size of the result of an alu opcode (destination to be written) */
 /* ea decoder */
 wire dec_o_ea_ofs8, dec_o_ea_ofs16, dec_o_ea_wpost, dec_o_ea_ofs0, dec_o_ea_indirect;
 /* alu k_opcode decoder */
@@ -101,7 +101,7 @@ regblock regs(
 	.path_left_addr(datamux_o_alu_in_left_path_addr),
 	.path_right_addr(dec_o_right_path_addr),
 	.write_reg_addr(datamux_o_dest_reg_addr),
-	.exg_dest_r(k_postbyte[3:0]),
+	.exg_dest_r(k_postbyte[7:4]),
 	.eapostbyte( k_ind_ea ),
 	.offset16({ k_ofshi, k_ofslo }),
 	.write_reg(k_write_dest),
@@ -199,20 +199,6 @@ always @(*)
 			datamux_o_alu_in_left_path_addr = k_pp_active_reg;
 		else
 			datamux_o_alu_in_left_path_addr = dec_o_left_path_addr;
-		
-		/*
-		case (k_pp_active_reg)
-			8'h80: datamux_o_alu_in_left_path_addr = `RN_PC;
-			8'h40: datamux_o_alu_in_left_path_addr = (dec_o_use_s) ? `RN_U:`RN_S;
-			8'h20: datamux_o_alu_in_left_path_addr = `RN_IY;
-			8'h10: datamux_o_alu_in_left_path_addr = `RN_IX;
-			8'h08: datamux_o_alu_in_left_path_addr = `RN_DP;
-			8'h04: datamux_o_alu_in_left_path_addr = `RN_ACCB;
-			8'h02: datamux_o_alu_in_left_path_addr = `RN_ACCA;
-			8'h01: datamux_o_alu_in_left_path_addr = `RN_CC;
-			8'h00: datamux_o_alu_in_left_path_addr = dec_o_left_path_addr;
-		endcase
-		*/
 	end
 
 /* Destination register address MUX
@@ -223,19 +209,6 @@ always @(*)
 			datamux_o_dest_reg_addr = k_pp_active_reg;
 		else
 			datamux_o_dest_reg_addr = dec_o_dest_reg_addr;
-		/*
-		case (k_pp_active_reg)
-			8'h80: datamux_o_dest_reg_addr = `RN_PC;
-			8'h40: datamux_o_dest_reg_addr = (dec_o_use_s) ? `RN_U:`RN_S;
-			8'h20: datamux_o_dest_reg_addr = `RN_IY;
-			8'h10: datamux_o_dest_reg_addr = `RN_IX;
-			8'h08: datamux_o_dest_reg_addr = `RN_DP;
-			8'h04: datamux_o_dest_reg_addr = `RN_ACCB;
-			8'h02: datamux_o_dest_reg_addr = `RN_ACCA;
-			8'h01: datamux_o_dest_reg_addr = `RN_CC;
-			8'h00: datamux_o_dest_reg_addr = dec_o_dest_reg_addr;
-		endcase
-		*/
 	end
 
 /* Destination register data mux
@@ -287,7 +260,6 @@ always @(*)
 					k_new_pc = { k_memhi,k_memlo };
 				else
 					k_new_pc = regs_o_eamem_addr;
-			
 		endcase
 	end
 /* ALU right input mux */
@@ -367,7 +339,7 @@ always @(posedge cpu_clk or posedge k_reset)
 				`SEQ_NMI:
 					begin
 						k_forced_mem_size <= 1;
-						k_reg_nmi <= 2'h0;
+						k_reg_nmi <= 3'h0;
 						{ k_eahi, k_ealo } <= 16'hfffc;
 						k_pp_regs <= 8'hff;
 						k_set_e <= 1;
@@ -389,7 +361,7 @@ always @(posedge cpu_clk or posedge k_reset)
 				`SEQ_IRQ:
 					begin
 						k_forced_mem_size <= 1;
-						k_reg_irq <= 2'h0;
+						k_reg_irq <= 3'h0;
 						state <= `SEQ_MEM_READ_H;
 						{ k_eahi, k_ealo } <= 16'hfff8;
 						k_pp_regs <= 8'hff;
@@ -402,7 +374,7 @@ always @(posedge cpu_clk or posedge k_reset)
 				`SEQ_FIRQ:
 					begin
 						k_forced_mem_size <= 1;
-						k_reg_firq <= 2'h0;
+						k_reg_firq <= 3'h0;
 						{ k_eahi, k_ealo } <= 16'hfff6;
 						k_pp_regs <= 8'h81; // PC & CC
 						k_clear_e <= 1;
@@ -450,10 +422,10 @@ always @(posedge cpu_clk or posedge k_reset)
 						if (k_nmi_req)
 							state <= `SEQ_NMI;
 						else
-						if (k_firq_req)
+						if (k_firq_req & `FLAGF)
 							state <= `SEQ_FIRQ;
 						else
-						if (k_irq_req)
+						if (k_irq_req & `FLAGI)
 							state <= `SEQ_IRQ;
 						else
 							begin
@@ -481,8 +453,8 @@ always @(posedge cpu_clk or posedge k_reset)
 								end
 							8'h11:
 								begin
-								k_p3_valid <= 1;
-								state <= `SEQ_FETCH_3;
+									k_p3_valid <= 1;
+									state <= `SEQ_FETCH_3;
 								end
 							8'h1e, 8'h1f:
 								state <= `SEQ_FETCH_3; // tfr, exg, treated separately
@@ -674,8 +646,7 @@ always @(posedge cpu_clk or posedge k_reset)
 								state <= `SEQ_GRAL_WBACK;
 								k_write_dest <= 1; /* write destination on wback */
 							end
-						else
-							k_mul_cnt <= 1'h0;
+						k_mul_cnt <= 1'h0;
 					end
 				`SEQ_GRAL_WBACK:
 					begin
@@ -709,23 +680,68 @@ always @(posedge cpu_clk or posedge k_reset)
 						k_ealo[7:4] <= 4'hf;
 						if (k_nmi_req)
 							begin
-								k_reg_nmi <= 2'h0;
+								k_reg_nmi <= 3'h0;
 								k_ealo[3:0] <= 4'hc;
 								state <= `SEQ_MEM_READ_H; // load new PC
 							end
 						else
-						if (k_firq_req)
+						if (k_firq_req & `FLAGF)
 							begin
-								k_reg_firq <= 2'h0;
+								k_reg_firq <= 3'h0;
 								k_ealo[3:0] <= 4'h6;
 								state <= `SEQ_MEM_READ_H; // load new PC
 							end
 						else
-						if (k_irq_req)
+						if (k_irq_req & `FLAGI)
 							begin
-								k_reg_irq <= 2'h0;
+								k_reg_irq <= 3'h0;
 								k_ealo[3:0] <= 4'hf8;
 								state <= `SEQ_MEM_READ_H; // load new PC
+							end
+					end
+				`SEQ_SYNC: /* sync works like this: 
+				            * waits for an interrupt request
+							* we recognize an interrupt if the level was kept for 2 cycles
+				            * then we don't call the service routine
+							* if it was 3 or more cycles, then we call the service routine
+							*/
+					begin
+						if (k_nmi_req)
+							begin
+								if (k_reg_nmi == 3'b111) // at least 3 cycles long
+									state <= `SEQ_NMI;
+								else
+									begin
+										state <= `SEQ_FETCH;
+										k_reg_nmi <= 3'h0;
+									end
+							end
+						else
+						if (k_firq_req & `FLAGF)
+							begin
+								if (k_reg_firq == 3'b111) // at least 3 cycles long
+									state <= `SEQ_FIRQ;
+								else
+									begin
+										state <= `SEQ_FETCH;
+										k_reg_firq <= 3'h0;
+									end
+							end
+						else
+						if (k_irq_req & `FLAGI)
+							begin
+								if (k_reg_irq == 3'b111) // at least 3 cycles long
+									state <= `SEQ_IRQ;
+								else
+									begin
+										state <= `SEQ_FETCH;
+										k_reg_irq <= 3'h0;
+									end
+							end
+						else
+							begin
+								state <= `SEQ_FETCH_1;
+								k_cpu_addr <= regs_o_pc;
 							end
 					end
 				`SEQ_TFREXG:

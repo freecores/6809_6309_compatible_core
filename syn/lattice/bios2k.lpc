@@ -16,8 +16,8 @@ CoreRevision=7.2
 ModuleName=bios2k
 SourceFormat=Verilog HDL
 ParameterFileVersion=1.0
-Date=12/28/2013
-Time=21:50:48
+Date=01/03/2014
+Time=08:42:51
 
 [Parameters]
 Verilog=1

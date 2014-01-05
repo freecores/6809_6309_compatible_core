@@ -24,6 +24,15 @@
         <Source name="bios2k.ipx" type="IPX_Module" type_short="IPX">
             <Options/>
         </Source>
+        <Source name="vgatext.v" type="Verilog" type_short="Verilog">
+            <Options/>
+        </Source>
+        <Source name="fontrom.ipx" type="IPX_Module" type_short="IPX">
+            <Options/>
+        </Source>
+        <Source name="textmem4k.ipx" type="IPX_Module" type_short="IPX">
+            <Options/>
+        </Source>
         <Source name="P6809.lpf" type="Logic Preference" type_short="LPF">
             <Options/>
         </Source>

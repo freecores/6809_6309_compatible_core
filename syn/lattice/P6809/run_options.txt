@@ -1,7 +1,7 @@
 #--  Synopsys, Inc.
 #--  Version G-2012.09L-SP1 
 #--  Project file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/run_options.txt
-#--  Written on Wed Jan  1 11:05:21 2014
+#--  Written on Sun Jan  5 08:22:47 2014
 
 
 #project files
@@ -13,6 +13,9 @@ add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl
 add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v"
 add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v"
 add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/bios2k.v"
+add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/vgatext.v"
+add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/fontrom.v"
+add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/textmem4k.v"
 
 
 #implementation: "P6809"

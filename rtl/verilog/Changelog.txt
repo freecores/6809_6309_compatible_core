@@ -1,6 +1,11 @@
 Changelong
 ----------
 
+05.01.14
+--------
+
+- MC6809_cpu.v : fixed exg (wrong source), implemented SYNC
+
 01.01.14
 --------
 

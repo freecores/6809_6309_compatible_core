@@ -37,7 +37,7 @@ initial
 		#0
 		#46
 		reset = 0;
-		#5000
+		#7000
 		$finish;
 	end
 
