@@ -7,17 +7,19 @@
  */
 `include "defs.v"
 module decode_regs(
+	input wire cpu_clk,
 	input wire [7:0] opcode,
 	input wire [7:0] postbyte0,
 	input wire page2_valid, // is 1 when the postbyte0 is a valid opcode (after it was loaded)
 	input wire page3_valid, // is 1 when the postbyte0 is a valid opcode (after it was loaded)
-	output reg [3:0] path_left_addr,
-	output reg [3:0] path_right_addr,
-	output reg [3:0] dest_reg,
+	output reg [3:0] path_left_addr_o,
+	output reg [3:0] path_right_addr_o,
+	output reg [3:0] dest_reg_o,
 	output wire write_dest,
 	output wire source_size,
 	output wire result_size
 	);
+reg [3:0] path_left_addr, path_right_addr, dest_reg;
 // for registers, memory writes are handled differently
 assign write_dest = (dest_reg != `RN_INV);
 assign source_size = (path_left_addr < `RN_ACCA);
@@ -88,7 +90,7 @@ always @(opcode, postbyte0, page2_valid, page3_valid)
 				endcase
 			8'h4x, 8'h8x, 8'h9x, 8'hax, 8'hbx: 
 				case (opcode[3:0]) 
-					4'h1: path_left_addr = `RN_ACCA; // CMP
+					4'h1, 4'h5: path_left_addr = `RN_ACCA; // CMP, BIT
 					4'h3: begin path_left_addr = `RN_ACCD; dest_reg = `RN_ACCD; end
 					4'h7: begin path_left_addr = `RN_ACCA; dest_reg = `RN_MEM8; end
 					4'hc: path_left_addr = `RN_IX; // cmpx
@@ -98,7 +100,7 @@ always @(opcode, postbyte0, page2_valid, page3_valid)
 				endcase
 			8'h5x, 8'hcx, 8'hdx, 8'hex, 8'hfx:
 				case (opcode[3:0]) 
-					4'h1: path_left_addr = `RN_ACCB; // CMP
+					4'h1, 4'h5: path_left_addr = `RN_ACCB; // CMP, BIT
 					4'h3, 4'hc: begin path_left_addr = `RN_ACCD; dest_reg = `RN_ACCD; end
 					4'h7: begin path_left_addr = `RN_ACCB; dest_reg = `RN_MEM8; end // store to mem
 					4'he: begin path_left_addr = `RN_U; dest_reg = `RN_IX; end
@@ -124,7 +126,12 @@ always @(opcode, postbyte0, page2_valid, page3_valid)
 			8'b1x1x_10xx: path_right_addr = `RN_MEM8;
 		endcase
 	end
-	
+always @(posedge cpu_clk)
+	begin
+		path_right_addr_o <= path_right_addr;
+		path_left_addr_o <= path_left_addr;
+		dest_reg_o <= dest_reg;
+	end
 endmodule
 
 /* Decodes module and addressing mode for page 1 opcodes */
@@ -299,19 +306,19 @@ always @(*)
 		dec_alu_right_path_mod = `MOD_DEFAULT;
 		casex (opcode)
 			8'b1xxx_0000: alu_opcode = `SUB;
-			8'b1xxx_0001: alu_opcode = `CMP;
+			8'b1xxx_0001: alu_opcode = `SUB; // CMP
 			8'b1xxx_0010: alu_opcode = `SBC;
 			8'b10xx_0011: alu_opcode = `SUB;
 			8'b11xx_0011: alu_opcode = `ADD;
 			8'b1xxx_0100: alu_opcode = `AND;
-			8'b1xxx_0101: alu_opcode = `BIT;
+			8'b1xxx_0101: alu_opcode = `AND; // BIT
 			8'b1xxx_0110: alu_opcode = `LD;
 			8'b1xxx_0111: alu_opcode = `ST;
 			8'b1xxx_1000: alu_opcode = `EOR;
 			8'b1xxx_1001: alu_opcode = `ADC;
 			8'b1xxx_1010: alu_opcode = `OR;
 			8'b1xxx_1011: alu_opcode = `ADD;
-			8'b10xx_1100: alu_opcode = `CMP;
+			8'b10xx_1100: alu_opcode = `SUB; // CMP
 			8'b11xx_1100: alu_opcode = `LD;
 			8'b11xx_1101: alu_opcode = `LD;
 			8'b1xxx_1110: alu_opcode = `LD;
@@ -333,21 +340,21 @@ always @(*)
 			8'h1a: alu_opcode = `ORCC;
 			8'h1c, 8'h3c: alu_opcode = `ANDCC;
 			8'h1d: alu_opcode = `SEXT;
-			8'h1e: alu_opcode = `EXG;
+			//8'h1e: alu_opcode = `EXG;
 			8'b0011_000x: alu_opcode = `LEA;
 			8'h3d: alu_opcode = `MUL;
 		endcase
 		if (page2_valid)
 			casex (postbyte0)
 				8'b10xx_0011,
-				8'b10xx_1010: alu_opcode = `CMP;
+				8'b10xx_1010: alu_opcode = `SUB; //CMP
 				8'b1xxx_1110: alu_opcode = `LD;
 				8'b1xxx_1111: alu_opcode = `ST;
 			endcase
 		if (page3_valid)
 			casex (postbyte0)
 				8'b10xx_0011,
-				8'b10xx_1010: alu_opcode = `CMP;
+				8'b10xx_1010: alu_opcode = `SUB; //CMP
 				8'b1xxx_1110: alu_opcode = `LD;
 				8'b1xxx_1111: alu_opcode = `ST;
 			endcase

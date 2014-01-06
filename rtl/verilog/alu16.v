@@ -28,14 +28,15 @@ wire [15:0] q16_out;
 wire [3:0] ccr16_out;
 
 reg [15:0] ra_in, rb_in;
-
-alu8 alu8(clk_in, ra_in[7:0], rb_in[7:0], CCR, opcode_in, q8_out, ccr8_out);
-alu16 alu16(clk_in, ra_in, rb_in, CCR, opcode_in, q16_out, ccr16_out);
+reg [4:0] rop_in;
+alu8 alu8(clk_in, ra_in[7:0], rb_in[7:0], CCR, rop_in, q8_out, ccr8_out);
+alu16 alu16(clk_in, ra_in, rb_in, CCR, rop_in, q16_out, ccr16_out);
 
 always @(posedge clk_in)
 	begin
 		ra_in <= a_in;
 		rb_in <= b_in;
+		rop_in <= opcode_in;
 	end
 
 always @(*)
@@ -51,13 +52,152 @@ always @(*)
 				CCRo = ccr8_out;
 			end
 	end
+	
+
+endmodule
+/**
+ * Simple 3 functions logic
+ *
+ */
+module logic8(
+	input wire [7:0] a_in,
+	input wire [7:0] b_in,
+	input wire [1:0] opcode_in, /* ALU opcode */
+	output reg [7:0] q_out /* ALU result */
+	);
+
+always @(*)
+	begin
+		case (opcode_in)
+			2'b00: q_out = b_in;
+			2'b01: q_out = a_in & b_in;
+			2'b10: q_out = a_in | b_in;
+			2'b11: q_out = a_in ^ b_in;
+		endcase
+	end
 
 endmodule
 
-module alu8(
-	input wire clk_in,
+/**
+ * Simple ADD/SUB module
+ *
+ */
+module arith8(
+	input wire [7:0] a_in,
+	input wire [7:0] b_in,
+	input wire carry_in, /* condition code register */
+	input wire half_c_in,
+	input wire [1:0] opcode_in, /* ALU opcode */
+	output reg [7:0] q_out, /* ALU result */
+	output reg carry_out, 
+	output reg overflow_out,
+	output reg half_c_out
+	);
+always @(*)
+	begin
+		case (opcode_in)
+			2'b00: { carry_out, q_out } = { 1'b0, a_in } + { 1'b0, b_in }; // ADD
+			2'b01: { carry_out, q_out } = { 1'b0, a_in } - { 1'b0, b_in }; // SUB
+			2'b10: { carry_out, q_out } = { 1'b0, a_in } + { 1'b0, b_in } + { 8'h0, carry_in }; // ADC
+			2'b11: { carry_out, q_out } = { 1'b0, a_in } - { 1'b0, b_in } - { 8'h0, carry_in }; // SBC
+		endcase
+	end
+
+always @(*)
+	begin
+		case (opcode_in)
+			2'b00, 2'b10: overflow_out = (a_in[7] & b_in[7] & (~q_out[7])) | ((~a_in[7]) & (~b_in[7]) & q_out[7]);
+			2'b01, 2'b11: overflow_out = (a_in[7] & (~b_in[7]) & (~q_out[7])) | ((~a_in[7]) & b_in[7] & q_out[7]);
+		endcase
+	end
+
+always @(*)
+	begin
+		case (opcode_in)
+			2'b00, 2'b10: half_c_out = (a_in[3] & b_in[3] & (~q_out[3])) | ((~a_in[3]) & (~b_in[3]) & q_out[3]);
+			2'b01, 2'b11: half_c_out = half_c_in;
+		endcase
+	end
+
+endmodule
+
+/**
+ * Simple ADD/SUB module
+ *
+ */
+module arith16(
 	input wire [15:0] a_in,
 	input wire [15:0] b_in,
+	input wire carry_in, /* condition code register */
+	input wire [1:0] opcode_in, /* ALU opcode */
+	output reg [15:0] q_out, /* ALU result */
+	output reg carry_out, 
+	output reg overflow_out
+	);
+always @(*)
+	begin
+		case (opcode_in)
+			2'b00: { carry_out, q_out } = { 1'b0, a_in } + { 1'b0, b_in }; // ADD
+			2'b01: { carry_out, q_out } = { 1'b0, a_in } - { 1'b0, b_in }; // SUB
+			2'b10: { carry_out, q_out } = { 1'b0, a_in } + { 1'b0, b_in } + { 8'h0, carry_in }; // ADC
+			2'b11: { carry_out, q_out } = { 1'b0, a_in } - { 1'b0, b_in } - { 8'h0, carry_in }; // SBC
+		endcase
+	end
+
+always @(*)
+	begin
+		case (opcode_in)
+			2'b00, 2'b10: overflow_out = (a_in[15] & b_in[15] & (~q_out[15])) | ((~a_in[15]) & (~b_in[15]) & q_out[7]);
+			2'b01, 2'b11: overflow_out = (a_in[15] & (~b_in[15]) & (~q_out[15])) | ((~a_in[15]) & b_in[15] & q_out[7]);
+		endcase
+	end
+
+endmodule
+
+module shift8(
+	input wire [7:0] a_in,
+	input wire [7:0] b_in,
+	input wire carry_in, /* condition code register */
+	input wire overflow_in, /* condition code register */
+	input wire [2:0] opcode_in, /* ALU opcode */
+	output reg [7:0] q_out, /* ALU result */
+	output wire carry_out,
+	output reg overflow_out
+	);
+
+always @(*)
+	begin
+		q_out = { a_in[7], a_in[7:1] }; // ASR
+		case (opcode_in)
+			3'b000: q_out = { 1'b0, a_in[7:1] }; // LSR
+			3'b001: q_out = { a_in[6:0], 1'b0 }; // LSL
+			3'b010: q_out = { carry_in, a_in[7:1] }; // ROR
+			3'b011: q_out = { a_in[6:0], carry_in }; // ROL
+			3'b100: q_out = { a_in[7], a_in[7:1] }; // ASR
+		endcase
+	end
+
+always @(*)
+	begin
+		overflow_out = overflow_in;
+		case (opcode_in)
+			3'b000: overflow_out = overflow_in; // LSR
+			3'b001: overflow_out = a_in[7] ^ a_in[6]; // LSL
+			3'b010: overflow_out = overflow_in; // ROR
+			3'b011: overflow_out = a_in[7] ^ a_in[6]; // ROL
+			3'b100: overflow_out = overflow_in; // ASR
+		endcase
+	end
+
+assign carry_out = opcode_in[0] ? a_in[0]:a_in[7];
+
+endmodule
+
+
+module alu8(
+	input wire clk_in,
+	input wire [7:0] a_in,
+	input wire [7:0] b_in,
 	input wire [7:0] CCR, /* condition code register */
 	input wire [4:0] opcode_in, /* ALU opcode */
 	output reg [7:0] q_out, /* ALU result */
@@ -71,74 +211,18 @@ assign v_in = CCR[1]; /* overflow flag */
 assign z_in = CCR[2]; /* zero flag */
 assign h_in = CCR[5]; /* halb-carry flag */
 
-
-wire [7:0] add8_r, adc8_r, sub8_r, sbc8_r, com8_r, neg8_r;
-wire [7:0] asr8_r, shr8_r, shl8_r, ror8_r, rol8_r, and8_r, or8_r, eor8_r;
+wire [7:0] com8_r, neg8_r;
 wire [3:0] daa8l_r, daa8h_r;
 wire daa_lnm9;
 
-wire [7:0] add8_w, adc8_w, com8_w, neg8_w, sub8_w, sbc8_w;
-wire [7:0] asr8_w, shr8_w, shl8_w, ror8_w, rol8_w, and8_w, or8_w, eor8_w;
+wire [7:0] com8_w, neg8_w;
 
+wire ccom8_r, cneg8_r, cdaa8_r;
 
-wire cadd8_w, cadc8_w, csub8_w, csbc8_w;
-wire cadd16_w, cadc16_w, csub16_w, csbc16_w;
-
-wire cadd8_r, cadc8_r, csub8_r, csbc8_r, ccom8_r, cneg8_r;
-wire casr8_r, cshr8_r, cshl8_r, cror8_r, crol8_r, cand8_r, cdaa8_r;
-
-wire vadd8_r, vadc8_r, vsub8_r, vsbc8_r, vcom8_r, vneg8_r;
-wire vasr8_r, vshr8_r, vshl8_r, vror8_r, vrol8_r, vand8_r;
-
-assign { cadd8_w, add8_w }   = { 1'b0, a_in[7:0] } + { 1'b0, b_in[7:0] };
-
-assign { cadc8_w, adc8_w }   = { 1'b0, a_in[7:0] } + { 1'b0, b_in[7:0] } + { 8'h0, c_in };
-
-
-assign { csub8_w, sub8_w }   = { 1'b0, a_in[7:0] } - { 1'b0, b_in[7:0] };
-
-assign { csbc8_w, sbc8_w }   = { 1'b0, a_in[7:0] } - { 1'b0, b_in[7:0] } - { 8'h0, c_in };
-
+wire vcom8_r, vneg8_r;
 
 assign com8_w = ~a_in[7:0];
-
 assign neg8_w = 8'h0 - a_in[7:0];
-
-
-assign asr8_w = { a_in[7], a_in[7:1] };
-
-
-assign shr8_w = { 1'b0, a_in[7:1] };
-
-
-assign shl8_w = { a_in[6:0], 1'b0 };
-
-
-assign ror8_w = { c_in, a_in[7:1] };
-
-
-assign rol8_w = { a_in[6:0], c_in };
-
-
-assign and8_w = a_in[7:0] & b_in[7:0];
-
-
-assign or8_w = a_in[7:0] | b_in[7:0];
-
-
-assign eor8_w = a_in[7:0] ^ b_in[7:0];
-
-
-		// ADD, ADC
-assign { cadd8_r, add8_r } = { cadd8_w, add8_w };
-assign vadd8_r = (a_in[7] & b_in[7] & (~add8_w[7])) | ((~a_in[7]) & (~b_in[7]) & add8_w[7]);
-assign { cadc8_r, adc8_r } = { cadd8_w, add8_w };
-assign vadc8_r = (a_in[7] & b_in[7] & (~add8_w[7])) | ((~a_in[7]) & (~b_in[7]) & adc8_w[7]);
-		// SUB, SUBC
-assign { csub8_r, sub8_r } = { csub8_w, sub8_w };
-assign vsub8_r = (a_in[7] & (~b_in[7]) & (~sub8_w[7])) | ((~a_in[7]) & b_in[7] & sub8_w[7]);
-assign { csbc8_r, sbc8_r } = { csbc8_w, sbc8_w };
-assign vsbc8_r = (a_in[7] & b_in[7] | (~sbc8_w[7])) | ((~a_in[7]) & b_in[7] & sbc8_w[7]);
 		// COM
 assign com8_r = com8_w;
 assign ccom8_r = com8_w != 8'h0 ? 1'b1:1'b0;
@@ -147,34 +231,6 @@ assign vcom8_r = 1'b0;
 assign neg8_r = neg8_w;
 assign cneg8_r = neg8_w[7] | neg8_w[6] | neg8_w[5] | neg8_w[4] | neg8_w[3] | neg8_w[2] | neg8_w[1] | neg8_w[0];
 assign vneg8_r = neg8_w[7] & (~neg8_w[6]) & (~neg8_w[5]) & (~neg8_w[4]) & (~neg8_w[3]) & (~neg8_w[2]) & (~neg8_w[1]) & (~neg8_w[0]);
-		// ASR
-assign asr8_r = asr8_w;
-assign casr8_r = a_in[0];
-assign vasr8_r = a_in[0] ^ asr8_w[7];
-		// SHR
-assign shr8_r = shr8_w;
-assign cshr8_r = a_in[0];
-assign vshr8_r = a_in[0] ^ shr8_w[7];
-		// SHL
-assign shl8_r = shl8_w;
-assign cshl8_r = a_in[7];
-assign vshl8_r = a_in[7] ^ shl8_w[7];
-		// ROR
-assign ror8_r = ror8_w;
-assign cror8_r = a_in[0];
-assign vror8_r = a_in[0] ^ shr8_w[7];
-		// ROL
-assign rol8_r = shl8_w;
-assign crol8_r = a_in[7];
-assign vrol8_r = a_in[7] ^ rol8_w[7];
-		// AND
-assign and8_r = and8_w;
-assign cand8_r = c_in;
-assign vand8_r = 1'b0;
-		// OR
-assign or8_r = or8_w;
-		// EOR
-assign eor8_r = eor8_w;
 		// DAA
 assign daa_lnm9 = (a_in[3:0] > 9);
 assign daa8l_r = (daa_lnm9 | h_in ) ? a_in[3:0] + 4'h6:a_in[3:0];
@@ -184,6 +240,13 @@ assign cdaa8_r = daa8h_r < a_in[7:4];
 reg c8, h8, n8, v8, z8;
 reg [7:0] q8;
 		
+wire [7:0] logic_q, arith_q, shift_q;
+wire arith_c, arith_v, arith_h;
+wire shift_c, shift_v;
+logic8 l8(a_in, b_in, opcode_in[1:0], logic_q);
+arith8 a8(a_in, b_in, c_in, h_in, opcode_in[1:0], arith_q, arith_c, arith_v, arith_h);
+shift8 s8(a_in, b_in, c_in, v_in, opcode_in[2:0], shift_q, shift_c, shift_v);
+
 always @(*)
 	begin
 		q8 = 8'h0;
@@ -191,29 +254,12 @@ always @(*)
 		h8 = h_in;
 		v8 = v_in;
 		case (opcode_in)
-			`ADD:
+			`ADD, `ADC, `SUB, `SBC:
 				begin
-					q8 = add8_r;
-					c8 = cadd8_r;
-					v8 = vadd8_r;
-				end
-			`ADC:
-				begin
-					q8 = adc8_r;
-					c8 = cadc8_r;
-					v8 = vadc8_r;
-				end
-			`CMP, `SUB: // for CMP no register result is written back
-				begin
-					q8 = sub8_r;
-					c8 = csub8_r;
-					v8 = vsub8_r;
-				end
-			`SBC:
-				begin
-					q8 = sbc8_r;
-					c8 = csbc8_r;
-					v8 = vsbc8_r;
+					q8 = arith_q;
+					c8 = arith_c;
+					v8 = arith_v;
+					h8 = arith_h;
 				end
 			`COM:
 				begin
@@ -227,67 +273,21 @@ always @(*)
 					c8 = cneg8_r;
 					v8 = vneg8_r;
 				end
-			`ASR:
+			`LSR, `LSL, `ROL, `ROR,`ASR:
 				begin
-					q8 = asr8_r;
-					c8 = casr8_r;
-					v8 = vasr8_r;
+					q8 = shift_q;
+					c8 = shift_c;
+					v8 = shift_v;
 				end
-			`LSR:
+			`AND, `OR, `EOR, `LD:
 				begin
-					q8 = shr8_r;
-					c8 = cshr8_r;
-					v8 = vshr8_r;
-				end
-			`LSL:
-				begin
-					q8 = shl8_r;
-					c8 = cshl8_r;
-					v8 = vshl8_r;
-				end
-			`ROR:
-				begin
-					q8 = ror8_r;
-					c8 = cror8_r;
-					v8 = vror8_r;
-				end
-			`ROL:
-				begin
-					q8 = rol8_r;
-					c8 = crol8_r;
-					v8 = vrol8_r;
-				end
-			`AND:
-				begin
-					q8 = and8_r;
-					c8 = cand8_r;
-					v8 = vand8_r;
+					q8 = logic_q;
+					v8 = 1'b0;
 					end
-			`OR:
-				begin
-					q8 = or8_r;
-					c8 = cand8_r;
-					v8 = vand8_r;
-				end
-			`EOR:
-				begin
-					q8 = eor8_r;
-					c8 = cand8_r;
-					v8 = vand8_r;
-				end
 			`DAA:
 				begin // V is undefined, so we don't touch it
 					q8 = { daa8h_r, daa8l_r };
 					c8 = cdaa8_r;
-				end
-			`MUL:
-				begin
-
-				end
-			`LD:
-				begin
-					v8 = 0;
-					q8 = b_in[7:0];
 				end
 			`ST:
 				begin
@@ -338,62 +338,31 @@ assign n_in = CCR[3]; /* neg flag */
 assign v_in = CCR[1]; /* overflow flag */
 assign z_in = CCR[2]; /* zero flag */
 
-wire [15:0] add16_r, adc16_r, sub16_r, sbc16_r, com16_r, neg16_r;
-wire [15:0] asr16_r, shr16_r, shl16_r, ror16_r, rol16_r, and16_r, or16_r, eor16_r, mul16_r;
+`ifdef HD6309
+wire [15:0] com16_r, neg16_r;
+wire [15:0] asr16_r, shr16_r, shl16_r, ror16_r, rol16_r, and16_r, or16_r, eor16_r;
 
-wire [15:0] add16_w, adc16_w, com16_w, neg16_w, sub16_w, sbc16_w;
+wire [15:0] com16_w, neg16_w;
 wire [15:0] asr16_w, shr16_w, shl16_w, ror16_w, rol16_w, and16_w, or16_w, eor16_w;
 
-wire cadd16_w, cadc16_w, csub16_w, csbc16_w;
-
-wire cadd16_r, cadc16_r, csub16_r, csbc16_r, ccom16_r, cneg16_r;
-wire casr16_r, cshr16_r, cshl16_r, cror16_r, crol16_r, cand16_r, cmul16_r;
+wire ccom16_r, cneg16_r;
+wire casr16_r, cshr16_r, cshl16_r, cror16_r, crol16_r, cand16_r;
 
 wire vadd16_r, vadc16_r, vsub16_r, vsbc16_r, vcom16_r, vneg16_r;
 wire vasr16_r, vshr16_r, vshl16_r, vror16_r, vrol16_r, vand16_r;
 
-
-assign { cadd16_w, add16_w } = { 1'b0, a_in[15:0] } + { 1'b0, b_in[15:0] };
-
-assign { cadc16_w, adc16_w } = { 1'b0, a_in[15:0] } + { 1'b0, b_in[15:0] } + { 16'h0, c_in };
-
-
-assign { csub16_w, sub16_w } = { 1'b0, a_in[15:0] } - { 1'b0, b_in[15:0] };
-
-assign { csbc16_w, sbc16_w } = { 1'b0, a_in[15:0] } - { 1'b0, b_in[15:0] } - { 16'h0, c_in };
-
-
 assign com16_w = ~a_in[15:0];
-
 assign neg16_w = 16'h0 - a_in[15:0];
-
 assign asr16_w = { a_in[15], a_in[15:1] };
-
 assign shr16_w = { 1'b0, a_in[15:1] };
-
 assign shl16_w = { a_in[14:0], 1'b0 };
-
 assign ror16_w = { c_in, a_in[15:1] };
-
 assign rol16_w = { a_in[14:0], c_in };
-
 assign and16_w = a_in[15:0] & b_in[15:0];
-
 assign or16_w = a_in[15:0] | b_in[15:0];
-
 assign eor16_w = a_in[15:0] ^ b_in[15:0];
 
-		// ADD, ADC
-assign { cadd16_r, add16_r } = { cadd16_w, add16_w };
-assign vadd16_r = (a_in[15] & b_in[15] & (~add16_w[15])) | ((~a_in[15]) & (~b_in[15]) & add16_w[15]);
-assign { cadc16_r, adc16_r } = { cadd16_w, add16_w };
-assign vadc16_r = (a_in[15] & b_in[15] & (~add16_w[15])) | ((~a_in[15]) & (~b_in[15]) & adc16_w[15]);
-		// SUB, SUBC
-assign { csub16_r, sub16_r } = { csub16_w, sub16_w };
-assign vsub16_r = (a_in[15] & b_in[15] & (~add16_w[15])) | ((~a_in[15]) & b_in[15] & sub16_w[15]);
-assign { csbc16_r, sbc16_r } = { csbc16_w, sbc16_w };
-assign vsbc16_r = (a_in[15] & b_in[15] & (~sbc16_w[15])) | ((~a_in[15]) & b_in[15] & sbc16_w[15]);
-		// COM
+// COM
 assign com16_r = com16_w;
 assign ccom16_r = com16_w != 16'h0 ? 1'b1:1'b0;
 assign vcom16_r = 1'b0;
@@ -429,44 +398,31 @@ assign vand16_r = 1'b0;
 assign or16_r = or16_w;
 		// EOR
 assign eor16_r = eor16_w;
+`endif
 
 wire [15:0] q16_mul;
 
-mul8x8 mulu(clk_in, a_in[7:0], b_in[7:0], mul16_r);
-assign cmul16_r = mul16_r[7];
+mul8x8 mulu(clk_in, a_in[7:0], b_in[7:0], q16_mul);
 
 reg c16, n16, v16, z16;
 reg [15:0] q16;
 		
+wire [15:0] arith_q;
+wire arith_c, arith_v, arith_h;
+
+arith16 a16(a_in, b_in, c_in, opcode_in[1:0], arith_q, arith_c, arith_v);
+
 always @(*)
 	begin
 		q16 = 16'h0;
 		c16 = c_in;
 		v16 = v_in;
 		case (opcode_in)
-			`ADD:
+			`ADD, `ADC, `SUB, `SBC:
 				begin
-					q16 = add16_r;
-					c16 = cadd16_r;
-					v16 = vadd16_r;
-				end
-			`ADC:
-				begin
-					q16 = adc16_r;
-					c16 = cadc16_r;
-					v16 = vadc16_r;
-				end
-			`CMP, `SUB: // for CMP no register result is written back
-				begin
-					q16 = sub16_r;
-					c16 = csub16_r;
-					v16 = vsub16_r;
-				end
-			`SBC:
-				begin
-					q16 = sbc16_r;
-					c16 = csbc16_r;
-					v16 = vsbc16_r;
+					q16 = arith_q;
+					c16 = arith_c;
+					v16 = arith_v;
 				end
 `ifdef HD6309
 			`COM:
@@ -532,8 +488,8 @@ always @(*)
 `endif
 			`MUL:
 				begin
-					q16 = mul16_r;
-					c16 = cmul16_r;
+					q16 = q16_mul;
+					c16 = q16_mul[7];
 				end
 			`LD:
 				begin
@@ -577,7 +533,7 @@ always @(*)
 			`ADC:
 				begin
 				end
-			`CMP, `SUB: // for CMP no register result is written back
+			`SUB: // for CMP no register result is written back
 				begin
 				end
 			`SBC:
@@ -642,9 +598,6 @@ always @(*)
 		CCRo = { n16, z16, v16, c16 };
 	end
 
-initial
-	begin
-	end
 endmodule
 
 module mul8x8(

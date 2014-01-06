@@ -1,8 +1,13 @@
 Known bugs are described here
 
-05.01.14
+06.01.14
 --------
 
+- no known bugs
+
+05.01.14
+--------
+- The bit instruction modifies the destination (it shouldn't)
 - The E flag is not read back when RTI is processed. This means that FIRQ will not return
   correctly.
 

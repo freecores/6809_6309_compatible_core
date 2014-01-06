@@ -20,34 +20,30 @@
 
 // opcodes that need an ALU result
 `define NOP    5'b00000
-`define CMP    5'b00001
-`define SBC    5'b00010
-`define ADD    5'b00011
-`define AND    5'b00100
-`define BIT    5'b00101
-`define LD     5'b00110
-`define ST     5'b00111
-`define EOR    5'b01000
-`define ADC    5'b01001
-`define OR     5'b01010
-`define SUB    5'b01011
-`define T168L  5'b01100
-`define T168H  5'b01101
-`define SEXT   5'b01110
-`define EXG    5'b01111
+`define SEXT   5'b00001
+`define ST     5'b00010
+`define BIT    5'b00011
 
-`define NEG    5'b10000
-`define COM    5'b10001
-`define LSR    5'b10010
-`define ROR    5'b10011
+`define LD     5'b00100 // in logic8
+`define AND    5'b00101 // in logic8
+`define OR     5'b00110 // in logic8
+`define EOR    5'b00111 // in logic8
+`define ADD    5'b01000 // in arith8
+`define SUB    5'b01001 // in arith8
+`define ADC    5'b01010 // in arith8
+`define SBC    5'b01011 // in arith8
+
+`define LSR    5'b10000
+`define ROR    5'b10001
+`define LSL    5'b10011
+`define ROL    5'b10011
 `define ASR    5'b10100
-`define LSL    5'b10101
-`define ROL    5'b10110
-`define ORCC   5'b10111
-`define ANDCC  5'b11000
-`define DAA    5'b11001  
-`define MUL    5'b11010
-`define T816   5'b11011
+`define NEG    5'b10101
+`define COM    5'b10110
+`define ORCC   5'b11000
+`define ANDCC  5'b11001
+`define DAA    5'b11010  
+`define MUL    5'b11011
 `define LEA    5'b11100
 
 /* Sequencer states */
@@ -116,14 +112,10 @@
 `define SEQ_MEM_WRITE_L		'h3e
 `define SEQ_MEM_WRITE_L_1	'h3f
 
-
-//`define FLAGC regs_o_CCR[0]
-//`define FLAGV regs_o_CCR[1]
-//`define FLAGZ regs_o_CCR[2]
-//`define FLAGN regs_o_CCR[3]
+// flags used in MC6809_cpu.v
 `define FLAGI regs_o_CCR[5]
 `define FLAGF regs_o_CCR[6]
-//`define FLAGE regs_o_CCR[7]
+`define FLAGE regs_o_CCR[7]
 
 `define DFLAGC CCR[0]
 `define DFLAGV CCR[1]

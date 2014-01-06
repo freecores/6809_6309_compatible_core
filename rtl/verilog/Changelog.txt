@@ -1,10 +1,18 @@
 Changelong
 ----------
 
+06.01.14
+--------
+
+- decoders.v : added registered outputs for the source/destination address registers
+
 05.01.14
 --------
 
 - MC6809_cpu.v : fixed exg (wrong source), implemented SYNC
+- decoders.v : fixed destination for BIT
+- defs.v : reduced the number of ALU opcodes
+- alu16.v : reduced the number of ALU opcodes, fused BIT with AND, CMP with SUB
 
 01.01.14
 --------

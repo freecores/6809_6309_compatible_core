@@ -5,39 +5,39 @@
             <Task name="IBIS" build_result="0" update_result="3" update_time="0"/>
             <Task name="TimingSimFileVlg" build_result="0" update_result="3" update_time="0"/>
             <Task name="TimingSimFileVHD" build_result="0" update_result="3" update_time="0"/>
-            <Task name="Bitgen" build_result="2" update_result="0" update_time="1388906627"/>
+            <Task name="Bitgen" build_result="0" update_result="2" update_time="1388911305"/>
             <Task name="BitgenXO2" build_result="0" update_result="3" update_time="0"/>
         </Milestone>
-        <Milestone name="Map" build_result="2" build_time="1388906592">
-            <Task name="Map" build_result="2" update_result="0" update_time="1388906592"/>
-            <Task name="MapTrace" build_result="2" update_result="0" update_time="1388906592"/>
+        <Milestone name="Map" build_result="2" build_time="1388987672">
+            <Task name="Map" build_result="2" update_result="0" update_time="1388987672"/>
+            <Task name="MapTrace" build_result="2" update_result="0" update_time="1388987673"/>
             <Task name="MapVerilogSimFile" build_result="0" update_result="3" update_time="0"/>
             <Task name="MapVHDLSimFile" build_result="0" update_result="3" update_time="0"/>
         </Milestone>
-        <Milestone name="PAR" build_result="2" build_time="1388906622">
-            <Task name="PAR" build_result="2" update_result="0" update_time="1388906622"/>
-            <Task name="PARTrace" build_result="2" update_result="0" update_time="1388906623"/>
+        <Milestone name="PAR" build_result="2" build_time="1388987703">
+            <Task name="PAR" build_result="2" update_result="0" update_time="1388987703"/>
+            <Task name="PARTrace" build_result="2" update_result="0" update_time="1388987704"/>
             <Task name="IOTiming" build_result="0" update_result="3" update_time="0"/>
         </Milestone>
-        <Milestone name="Synthesis" build_result="2" build_time="1388906590">
-            <Task name="Synplify_Synthesis" build_result="2" update_result="0" update_time="1388906590"/>
+        <Milestone name="Synthesis" build_result="2" build_time="1388987670">
+            <Task name="Synplify_Synthesis" build_result="2" update_result="0" update_time="1388987670"/>
         </Milestone>
         <Milestone name="TOOL_Report" build_result="0" build_time="0">
-            <Task name="HDLE" build_result="2" update_result="0" update_time="1388906563"/>
+            <Task name="HDLE" build_result="2" update_result="0" update_time="1388987647"/>
             <Task name="BKM" build_result="0" update_result="2" update_time="0"/>
             <Task name="SSO" build_result="0" update_result="2" update_time="0"/>
             <Task name="PIODRC" build_result="0" update_result="2" update_time="0"/>
         </Milestone>
-        <Milestone name="Translate" build_result="2" build_time="1388906590">
-            <Task name="Translate" build_result="2" update_result="0" update_time="1388906590"/>
+        <Milestone name="Translate" build_result="2" build_time="1388987671">
+            <Task name="Translate" build_result="2" update_result="0" update_time="1388987671"/>
         </Milestone>
-        <Report name="P6809_P6809.bgn" last_build_time="1388906627" last_build_size="4382"/>
-        <Report name="P6809_P6809.edi" last_build_time="1388906588" last_build_size="2034289"/>
-        <Report name="P6809_P6809.jed" last_build_time="1388906627" last_build_size="1454725"/>
-        <Report name="P6809_P6809.ncd" last_build_time="1388906622" last_build_size="2333883"/>
-        <Report name="P6809_P6809.ngd" last_build_time="1388906590" last_build_size="1755042"/>
-        <Report name="P6809_P6809.tw1" last_build_time="1388906592" last_build_size="18956"/>
-        <Report name="P6809_P6809.twr" last_build_time="1388906623" last_build_size="72445"/>
-        <Report name="P6809_P6809_map.ncd" last_build_time="1388906591" last_build_size="1552452"/>
+        <Report name="P6809_P6809.bgn" last_build_time="1388911305" last_build_size="4382"/>
+        <Report name="P6809_P6809.edi" last_build_time="1388987669" last_build_size="2135637"/>
+        <Report name="P6809_P6809.jed" last_build_time="1388911305" last_build_size="1454725"/>
+        <Report name="P6809_P6809.ncd" last_build_time="1388987703" last_build_size="2336339"/>
+        <Report name="P6809_P6809.ngd" last_build_time="1388987671" last_build_size="1745908"/>
+        <Report name="P6809_P6809.tw1" last_build_time="1388987673" last_build_size="17820"/>
+        <Report name="P6809_P6809.twr" last_build_time="1388987704" last_build_size="68460"/>
+        <Report name="P6809_P6809_map.ncd" last_build_time="1388987672" last_build_size="1551874"/>
     </Strategy>
 </BuildStatus>

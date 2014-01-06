@@ -1,0 +1,57 @@
+NOTE Copyright (C), 1992-2010, Lattice Semiconductor Corporation *
+NOTE All Rights Reserved *
+NOTE DATE CREATED: Sun Jan  5 09:41:45 2014 *
+NOTE DESIGN NAME: CC3_top *
+NOTE DEVICE NAME: LCMXO2-7000HE-4TQFP144 *
+NOTE PIN ASSIGNMENTS *
+NOTE PINS data_io[0] : 143 : out *
+NOTE PINS cpuclk_o : 60 : out *
+NOTE PINS clk40_i : 27 : in *
+NOTE PINS blue_o : 74 : out *
+NOTE PINS green_o : 76 : out *
+NOTE PINS red_o : 78 : out *
+NOTE PINS vsync_o : 75 : out *
+NOTE PINS hsync_o : 73 : out *
+NOTE PINS leds_o[7] : 107 : out *
+NOTE PINS leds_o[6] : 106 : out *
+NOTE PINS leds_o[5] : 105 : out *
+NOTE PINS leds_o[4] : 104 : out *
+NOTE PINS leds_o[3] : 100 : out *
+NOTE PINS leds_o[2] : 99 : out *
+NOTE PINS leds_o[1] : 98 : out *
+NOTE PINS leds_o[0] : 97 : out *
+NOTE PINS state_o[5] : 62 : out *
+NOTE PINS state_o[4] : 65 : out *
+NOTE PINS state_o[3] : 61 : out *
+NOTE PINS state_o[2] : 126 : out *
+NOTE PINS state_o[1] : 127 : out *
+NOTE PINS state_o[0] : 128 : out *
+NOTE PINS data_io[7] : 132 : out *
+NOTE PINS data_io[6] : 133 : out *
+NOTE PINS data_io[5] : 138 : out *
+NOTE PINS data_io[4] : 139 : out *
+NOTE PINS data_io[3] : 140 : out *
+NOTE PINS data_io[2] : 141 : out *
+NOTE PINS data_io[1] : 142 : out *
+NOTE PINS cen_o : 57 : out *
+NOTE PINS wen_o : 59 : out *
+NOTE PINS oen_o : 58 : out *
+NOTE PINS addr_o[15] : 56 : out *
+NOTE PINS addr_o[14] : 54 : out *
+NOTE PINS addr_o[13] : 55 : out *
+NOTE PINS addr_o[12] : 52 : out *
+NOTE PINS addr_o[11] : 50 : out *
+NOTE PINS addr_o[10] : 48 : out *
+NOTE PINS addr_o[9] : 49 : out *
+NOTE PINS addr_o[8] : 47 : out *
+NOTE PINS addr_o[7] : 45 : out *
+NOTE PINS addr_o[6] : 43 : out *
+NOTE PINS addr_o[5] : 44 : out *
+NOTE PINS addr_o[4] : 42 : out *
+NOTE PINS addr_o[3] : 41 : out *
+NOTE PINS addr_o[2] : 39 : out *
+NOTE PINS addr_o[1] : 40 : out *
+NOTE PINS addr_o[0] : 38 : out *
+NOTE PINS reset_o : 125 : out *
+NOTE CONFIGURATION MODE: NONE *
+NOTE COMPRESSION: on *

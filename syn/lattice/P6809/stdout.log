@@ -3,7 +3,7 @@ Running in Lattice mode
 
 Starting:    /usr/local/diamond/2.2_x64/synpbase/linux_a_64/mbin/synbatch
 Install:     /usr/local/diamond/2.2_x64/synpbase
-Date:        Sun Jan  5 08:22:47 2014
+Date:        Mon Jan  6 06:54:11 2014
 Version:     G-2012.09L-SP1 
 
 Arguments:   -product synplify_pro  -batch P6809_P6809_synplify.tcl
@@ -29,7 +29,7 @@ Copied /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P68
 
 compiler Completed with warnings
 Return Code: 1
-Run Time:00h:00m:04s
+Run Time:00h:00m:03s
 
 
 Copied /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.srr to /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.srf
@@ -51,7 +51,7 @@ Running Map & Optimize on proj_1|P6809
 
 fpga_mapper Completed with warnings
 Return Code: 1
-Run Time:00h:00m:17s
+Run Time:00h:00m:14s
 
 
 Job Map completed on proj_1|P6809

@@ -1,88 +1,12 @@
-
-synpwrap -prj "P6809_P6809_synplify.tcl" -log "P6809_P6809.srf"
- 
-*****************************************************************
- 
-Warning: You are running on an unsupported platform 
-  'synplify_pro' only supports Red Hat Enterprise Linux 4.0 and above
- 
-  current platform: CentOS release 6.4 (Final)
-Kernel \r on an \m 
- 
-*****************************************************************
- 
-Running in Lattice mode
-
-
-Starting:    /usr/local/diamond/2.2_x64/synpbase/linux_a_64/mbin/synbatch
-Install:     /usr/local/diamond/2.2_x64/synpbase
-Date:        Mon Jan  6 06:54:11 2014
-Version:     G-2012.09L-SP1 
-
-Arguments:   -product synplify_pro  -batch P6809_P6809_synplify.tcl
-ProductType: synplify_pro
-
-
-
-
-
-
-log file: "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.srr"
-
-
-Running proj_1|P6809
-
-Running Compile on proj_1|P6809
-
-Running Compile Process on proj_1|P6809
-
-Running Compile Input on proj_1|P6809
-
-Copied /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/synwork/P6809_P6809_compiler.srs to /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.srs
-
-compiler Completed with warnings
-Return Code: 1
-Run Time:00h:00m:03s
-
-
-Copied /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.srr to /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.srf
-
-Job Compile Process completed on proj_1|P6809
-
-Running Premap on proj_1|P6809
-
-premap Completed with warnings
-Return Code: 1
-Run Time:00h:00m:01s
-
-
-Job Compile completed on proj_1|P6809
-
-Running Map on proj_1|P6809
-
-Running Map & Optimize on proj_1|P6809
-
-fpga_mapper Completed with warnings
-Return Code: 1
-Run Time:00h:00m:14s
-
-
-Job Map completed on proj_1|P6809
-
-Copied /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.srr to /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.srf
-
-Job Logic Synthesis completed on proj_1|P6809
-
-TCL script complete: "P6809_P6809_synplify.tcl"
-
-exit status=0
-
-
-Copyright (C) 1992-2013 Lattice Semiconductor Corporation. All rights reserved.
-Lattice Diamond Version 2.2.0.101
-Child process exit with 0.
-
-==contents of P6809_P6809.srf
+<HTML>
+<HEAD><TITLE>Synthesis Report</TITLE>
+<STYLE TYPE="text/css">
+<!--
+ body,pre{    font-family:'Courier New', monospace;    color: #000000;    font-size:88%;    background-color: #ffffff;}h1 {    font-weight: bold;    margin-top: 24px;    margin-bottom: 10px;    border-bottom: 3px solid #000;    font-size: 1em;}h2 {    font-weight: bold;    margin-top: 18px;    margin-bottom: 5px;    font-size: 0.90em;}h3 {    font-weight: bold;    margin-top: 12px;    margin-bottom: 5px;    font-size: 0.80em;}p {    font-size:78%;}P.Table {    margin-top: 4px;    margin-bottom: 4px;    margin-right: 4px;    margin-left: 4px;}table{    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    border-collapse: collapse;}th {    font-weight:bold;    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    text-align:left;    font-size:78%;}td {    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    font-size:78%;}a {    color:#013C9A;    text-decoration:none;}a:visited {    color:#013C9A;}a:hover, a:active {    text-decoration:underline;    color:#5BAFD4;}.pass{background-color: #00ff00;}.fail{background-color: #ff0000;}.comment{    font-size: 90%;    font-style: italic;}
+-->
+</STYLE>
+</HEAD>
+<PRE><A name="Syn"></A><B><U><big>Synthesis Report</big></U></B>
 #Build: Synplify Pro G-2012.09L-SP1 , Build 029R, Mar 11 2013
 #install: /usr/local/diamond/2.2_x64/synpbase
 #OS: Linux 
@@ -709,799 +633,57 @@ Process took 0h:00m:14s realtime, 0h:00m:14s cputime
 ###########################################################]
 
 
-Synthesis exit by 0.
 
-edif2ngd  -l "MachXO2" -d LCMXO2-7000HE -path "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809" -path "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice"  "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi" "P6809_P6809.ngo"   
-edif2ngd:  version Diamond (64-bit) 2.2.0.101
-
-Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
-Copyright (c) 1995 AT&T Corp.   All rights reserved.
-Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
-Copyright (c) 2001 Agere Systems   All rights reserved.
-Copyright (c) 2002-2013 Lattice Semiconductor Corporation,  All rights reserved.
-WARNING - edif2ngd: Unsupported property is_pwr found - ignoring...
-  On or above line 299 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
-
-WARNING - edif2ngd: Unsupported property is_pwr found - ignoring...
-  On or above line 307 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
-
-WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 1762 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
-
-WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 3985 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
-
-WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 4141 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
-
-WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 5267 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
-
-WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 5492 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
-
-WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 9169 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
-
-WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 10988 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
-
-WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 13438 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
-
-WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 14340 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
-
-WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 15057 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
-
-WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 15354 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
-
-WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 16157 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
-
-WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 16308 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
-
-WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 18673 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
-
-WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 22261 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
-
-WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 32987 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
-
-WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 35566 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
-
-WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 38271 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
-
-WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 38689 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
-
-WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 42846 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
-
-WARNING - edif2ngd: Unsupported property orig_inst_of found - ignoring...
-  On or above line 43639 in file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi
-
-Writing the design to P6809_P6809.ngo...
-
-
-ngdbuild  -a "MachXO2" -d LCMXO2-7000HE  -p "/usr/local/diamond/2.2_x64/ispfpga/xo2c00/data"  -p "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809" -p "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice"  "P6809_P6809.ngo" "P6809_P6809.ngd"  	
-ngdbuild:  version Diamond (64-bit) 2.2.0.101
-
-Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
-Copyright (c) 1995 AT&T Corp.   All rights reserved.
-Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
-Copyright (c) 2001 Agere Systems   All rights reserved.
-Copyright (c) 2002-2013 Lattice Semiconductor Corporation,  All rights reserved.
-Reading 'P6809_P6809.ngo' ...
-Loading NGL library '/usr/local/diamond/2.2_x64/ispfpga/xo2c00a/data/xo2alib.ngl'...
-Loading NGL library '/usr/local/diamond/2.2_x64/ispfpga/xo2c00/data/xo2clib.ngl'...
-Loading NGL library '/usr/local/diamond/2.2_x64/ispfpga/mg5g00/data/mg5glib.ngl'...
-Loading NGL library '/usr/local/diamond/2.2_x64/ispfpga/or5g00/data/orc5glib.ngl'...
-
-
-Running DRC...
-
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/a16/un8_q_out_cry_15_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/a16/un8_q_out_cry_0_0_S0_0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/a16/un8_q_out_cry_0_0_S1_0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/a16/q_out_1_cry_15_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/a16/q_out_1_cry_0_0_S0_0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/a16/q_out_1_cry_0_0_S1_0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/a16/q_out_2_cry_15_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/a16/q_out_2_cry_0_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/a16/q_out_1_0_cry_15_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/a16/q_out_1_0_cry_0_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe1_1_6_cry_8_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe1_1_6_cry_8_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe1_1_6_cry_0_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe1_1_6_cry_0_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe1_1_s_15_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe1_1_s_15_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe1_1_cry_0_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe1_1_cry_0_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe1_1_4_cry_8_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe1_1_4_cry_1_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe1_1_4_cry_1_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe0_1_4_cry_8_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe0_1_4_cry_1_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe0_1_4_cry_1_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe0_1_5_cry_8_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe0_1_5_cry_1_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe0_1_5_cry_1_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe0_1_s_11_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe0_1_s_11_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe0_1_cry_2_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu16/mulu/pipe0_1_cry_2_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu8/a8/un8_q_out_cry_7_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu8/a8/un8_q_out_cry_0_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu8/a8/un8_q_out_cry_0_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu8/a8/q_out_1_cry_7_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu8/a8/q_out_1_cry_0_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu8/a8/q_out_1_cry_0_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu8/a8/q_out_2_cry_7_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu8/a8/q_out_2_cry_0_0_S0_0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu8/a8/q_out_1_0_cry_7_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu8/a8/q_out_1_0_cry_0_S0_0' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/ea/eamem_addr_o_s_15_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/ea/eamem_addr_o_s_15_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/ea/eamem_addr_o_cry_0_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/ea/eamem_addr_o_cry_0_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/ea/ea_reg_post_o_s_15_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/ea/ea_reg_post_o_s_15_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/ea/ea_reg_post_o_cry_0_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/ea/ea_reg_post_o_cry_0_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/ea/k_new_pc_4_s_15_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/ea/k_new_pc_4_s_15_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/ea/k_new_pc_4_cry_0_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/ea/k_new_pc_4_cry_0_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu8/neg8_w_s_7_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu8/neg8_w_s_7_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu8/neg8_w_cry_0_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/alu/alu8/neg8_w_cry_0_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/SU_cry_0_COUT[14]' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/SU_lcry_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/SU_lcry_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/SS_cry_0_COUT[14]' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/SS_lcry_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/SS_lcry_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/right_s_15_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/right_s_15_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/regs/right_cry_0_0_S0' has no load
-WARNING - ngdbuild: logical net 'textctrl/yptr_5_s_6_0_COUT' has no load
-WARNING - ngdbuild: logical net 'textctrl/yptr_5_s_6_0_S1' has no load
-WARNING - ngdbuild: logical net 'textctrl/yptr_5_cry_1_0_S0' has no load
-WARNING - ngdbuild: logical net 'textctrl/yptr_5_cry_1_0_S1' has no load
-WARNING - ngdbuild: logical net 'textctrl/yptr_4_cry_7_0_COUT' has no load
-WARNING - ngdbuild: logical net 'textctrl/yptr_4_cry_2_0_S0' has no load
-WARNING - ngdbuild: logical net 'textctrl/yptr_4_cry_2_0_S1' has no load
-WARNING - ngdbuild: logical net 'textctrl/yptr_cry_10_0_COUT' has no load
-WARNING - ngdbuild: logical net 'textctrl/yptr_cry_5_0_S0' has no load
-WARNING - ngdbuild: logical net 'textctrl/yptr_cry_5_0_S1' has no load
-WARNING - ngdbuild: logical net 'textctrl/x_cnt_cry_0_COUT[5]' has no load
-WARNING - ngdbuild: logical net 'textctrl/x_cnt_cry_0_S0[0]' has no load
-WARNING - ngdbuild: logical net 'textctrl/y_cnt_cry_0_COUT[5]' has no load
-WARNING - ngdbuild: logical net 'textctrl/y_cnt_cry_0_S0[0]' has no load
-WARNING - ngdbuild: logical net 'textctrl/vsync_cnt_cry_0_COUT[9]' has no load
-WARNING - ngdbuild: logical net 'textctrl/vsync_cnt_cry_0_S0[0]' has no load
-WARNING - ngdbuild: logical net 'textctrl/blink_cnt_s_0_COUT[5]' has no load
-WARNING - ngdbuild: logical net 'textctrl/blink_cnt_s_0_S1[5]' has no load
-WARNING - ngdbuild: logical net 'textctrl/blink_cnt_cry_0_S0[0]' has no load
-WARNING - ngdbuild: logical net 'textctrl/hsync_cnt_cry_0_COUT[9]' has no load
-WARNING - ngdbuild: logical net 'textctrl/hsync_cnt_cry_0_S0[0]' has no load
-WARNING - ngdbuild: logical net 'cpu0/un1_k_cpu_addr_1_s_15_0_COUT' has no load
-WARNING - ngdbuild: logical net 'cpu0/un1_k_cpu_addr_1_s_15_0_S1' has no load
-WARNING - ngdbuild: logical net 'cpu0/un1_k_cpu_addr_1_cry_0_0_S0' has no load
-WARNING - ngdbuild: logical net 'cpu0/un1_k_cpu_addr_1_cry_0_0_S1' has no load
-WARNING - ngdbuild: DRC complete with 91 warnings
-
-Design Results:
-   3019 blocks expanded
-complete the first expansion
-Writing 'P6809_P6809.ngd' ...
-
-map -a "MachXO2" -p LCMXO2-7000HE -t TQFP144 -s 4 -oc Commercial   "P6809_P6809.ngd" -o "P6809_P6809_map.ncd" -pr "P6809_P6809.prf" -mp "P6809_P6809.mrp" "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809.lpf" -c 0            
-map:  version Diamond (64-bit) 2.2.0.101
-
-Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
-Copyright (c) 1995 AT&T Corp.   All rights reserved.
-Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
-Copyright (c) 2001 Agere Systems   All rights reserved.
-Copyright (c) 2002-2013 Lattice Semiconductor Corporation,  All rights reserved.
-   Process the file: P6809_P6809.ngd
-   Picdevice="LCMXO2-7000HE"
-
-   Pictype="TQFP144"
-
-   Picspeed=4
-
-   Remove unused logic
-
-   Do not produce over sized NCDs.
-
-Part used: LCMXO2-7000HETQFP144, Performance used: 4.
-Loading device for application map from file 'xo2c7000.nph' in environment: /usr/local/diamond/2.2_x64/ispfpga.
-Package Status:                     Final          Version 1.36
-
-Running general design DRC...
-Removing unused logic...
-Optimizing...
-5 CCU2 constant inputs absorbed.
-WARNING - map: Using local reset signal 'reset_o_c' to infer global GSR net.
-WARNING - map: The reset of EBR 'textctrl/chars/textmem4k_0_0_3' cannot be controlled. The local reset is not connected to any control signal and set to GND. The global reset is disabled via GSR property. To control the EBR reset, either connect the local reset to a control signal or force the GSR property to be enabled.
-WARNING - map: The reset of EBR 'textctrl/chars/textmem4k_0_1_2' cannot be controlled. The local reset is not connected to any control signal and set to GND. The global reset is disabled via GSR property. To control the EBR reset, either connect the local reset to a control signal or force the GSR property to be enabled.
-WARNING - map: The reset of EBR 'textctrl/chars/textmem4k_0_2_1' cannot be controlled. The local reset is not connected to any control signal and set to GND. The global reset is disabled via GSR property. To control the EBR reset, either connect the local reset to a control signal or force the GSR property to be enabled.
-WARNING - map: The reset of EBR 'textctrl/chars/textmem4k_0_3_0' cannot be controlled. The local reset is not connected to any control signal and set to GND. The global reset is disabled via GSR property. To control the EBR reset, either connect the local reset to a control signal or force the GSR property to be enabled.
-WARNING - map: The reset of EBR 'textctrl/font/fontrom_0_0_3' cannot be controlled. The local reset is not connected to any control signal and set to GND. The global reset is disabled via GSR property. To control the EBR reset, either connect the local reset to a control signal or force the GSR property to be enabled.
-WARNING - map: The reset of EBR 'textctrl/font/fontrom_0_1_2' cannot be controlled. The local reset is not connected to any control signal and set to GND. The global reset is disabled via GSR property. To control the EBR reset, either connect the local reset to a control signal or force the GSR property to be enabled.
-WARNING - map: The reset of EBR 'textctrl/font/fontrom_0_2_1' cannot be controlled. The local reset is not connected to any control signal and set to GND. The global reset is disabled via GSR property. To control the EBR reset, either connect the local reset to a control signal or force the GSR property to be enabled.
-WARNING - map: The reset of EBR 'textctrl/font/fontrom_0_3_0' cannot be controlled. The local reset is not connected to any control signal and set to GND. The global reset is disabled via GSR property. To control the EBR reset, either connect the local reset to a control signal or force the GSR property to be enabled.
-WARNING - map: The reset of EBR 'bios/bios2k_0_1_0' cannot be controlled. The local reset is not connected to any control signal and set to GND. The global reset is disabled via GSR property. To control the EBR reset, either connect the local reset to a control signal or force the GSR property to be enabled.
-WARNING - map: The reset of EBR 'bios/bios2k_0_0_1' cannot be controlled. The local reset is not connected to any control signal and set to GND. The global reset is disabled via GSR property. To control the EBR reset, either connect the local reset to a control signal or force the GSR property to be enabled.
-
-
-
-Design Summary:
-   Number of registers:    439
-      PFU registers:    429
-      PIO registers:    10
-   Number of SLICEs:          1218 out of  3432 (35%)
-      SLICEs(logic/ROM):       858 out of   858 (100%)
-      SLICEs(logic/ROM/RAM):   360 out of  2574 (14%)
-          As RAM:            0 out of  2574 (0%)
-          As Logic/ROM:    360 out of  2574 (14%)
-   Number of logic LUT4s:     2043
-   Number of distributed RAM:   0 (0 LUT4s)
-   Number of ripple logic:    196 (392 LUT4s)
-   Number of shift registers:   0
-   Total number of LUT4s:     2435
-   Number of PIO sites used: 49 + 4(JTAG) out of 115 (46%)
-   Number of block RAMs:  10 out of 26 (38%)
-   Number of GSRs:  1 out of 1 (100%)
-   EFB used :       No
-   JTAG used :      No
-   Readback used :  No
-   Oscillator used :  No
-   Startup used :   No
-   POR :            On
-   Bandgap :        On
-   Number of Power Controller:  0 out of 1 (0%)
-   Number of Dynamic Bank Controller (BCINRD):  0 out of 6 (0%)
-   Number of Dynamic Bank Controller (BCLVDSO):  0 out of 1 (0%)
-   Number of DCCA:  0 out of 8 (0%)
-   Number of DCMA:  0 out of 2 (0%)
-   Number of PLLs:  0 out of 2 (0%)
-   Number of DQSDLLs:  0 out of 2 (0%)
-   Number of CLKDIVC:  0 out of 4 (0%)
-   Number of ECLKSYNCA:  0 out of 4 (0%)
-   Number of ECLKBRIDGECS:  0 out of 2 (0%)
-   Notes:-
-      1. Total number of LUT4s = (Number of logic LUT4s) + 2*(Number of distributed RAMs) + 2*(Number of ripple logic)
-      2. Number of logic LUT4s does not include count of distributed RAM and ripple logic.
-   Number of clocks:  1
-     Net cpu_clkgen: 290 loads, 290 rising, 0 falling (Driver: PIO clk40_i )
-   Number of Clock Enables:  36
-     Net cpu_clk: 80 loads, 80 LSLICEs
-     Net k_cpu_we_RNIKJPB: 8 loads, 0 LSLICEs
-     Net textctrl/un1_CPU_OE_EN_0_a2: 8 loads, 0 LSLICEs
-     Net textctrl/line_cnte: 2 loads, 2 LSLICEs
-     Net textctrl/tshift_1_sqmuxa: 4 loads, 4 LSLICEs
-     Net textctrl/N_103_i: 4 loads, 4 LSLICEs
-     Net textctrl/y_cnte: 4 loads, 4 LSLICEs
-     Net textctrl/x_cnte: 4 loads, 4 LSLICEs
-     Net textctrl/N_4: 6 loads, 6 LSLICEs
-     Net textctrl/vsync_cnt_0_sqmuxa_4: 4 loads, 4 LSLICEs
-     Net un1_bios_en_0_a2: 4 loads, 0 LSLICEs
-     Net cpu0/k_mul_cnt_RNI6QASC: 3 loads, 3 LSLICEs
-     Net cpu0/k_ealo_cnv_0[0]: 16 loads, 16 LSLICEs
-     Net cpu0/k_cpu_we_3_RNI4P5E: 8 loads, 8 LSLICEs
-     Net cpu0/k_memhi_0_sqmuxa_RNIGVP52: 4 loads, 4 LSLICEs
-     Net cpu0/mode53_0_RNIULGBO: 3 loads, 3 LSLICEs
-     Net cpu0/k_eahi_0_sqmuxa_2_RNI9C57A: 4 loads, 4 LSLICEs
-     Net cpu0/un1_state_82_1_RNI3MDV1: 4 loads, 4 LSLICEs
-     Net cpu0/un1_state_100_i_o4_RNI60VG1: 4 loads, 4 LSLICEs
-     Net cpu0/k_pp_regs60_RNIHUUP8: 2 loads, 2 LSLICEs
-     Net cpu0/state_cnst_i_a15_1_0_RNI7NDU[5]: 4 loads, 4 LSLICEs
-     Net cpu0/k_new_pc29_0_o2_0_RNIRRPH4: 4 loads, 4 LSLICEs
-     Net cpu0/k_new_pc29_0_o2_0_RNI939S3: 4 loads, 4 LSLICEs
-     Net cpu0/un1_state_50_1_i_o2_RNI0FLID: 4 loads, 4 LSLICEs
-     Net cpu0/un1_state_21_RNIMEOJ: 4 loads, 4 LSLICEs
-     Net cpu0/regs/cff_1_sqmuxa_2_RNI9H8F: 7 loads, 7 LSLICEs
-     Net cpu0/regs/eflag_RNO: 1 loads, 1 LSLICEs
-     Net cpu0/regs/PC_1_sqmuxa_2_RNIDL992: 16 loads, 16 LSLICEs
-     Net cpu0/regs/IY_1_sqmuxa_2_1_0_RNISJTR1: 8 loads, 8 LSLICEs
-     Net cpu0/regs/IX_0_sqmuxa_1_1_RNIVGKH3: 8 loads, 8 LSLICEs
-     Net cpu0/regs/DP_1_sqmuxa_1_1_0_RNIFF9C1: 5 loads, 5 LSLICEs
-     Net cpu0/regs/ACCB_0_sqmuxa_1_RNIIOBV: 4 loads, 4 LSLICEs
-     Net cpu0/regs/un1_right_reg_4_RNIM2L32: 4 loads, 4 LSLICEs
-     Net cpu0/un1_k_opcode_3_3_RNIC8F8I: 14 loads, 14 LSLICEs
-     Net cpu0/state57_RNI9L0F7[0]: 2 loads, 2 LSLICEs
-     Net cpu0/un1_state_73_RNI7H5S5: 2 loads, 2 LSLICEs
-   Number of local set/reset loads for net reset_o_c merged into GSR:  6
-   Number of LSRs:  1
-     Net textctrl.vsync_cnt[10]: 3 loads, 2 LSLICEs
-   Number of nets driven by tri-state buffers:  0
-   Top 10 highest fanout non-clock nets:
-     Net cpu_clk: 101 loads
-     Net cpu0/alu/rop_in[1]: 100 loads
-     Net state_o_c[1]: 84 loads
-     Net state_o_c[5]: 77 loads
-     Net cpu0/use_s_1: 75 loads
-     Net state_o_c[2]: 75 loads
-     Net state_o_c[4]: 74 loads
-     Net cpu0/alu/rop_in[0]: 71 loads
-     Net state_o_c[3]: 68 loads
-     Net cpu0/k_opcode[3]: 66 loads
- 
-   Number of warnings:  11
-   Number of errors:    0
-
-
-Total CPU Time: 0 secs  
-Total REAL Time: 0 secs  
-Peak Memory Usage: 195 MB
-
-Dumping design to file P6809_P6809_map.ncd.
-
-trce -f "P6809_P6809.mt" -o "P6809_P6809.tw1" "P6809_P6809_map.ncd" "P6809_P6809.prf"
-trce:  version Diamond (64-bit) 2.2.0.101
-
-Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
-Copyright (c) 1995 AT&T Corp.   All rights reserved.
-Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
-Copyright (c) 2001 Agere Systems   All rights reserved.
-Copyright (c) 2002-2013 Lattice Semiconductor Corporation,  All rights reserved.
-
-Loading design for application trce from file P6809_P6809_map.ncd.
-Design name: CC3_top
-NCD version: 3.2
-Vendor:      LATTICE
-Device:      LCMXO2-7000HE
-Package:     TQFP144
-Performance: 4
-Loading device for application trce from file 'xo2c7000.nph' in environment: /usr/local/diamond/2.2_x64/ispfpga.
-Package Status:                     Final          Version 1.36
-Performance Hardware Data Status:   Final)         Version 23.4
-Setup and Hold Report
-
---------------------------------------------------------------------------------
-Lattice TRACE Report - Setup, Version Diamond (64-bit) 2.2.0.101
-Mon Jan  6 06:54:33 2014
-
-Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
-Copyright (c) 1995 AT&T Corp.   All rights reserved.
-Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
-Copyright (c) 2001 Agere Systems   All rights reserved.
-Copyright (c) 2002-2013 Lattice Semiconductor Corporation,  All rights reserved.
-
-Report Information
-------------------
-Command line:    trce -v 1 -gt -mapchkpnt 0 -sethld -o P6809_P6809.tw1 P6809_P6809_map.ncd P6809_P6809.prf 
-Design file:     P6809_P6809_map.ncd
-Preference file: P6809_P6809.prf
-Device,speed:    LCMXO2-7000HE,4
-Report level:    verbose report, limited to 1 item per preference
---------------------------------------------------------------------------------
-
-BLOCK ASYNCPATHS
-BLOCK RESETPATHS
---------------------------------------------------------------------------------
-
-
-
-Timing summary (Setup):
----------------
-
-Timing errors: 672  Score: 491074
-Cumulative negative slack: 491074
-
-Constraints cover 1007472 paths, 1 nets, and 9180 connections (96.2% coverage)
-
---------------------------------------------------------------------------------
-Lattice TRACE Report - Hold, Version Diamond (64-bit) 2.2.0.101
-Mon Jan  6 06:54:33 2014
-
-Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
-Copyright (c) 1995 AT&T Corp.   All rights reserved.
-Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
-Copyright (c) 2001 Agere Systems   All rights reserved.
-Copyright (c) 2002-2013 Lattice Semiconductor Corporation,  All rights reserved.
-
-Report Information
-------------------
-Command line:    trce -v 1 -gt -mapchkpnt 0 -sethld -o P6809_P6809.tw1 P6809_P6809_map.ncd P6809_P6809.prf 
-Design file:     P6809_P6809_map.ncd
-Preference file: P6809_P6809.prf
-Device,speed:    LCMXO2-7000HE,M
-Report level:    verbose report, limited to 1 item per preference
---------------------------------------------------------------------------------
-
-BLOCK ASYNCPATHS
-BLOCK RESETPATHS
---------------------------------------------------------------------------------
-
-
-
-Timing summary (Hold):
----------------
-
-Timing errors: 0  Score: 0
-Cumulative negative slack: 0
-
-Constraints cover 1007472 paths, 1 nets, and 9435 connections (98.9% coverage)
-
-
-
-Timing summary (Setup and Hold):
----------------
-
-Timing errors: 672 (setup), 0 (hold)
-Score: 491074 (setup), 0 (hold)
-Cumulative negative slack: 491074 (491074+0)
---------------------------------------------------------------------------------
-
---------------------------------------------------------------------------------
-
-Total time: 0 secs 
-
-mpartrce -p "P6809_P6809.p2t" -f "P6809_P6809.p3t" -tf "P6809_P6809.pt" "P6809_P6809_map.ncd" "P6809_P6809.ncd"
-
----- MParTrce Tool ----
-Removing old design directory at request of -rem command line option to this program.
-Running par. Please wait . . .
-
-Lattice Place and Route Report for Design "P6809_P6809_map.ncd"
-Mon Jan  6 06:54:33 2014
-
-PAR: Place And Route Diamond (64-bit) 2.2.0.101.
-Command Line: par -w -l 5 -i 6 -t 1 -c 0 -e 0 -exp parUseNBR=1:parCDP=0:parCDR=0:parPathBased=OFF P6809_P6809_map.ncd P6809_P6809.dir/5_1.ncd P6809_P6809.prf
-Preference file: P6809_P6809.prf.
-Placement level-cost: 5-1.
-Routing Iterations: 6
-
-Loading design for application par from file P6809_P6809_map.ncd.
-Design name: CC3_top
-NCD version: 3.2
-Vendor:      LATTICE
-Device:      LCMXO2-7000HE
-Package:     TQFP144
-Performance: 4
-Loading device for application par from file 'xo2c7000.nph' in environment: /usr/local/diamond/2.2_x64/ispfpga.
-Package Status:                     Final          Version 1.36
-Performance Hardware Data Status:   Final)         Version 23.4
-License checked out.
-
-
-Ignore Preference Error(s):  True
-Device utilization summary:
-
-   PIO (prelim)   49+4(JTAG)/336     14% used
-                  49+4(JTAG)/115     42% bonded
-   IOLOGIC           10/336           2% used
-
-   SLICE           1218/3432         35% used
-
-   GSR                1/1           100% used
-   EBR               10/26           38% used
-
-
-INFO: Design contains EBR with ASYNC Reset Mode that has a limitation: The use of the EBR block asynchronous reset requires that certain timing be met between the clock and the reset within the memory block. See the device specific datasheet for additional details.
-INFO: Design contains pre-loadable EBR during configuration that has a requirement: Since the GSR is disabled for the EBR, make sure write enable and chip enable are inactive during wake-up, so that the pre-loaded initialization values will not be corrupted during wake-up state.
-Number of Signals: 2816
-Number of Connections: 9541
-
-Pin Constraint Summary:
-   49 out of 49 pins locked (100% locked).
-
-The following 1 signal is selected to use the primary clock routing resources:
-    cpu_clkgen (driver: clk40_i, clk load #: 290)
-
-
-The following 4 signals are selected to use the secondary clock routing resources:
-    cpu_clk (driver: SLICE_383, clk load #: 0, sr load #: 0, ce load #: 80)
-    cpu0/k_ealo_cnv_0[0] (driver: cpu0/SLICE_689, clk load #: 0, sr load #: 0, ce load #: 16)
-    cpu0/regs/PC_1_sqmuxa_2_RNIDL992 (driver: SLICE_383, clk load #: 0, sr load #: 0, ce load #: 16)
-    cpu0/un1_k_opcode_3_3_RNIC8F8I (driver: cpu0/regs/SLICE_634, clk load #: 0, sr load #: 0, ce load #: 14)
-
-Signal reset_o_c is selected as Global Set/Reset.
-Starting Placer Phase 0.
-............
-Finished Placer Phase 0.  REAL time: 4 secs 
-
-Starting Placer Phase 1.
-......................
-Placer score = 892427.
-Finished Placer Phase 1.  REAL time: 12 secs 
-
-Starting Placer Phase 2.
-.
-Placer score =  881873
-Finished Placer Phase 2.  REAL time: 13 secs 
-
-
------------------- Clock Report ------------------
-
-Global Clock Resources:
-  CLK_PIN    : 1 out of 8 (12%)
-  PLL        : 0 out of 2 (0%)
-  DCM        : 0 out of 2 (0%)
-  DCC        : 0 out of 8 (0%)
-
-Quadrants All (TL, TR, BL, BR) - Global Clocks:
-  PRIMARY "cpu_clkgen" from comp "clk40_i" on CLK_PIN site "27 (PL22A)", clk load = 290
-  SECONDARY "cpu_clk" from Q0 on comp "SLICE_383" on site "R2C25B", clk load = 0, ce load = 80, sr load = 0
-  SECONDARY "cpu0/k_ealo_cnv_0[0]" from F1 on comp "cpu0/SLICE_689" on site "R15C40A", clk load = 0, ce load = 16, sr load = 0
-  SECONDARY "cpu0/regs/PC_1_sqmuxa_2_RNIDL992" from F1 on comp "SLICE_383" on site "R2C25B", clk load = 0, ce load = 16, sr load = 0
-  SECONDARY "cpu0/un1_k_opcode_3_3_RNIC8F8I" from F0 on comp "cpu0/regs/SLICE_634" on site "R25C35C", clk load = 0, ce load = 14, sr load = 0
-
-  PRIMARY  : 1 out of 8 (12%)
-  SECONDARY: 4 out of 8 (50%)
-
-Edge Clocks:
-  No edge clock selected.
-
---------------- End of Clock Report ---------------
-
-
-I/O Usage Summary (final):
-   49 out of 336 (14.6%) PIO sites used.
-   49 out of 115 (42.6%) bonded PIO sites used.
-   Number of PIO comps: 49; differential: 0
-   Number of Vref pins used: 0
-
-I/O Bank Usage Summary:
-+----------+----------------+------------+-----------+
-| I/O Bank | Usage          | Bank Vccio | Bank Vref |
-+----------+----------------+------------+-----------+
-| 0        | 12 / 28 ( 42%) | 2.5V       | -         |
-| 1        | 13 / 29 ( 44%) | 2.5V       | -         |
-| 2        | 23 / 29 ( 79%) | 2.5V       | -         |
-| 3        | 1 / 9 ( 11%)   | 2.5V       | -         |
-| 4        | 0 / 10 (  0%)  | -          | -         |
-| 5        | 0 / 10 (  0%)  | -          | -         |
-+----------+----------------+------------+-----------+
-
-Total placer CPU time: 13 secs 
-
-Dumping design to file P6809_P6809.dir/5_1.ncd.
-
-0 connections routed; 9541 unrouted.
-Starting router resource preassignment
-
-Completed router resource preassignment. Real time: 16 secs 
-
-Start NBR router at Mon Jan 06 06:54:49 CET 2014
-
-*****************************************************************
-Info: NBR allows conflicts(one node used by more than one signal)
-      in the earlier iterations. In each iteration, it tries to  
-      solve the conflicts while keeping the critical connections 
-      routed as short as possible. The routing process is said to
-      be completed when no conflicts exist and all connections   
-      are routed.                                                
-Note: NBR uses a different method to calculate timing slacks. The
-      worst slack and total negative slack may not be the same as
-      that in TRCE report. You should always run TRCE to verify  
-      your design. Thanks.                                       
-*****************************************************************
-
-Start NBR special constraint process at Mon Jan 06 06:54:49 CET 2014
-
-Start NBR section for initial routing
-Level 1, iteration 1
-91(0.02%) conflicts; 8164(85.57%) untouched conns; 0 (nbr) score; 
-Estimated worst slack/total negative slack: 0.240ns/0.000ns; real time: 18 secs 
-Level 2, iteration 1
-14(0.00%) conflicts; 8033(84.19%) untouched conns; 0 (nbr) score; 
-Estimated worst slack/total negative slack: 0.378ns/0.000ns; real time: 18 secs 
-Level 3, iteration 1
-53(0.01%) conflicts; 6834(71.63%) untouched conns; 0 (nbr) score; 
-Estimated worst slack/total negative slack: 1.074ns/0.000ns; real time: 19 secs 
-Level 4, iteration 1
-396(0.10%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; 
-Estimated worst slack/total negative slack: 1.051ns/0.000ns; real time: 21 secs 
-
-Info: Initial congestion level at 75% usage is 0
-Info: Initial congestion area  at 75% usage is 5 (0.50%)
-
-Start NBR section for normal routing
-Level 1, iteration 1
-13(0.00%) conflicts; 564(5.91%) untouched conns; 0 (nbr) score; 
-Estimated worst slack/total negative slack: 1.051ns/0.000ns; real time: 21 secs 
-Level 2, iteration 1
-10(0.00%) conflicts; 565(5.92%) untouched conns; 0 (nbr) score; 
-Estimated worst slack/total negative slack: 1.051ns/0.000ns; real time: 21 secs 
-Level 3, iteration 1
-17(0.00%) conflicts; 541(5.67%) untouched conns; 0 (nbr) score; 
-Estimated worst slack/total negative slack: 1.051ns/0.000ns; real time: 21 secs 
-Level 4, iteration 1
-192(0.05%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; 
-Estimated worst slack/total negative slack: 1.054ns/0.000ns; real time: 22 secs 
-Level 4, iteration 2
-92(0.02%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; 
-Estimated worst slack/total negative slack: 1.054ns/0.000ns; real time: 22 secs 
-Level 4, iteration 3
-36(0.01%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; 
-Estimated worst slack/total negative slack: 1.054ns/0.000ns; real time: 22 secs 
-Level 4, iteration 4
-11(0.00%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; 
-Estimated worst slack/total negative slack: 1.054ns/0.000ns; real time: 22 secs 
-Level 4, iteration 5
-7(0.00%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; 
-Estimated worst slack/total negative slack: 1.054ns/0.000ns; real time: 23 secs 
-Level 4, iteration 6
-4(0.00%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; 
-Estimated worst slack/total negative slack: 1.054ns/0.000ns; real time: 23 secs 
-Level 4, iteration 7
-2(0.00%) conflicts; 0(0.00%) untouched conn; 0 (nbr) score; 
-Estimated worst slack/total negative slack: 1.054ns/0.000ns; real time: 23 secs 
-Level 4, iteration 8
-1(0.00%) conflict; 0(0.00%) untouched conn; 0 (nbr) score; 
-Estimated worst slack/total negative slack: 1.054ns/0.000ns; real time: 23 secs 
-Level 4, iteration 9
-0(0.00%) conflict; 0(0.00%) untouched conn; 0 (nbr) score; 
-Estimated worst slack/total negative slack: 1.054ns/0.000ns; real time: 23 secs 
-
-Start NBR section for re-routing
-Level 4, iteration 1
-0(0.00%) conflict; 0(0.00%) untouched conn; 0 (nbr) score; 
-Estimated worst slack/total negative slack: 1.054ns/0.000ns; real time: 23 secs 
-
-Start NBR section for post-routing
-
-End NBR router with 0 unrouted connection
-
-NBR Summary
------------
-  Number of unrouted connections : 0 (0.00%)
-  Number of connections with timing violations : 0 (0.00%)
-  Estimated worst slack : 1.054ns
-  Timing score : 0
------------
-Notes: The timing info is calculated for SETUP only and all PAR_ADJs are ignored.
-
-
-
-Hold time optimization iteration 0:
-All hold time violations have been successfully corrected in speed grade M
-
-Total CPU time 26 secs 
-Total REAL time: 27 secs 
-Completely routed.
-End of route.  9541 routed (100.00%); 0 unrouted.
-Checking DRC ... 
-No errors found.
-
-Hold time timing score: 0, hold timing errors: 0
-
-Timing score: 0 
-
-Dumping design to file P6809_P6809.dir/5_1.ncd.
-
-
-PAR_SUMMARY::Run status = completed
-PAR_SUMMARY::Number of unrouted conns = 0
-PAR_SUMMARY::Worst  slack<setup/<ns>> = 1.054
-PAR_SUMMARY::Timing score<setup/<ns>> = 0.000
-PAR_SUMMARY::Worst  slack<hold /<ns>> = 0.180
-PAR_SUMMARY::Timing score<hold /<ns>> = 0.000
-
-Total CPU  time to completion: 27 secs 
-Total REAL time to completion: 27 secs 
-
-par done!
-
-Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
-Copyright (c) 1995 AT&T Corp.   All rights reserved.
-Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
-Copyright (c) 2001 Agere Systems   All rights reserved.
-Copyright (c) 2002-2013 Lattice Semiconductor Corporation,  All rights reserved.
-Exiting par with exit code 0
-Exiting mpartrce with exit code 0
-
-trce -f "P6809_P6809.pt" -o "P6809_P6809.twr" "P6809_P6809.ncd" "P6809_P6809.prf"
-trce:  version Diamond (64-bit) 2.2.0.101
-
-Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
-Copyright (c) 1995 AT&T Corp.   All rights reserved.
-Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
-Copyright (c) 2001 Agere Systems   All rights reserved.
-Copyright (c) 2002-2013 Lattice Semiconductor Corporation,  All rights reserved.
-
-Loading design for application trce from file P6809_P6809.ncd.
-Design name: CC3_top
-NCD version: 3.2
-Vendor:      LATTICE
-Device:      LCMXO2-7000HE
-Package:     TQFP144
-Performance: 4
-Loading device for application trce from file 'xo2c7000.nph' in environment: /usr/local/diamond/2.2_x64/ispfpga.
-Package Status:                     Final          Version 1.36
-Performance Hardware Data Status:   Final)         Version 23.4
-Setup and Hold Report
-
---------------------------------------------------------------------------------
-Lattice TRACE Report - Setup, Version Diamond (64-bit) 2.2.0.101
-Mon Jan  6 06:55:04 2014
-
-Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
-Copyright (c) 1995 AT&T Corp.   All rights reserved.
-Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
-Copyright (c) 2001 Agere Systems   All rights reserved.
-Copyright (c) 2002-2013 Lattice Semiconductor Corporation,  All rights reserved.
-
-Report Information
-------------------
-Command line:    trce -v 10 -gt -sethld -sp 4 -sphld m -o P6809_P6809.twr P6809_P6809.ncd P6809_P6809.prf 
-Design file:     P6809_P6809.ncd
-Preference file: P6809_P6809.prf
-Device,speed:    LCMXO2-7000HE,4
-Report level:    verbose report, limited to 10 items per preference
---------------------------------------------------------------------------------
-
-BLOCK ASYNCPATHS
-BLOCK RESETPATHS
---------------------------------------------------------------------------------
-
-
-
-Timing summary (Setup):
----------------
-
-Timing errors: 0  Score: 0
-Cumulative negative slack: 0
-
-Constraints cover 1007472 paths, 1 nets, and 9435 connections (98.9% coverage)
-
---------------------------------------------------------------------------------
-Lattice TRACE Report - Hold, Version Diamond (64-bit) 2.2.0.101
-Mon Jan  6 06:55:04 2014
-
-Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
-Copyright (c) 1995 AT&T Corp.   All rights reserved.
-Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
-Copyright (c) 2001 Agere Systems   All rights reserved.
-Copyright (c) 2002-2013 Lattice Semiconductor Corporation,  All rights reserved.
-
-Report Information
-------------------
-Command line:    trce -v 10 -gt -sethld -sp 4 -sphld m -o P6809_P6809.twr P6809_P6809.ncd P6809_P6809.prf 
-Design file:     P6809_P6809.ncd
-Preference file: P6809_P6809.prf
-Device,speed:    LCMXO2-7000HE,m
-Report level:    verbose report, limited to 10 items per preference
---------------------------------------------------------------------------------
-
-BLOCK ASYNCPATHS
-BLOCK RESETPATHS
---------------------------------------------------------------------------------
-
-
-
-Timing summary (Hold):
----------------
-
-Timing errors: 0  Score: 0
-Cumulative negative slack: 0
-
-Constraints cover 1007472 paths, 1 nets, and 9435 connections (98.9% coverage)
-
-
-
-Timing summary (Setup and Hold):
----------------
-
-Timing errors: 0 (setup), 0 (hold)
-Score: 0 (setup), 0 (hold)
-Cumulative negative slack: 0 (0+0)
---------------------------------------------------------------------------------
-
---------------------------------------------------------------------------------
-
-Total time: 0 secs 
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+</PRE></FONT>
+</BODY>
+</HTML>

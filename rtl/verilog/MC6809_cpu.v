@@ -122,20 +122,21 @@ regblock regs(
 	.CCR_o(regs_o_CCR), 
 	.path_left_data(regs_o_left_path_data),
 	.path_right_data(regs_o_right_path_data),
-	.eamem_addr(regs_o_eamem_addr),
+	.eamem_addr_o(regs_o_eamem_addr),
 	.reg_pc(regs_o_pc),
 	.reg_dp(regs_o_dp),
 	.reg_su(regs_o_su)
 );
 
 decode_regs dec_regs(
+	.cpu_clk(cpu_clk),
 	.opcode(k_opcode),
 	.postbyte0(k_postbyte),
 	.page2_valid(k_p2_valid),
 	.page3_valid(k_p3_valid),
-	.path_left_addr(dec_o_left_path_addr),
-	.path_right_addr(dec_o_right_path_addr),
-	.dest_reg(dec_o_dest_reg_addr),
+	.path_left_addr_o(dec_o_left_path_addr),
+	.path_right_addr_o(dec_o_right_path_addr),
+	.dest_reg_o(dec_o_dest_reg_addr),
 	.write_dest(dec_o_wdest),
 	.source_size(dec_o_source_size),
 	.result_size(dec_o_alu_size)
@@ -807,7 +808,7 @@ always @(posedge cpu_clk or posedge k_reset)
 					end
 				`SEQ_JSR_PUSH:
 					begin
-						k_pp_active_reg <= 8'h80; // push PC
+						k_pp_active_reg <= `RN_PC; // push PC
 						state <= `SEQ_PUSH_WRITE_L;
 						next_state <= `SEQ_JMP_LOAD_PC;
 					end
@@ -846,6 +847,11 @@ always @(posedge cpu_clk or posedge k_reset)
 						else
 							state <= `SEQ_FETCH; // end of sequence
 						if (k_pp_regs[0]) begin k_pp_active_reg <= `RN_CC; k_pp_regs[0] <= 0; state <= `SEQ_MEM_READ_L; end
+						else
+						if ((k_opcode == 8'h3B) && (!`FLAGE)) // not all registers have to be pulled
+							begin
+								k_pp_active_reg <= `RN_PC;  k_pp_regs <= 0; state <= `SEQ_MEM_READ_H;
+							end
 						else
 						if (k_pp_regs[1]) begin k_pp_active_reg <= `RN_ACCA; k_pp_regs[1] <= 0; state <= `SEQ_MEM_READ_L; end
 						else
