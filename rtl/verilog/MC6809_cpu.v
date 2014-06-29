@@ -18,7 +18,10 @@ module MC6809_cpu(
 	output wire cpu_oe_o,
 	output wire [15:0] cpu_addr_o,
 	input  wire [7:0] cpu_data_i,
-	output wire [7:0] cpu_data_o
+	output wire [7:0] cpu_data_o,
+	input wire debug_clk,
+	output wire debug_data_o // serial debug info, 64 bit shift register
+	
 	);
 
 wire k_reset;
@@ -84,6 +87,31 @@ assign k_nmi_req = k_reg_nmi[2] & k_reg_nmi[1];
 assign k_firq_req = k_reg_firq[2] & k_reg_firq[1];
 assign k_irq_req = k_reg_irq[2] & k_reg_irq[1];
 
+/* Debug */
+`ifdef SERIAL_DEBUG
+reg [63:0] debug_r;
+
+always @(posedge debug_clk)
+	begin
+		if (cpu_clk)
+			begin
+				debug_r[15:0] <= regs_o_pc;
+				debug_r[23:16] <= k_opcode;
+				debug_r[27:24] <= datamux_o_alu_in_left_path_addr;
+				debug_r[31:28] <= dec_o_right_path_addr;
+				debug_r[35:32] <= datamux_o_dest_reg_addr;
+				debug_r[39:36] <= { k_write_pc, 1'b0, k_mem_dest}; //regs_o_CCR[3:0];
+				debug_r[55:40] <= { k_memhi,k_memlo };//k_new_pc;
+				debug_r[63:56] <= cpu_data_i;
+			end
+		else
+			debug_r <= debug_r << 1; // shift out
+	end
+
+assign debug_data_o = debug_r[63];
+`else
+assign debug_data_o = 1'b0;
+`endif
 alu alu(
 	.clk_in(cpu_clk),
 	.a_in(datamux_o_alu_in_left_path_data),
@@ -251,17 +279,20 @@ always @(*)
 always @(*)
 	begin
 		k_new_pc = { k_memhi,k_memlo }; // used to fetch reset vector
-		case (dec_o_p1_mode)
-			`REL16: k_new_pc = regs_o_pc + { k_memhi,k_memlo };
-			`REL8: k_new_pc = regs_o_pc + { {8{k_memlo[7]}}, k_memlo };
-			`EXTENDED: k_new_pc = { k_eahi,k_ealo };
-			`DIRECT: k_new_pc = { regs_o_dp, k_ealo };
-			`INDEXED:
-				if (dec_o_ea_indirect)
-					k_new_pc = { k_memhi,k_memlo };
-				else
-					k_new_pc = regs_o_eamem_addr;
-		endcase
+		if (k_mem_dest != `MEMDEST_PC)
+			begin
+				case (dec_o_p1_mode)
+					`REL16: k_new_pc = regs_o_pc + { k_memhi,k_memlo };
+					`REL8: k_new_pc = regs_o_pc + { {8{k_memlo[7]}}, k_memlo };
+					`EXTENDED: k_new_pc = { k_eahi,k_ealo };
+					`DIRECT: k_new_pc = { regs_o_dp, k_ealo };
+					`INDEXED:
+						if (dec_o_ea_indirect)
+							k_new_pc = { k_memhi,k_memlo };
+						else
+							k_new_pc = regs_o_eamem_addr;
+				endcase
+			end
 	end
 /* ALU right input mux */
 always @(*)
@@ -336,6 +367,7 @@ always @(posedge cpu_clk or posedge k_reset)
 						k_eahi <= 8'hff;
 						k_ealo <= 8'hfe;
 						next_mem_state <= `SEQ_LOADPC;
+						k_mem_dest <= `MEMDEST_PC;
 					end
 				`SEQ_NMI:
 					begin
@@ -417,6 +449,7 @@ always @(posedge cpu_clk or posedge k_reset)
 					begin
 						$display("cpu_data_i %02x %t", cpu_data_i, $time);
 						state <= `SEQ_FETCH;
+						k_mem_dest <= `MEMDEST_MH; // operand to memlo/memhi
 					end
 				`SEQ_FETCH: /* execution starts here */
 					begin
@@ -481,12 +514,12 @@ always @(posedge cpu_clk or posedge k_reset)
 					end
 				`SEQ_DECODE:
 					begin
-						/* here we have the first byte of the k_opcode and should be decided to which state we jump
+						/* here we have the first byte of the opcode and should be decided to which state we jump
 						 * inherent means that no extra info is needed
 						 * ALU opcodes need routing of registers to/from the ALU to the registers
 						 */
 						case (dec_o_p1_mode)
-							`NONE: // unknown k_opcode or push/pull... refetch ?
+							`NONE: // unknown opcode or push/pull... refetch ?
 								begin
 									casex (k_opcode)
 										8'h13: state <= `SEQ_SYNC;
@@ -533,32 +566,46 @@ always @(posedge cpu_clk or posedge k_reset)
 								end
 							`DIRECT:
 								begin
-									state <= `SEQ_PC_READ_L;
-									k_mem_dest <= `MEMDEST_MH; // operand to memlo/memhi
-									if ((dec_o_right_path_addr == `RN_MEM8) || (dec_o_right_path_addr == `RN_MEM16) ||
-										(dec_o_left_path_addr == `RN_MEM8))
+									state <= `SEQ_PC_READ_L; // loads address
+									if (dec_o_p1_optype == `OP_JSR) // jsr
 										begin
-											next_state <= `SEQ_MEM_READ_H;
-											next_mem_state <= `SEQ_GRAL_ALU; // read then alu
+											next_state <= `SEQ_JSR_PUSH;
 										end
 									else
-										next_state <= `SEQ_GRAL_ALU; // no read
-									k_eahi <= regs_o_dp;
+										begin
+											k_mem_dest <= `MEMDEST_MH; // operand to memlo/memhi
+											if ((dec_o_right_path_addr == `RN_MEM8) || (dec_o_right_path_addr == `RN_MEM16) ||
+												(dec_o_left_path_addr == `RN_MEM8))
+												begin
+													next_state <= `SEQ_MEM_READ_H;
+													next_mem_state <= `SEQ_GRAL_ALU; // read then alu
+												end
+											else
+												next_state <= `SEQ_GRAL_ALU; // no read
+											k_eahi <= regs_o_dp;
+										end
 								end
 							`INDEXED:
 								state <= `SEQ_IND_READ_EA;
 							`EXTENDED:
 								begin
 									state <= `SEQ_PC_READ_H; // loads address
-									k_mem_dest <= `MEMDEST_MH; // operand to memlo/memhi
-									if ((dec_o_right_path_addr == `RN_MEM8) || (dec_o_right_path_addr == `RN_MEM16) ||
-										(dec_o_left_path_addr == `RN_MEM8))
+									if (dec_o_p1_optype == `OP_JSR) // jsr
 										begin
-											next_state <= `SEQ_MEM_READ_H;
-											next_mem_state <= `SEQ_GRAL_ALU; // read then alu
+											next_state <= `SEQ_JSR_PUSH;
 										end
 									else
-										next_state <= `SEQ_GRAL_ALU; // no read
+										begin
+											k_mem_dest <= `MEMDEST_MH; // operand to memlo/memhi
+											if ((dec_o_right_path_addr == `RN_MEM8) || (dec_o_right_path_addr == `RN_MEM16) ||
+												(dec_o_left_path_addr == `RN_MEM8))
+												begin
+													next_state <= `SEQ_MEM_READ_H;
+													next_mem_state <= `SEQ_GRAL_ALU; // read then alu
+												end
+											else
+												next_state <= `SEQ_GRAL_ALU; // no read
+										end
 								end
 							`REL8:
 								begin
@@ -696,7 +743,7 @@ always @(posedge cpu_clk or posedge k_reset)
 						if (k_irq_req & `FLAGI)
 							begin
 								k_reg_irq <= 3'h0;
-								k_ealo[3:0] <= 4'hf8;
+								k_ealo[3:0] <= 4'h8;
 								state <= `SEQ_MEM_READ_H; // load new PC
 							end
 					end
@@ -777,7 +824,11 @@ always @(posedge cpu_clk or posedge k_reset)
 									next_state <= `SEQ_IND_DECODE_OFS; // has some offset, load arg
 								end
 							else
-								//if (dec_o_ea_ofs0)
+								if (dec_o_p1_optype == `OP_JSR) // jsr
+									begin
+										next_state <= `SEQ_JSR_PUSH;
+									end
+								else											
 									begin // no extra load...
 										if ((dec_o_right_path_addr == `RN_MEM8) || (dec_o_right_path_addr == `RN_MEM16) ||
 											(dec_o_left_path_addr == `RN_MEM8))
@@ -792,15 +843,22 @@ always @(posedge cpu_clk or posedge k_reset)
 					end
 				`SEQ_IND_DECODE_OFS: // loads argument if needed
 					begin
-						if ((dec_o_right_path_addr == `RN_MEM8) || (dec_o_right_path_addr == `RN_MEM16) ||
-							(dec_o_left_path_addr == `RN_MEM8))
+						if (dec_o_p1_optype == `OP_JSR) // jsr
 							begin
-								k_mem_dest <= `MEMDEST_MH; // operand land in k_memhi/lo
-								next_mem_state <= `SEQ_GRAL_ALU;
-								state <= `SEQ_MEM_READ_H;
+								next_state <= `SEQ_JSR_PUSH;
 							end
 						else
-							state <= `SEQ_GRAL_ALU; // no load, then store
+							begin
+								if ((dec_o_right_path_addr == `RN_MEM8) || (dec_o_right_path_addr == `RN_MEM16) ||
+									(dec_o_left_path_addr == `RN_MEM8))
+									begin
+										k_mem_dest <= `MEMDEST_MH; // operand land in k_memhi/lo
+										next_mem_state <= `SEQ_GRAL_ALU;
+										state <= `SEQ_MEM_READ_H;
+									end
+								else
+									state <= `SEQ_GRAL_ALU; // no load, then store
+							end
 					end
 				`SEQ_JMP_LOAD_PC:
 					begin
@@ -991,13 +1049,15 @@ always @(posedge cpu_clk or posedge k_reset)
 				`SEQ_MEM_READ_L_2:
 					begin
 						case (k_mem_dest)
-							`MEMDEST_PC: begin k_memlo <= cpu_data_i; k_write_pc <= 1; end
+							`MEMDEST_PC,
 							`MEMDEST_MH: k_memlo <= cpu_data_i;
 							`MEMDEST_AH: k_ealo <= cpu_data_i;
 						endcase
 						case (dec_o_p1_mode)
 							`NONE, `INHERENT: k_write_dest <= 1; // pull, rts, rti
 						endcase
+						if (next_mem_state == `SEQ_LOADPC)
+							k_write_pc <= 1;
 						state <= next_mem_state;
 					end
 				`SEQ_MEM_WRITE_H: // writes high byte
@@ -1045,5 +1105,6 @@ initial
 		k_write_tfr = 0;
 		k_write_exg = 0;
 		k_mul_cnt = 0;
+		k_write_dest = 0;
 	end
 endmodule

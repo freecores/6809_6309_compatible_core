@@ -74,47 +74,46 @@ always @(negedge oe)
 	begin
 		$display("R %04x = %02x %t", addr, mem[addr], $time);
 	end
-`define READTESTBIN
+//`define READTESTBIN
 integer i;
 initial
 	begin
 `ifdef READTESTBIN
 		$readmemh("instructions_test.hex", mem);
 		$display("instructions_test.hex read");
-		mem[16'hfffe] = 8'h00; // setup reset
+		mem[16'hfffe] = 8'hf0; // setup reset
 		mem[16'hffff] = 8'h00;
 `else
 		for (i = 0; i < 65536; i=i+1)
 			mem[i] = 8'ha5;
-/*
-		mem[16'h1000] = 8'h3f; // lda #$10
-		mem[16'h1001] = 8'h10; // 
-		mem[16'h1002] = 8'hc6; // ldb #$12
-		mem[16'h1003] = 8'h12; // 
-		
-		mem[16'h1004] = 8'h3d; // mul
-		mem[16'h1005] = 8'h4c; // inca
-		mem[16'h1006] = 8'h5c; // incb
-		
-		mem[16'h1007] = 8'h9d; // jsr
-		mem[16'h1008] = 8'h0e; // 
-		mem[16'h1009] = 8'h12; // nop
-		
-		mem[16'h100a] = 8'h20; // bre *
-		mem[16'h100b] = 8'hfe; // 
-		mem[16'h100c] = 8'h12; // 
-		mem[16'h100d] = 8'h39; // 
-		mem[16'h100e] = 8'h39; // 
 
-		mem[16'h2000] = 8'h3b; // rti
-		mem[16'h2002] = 8'h3b; // rti
-		mem[16'h2004] = 8'h3b; // rti
-		mem[16'h2006] = 8'h3b; // rti
-		mem[16'h2008] = 8'h3b; // rti
-		mem[16'h200a] = 8'h3b; // rti
-		mem[16'h200c] = 8'h3b; // rti
-		mem[16'h200e] = 8'h3b; // rti
-*/		
+		mem[16'h1000] = 8'h8e; // ldx #$100
+		mem[16'h1001] = 8'h01; // 
+		mem[16'h1002] = 8'h00; // 
+
+		mem[16'h1003] = 8'hbf; // stx #$102		
+		mem[16'h1004] = 8'h01; // 
+		mem[16'h1005] = 8'h02; // 
+
+		mem[16'h1006] = 8'hbd; // jsr #$1010
+		mem[16'h1007] = 8'h10; // 
+		mem[16'h1008] = 8'h10; // 
+
+		mem[16'h1009] = 8'h20; // bra *
+		mem[16'h100a] = 8'hfe; // 
+
+		mem[16'h100b] = 8'hc1; // 
+		mem[16'h100c] = 8'h10; // 
+		mem[16'h100d] = 8'h26; // 
+		mem[16'h100e] = 8'hf7; // 
+
+		mem[16'h100f] = 8'h4c; // 
+		
+		mem[16'h1010] = 8'h4f; // clra
+		mem[16'h1011] = 8'h5f; // clrb
+		mem[16'h1012] = 8'h39; // rts
+		
+		
 		
 /*
 // test indexed store
@@ -183,7 +182,7 @@ initial
 		mem[16'h1016] = 8'h00; // 
 */		
 		
-/* test extended*/
+/* test extended
 		mem[16'h1000] = 8'h86; // ldb #$fe
 		mem[16'h1001] = 8'h02; // 
 		mem[16'h1002] = 8'hc6; // lda #$0
@@ -210,7 +209,7 @@ initial
 		
 		mem[16'h1011] = 8'h20; // bra
 		mem[16'h1012] = 8'hec; // $.-18
-//*/		
+*/		
 		mem[16'hfff0] = 8'h20; // reset
 		mem[16'hfff1] = 8'h00;
 		mem[16'hfff2] = 8'h20; // reset

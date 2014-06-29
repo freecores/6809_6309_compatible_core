@@ -1,29 +1,29 @@
 ----------------------------------------------------------------------
 Report for cell CC3_top.verilog
 
-Register bits: 439 of 6864 (6%)
+Register bits: 580 of 6864 (8%)
 PIC Latch:       0
-I/O cells:       49
+I/O cells:       69
                                           Cell usage:
                                cell       count    Res Usage(%)
-                              CCU2D      196       100.0
+                                 BB        8       100.0
+                              CCU2D      186       100.0
                               DP8KC       10       100.0
-                            FD1P3AX      393       100.0
+                            FD1P3AX      529       100.0
                             FD1P3DX        6       100.0
-                            FD1S3AX       28       100.0
-                            FD1S3IX        2       100.0
+                            FD1S3AX       32       100.0
+                            FD1S3IX        3       100.0
                                 GSR        1       100.0
                                  IB        1       100.0
-                                INV       19       100.0
-                            L6MUX21       26       100.0
-                                 OB       40       100.0
-                                OBZ        8       100.0
+                                INV       20       100.0
+                            L6MUX21       16       100.0
+                                 OB       60       100.0
                            OFS1P3DX        9       100.0
                            OFS1P3IX        1       100.0
-                           ORCALUT4     2024       100.0
-                              PFUMX      222       100.0
+                           ORCALUT4     2014       100.0
+                              PFUMX      226       100.0
                                 PUR        1       100.0
-                                VHI       13       100.0
+                                VHI       14       100.0
                                 VLO       20       100.0
 SUB MODULES 
                          MC6809_cpu        1       100.0
@@ -47,43 +47,42 @@ SUB MODULES
                           textmem4k        1       100.0
                             vgatext        1       100.0
                             
-                         TOTAL          3040           
+                         TOTAL          3177           
 ----------------------------------------------------------------------
 Report for cell vgatext.netlist
      Instance path:  textctrl
                                           Cell usage:
                                cell       count    Res Usage(%)
-                              CCU2D       36        18.4
+                              CCU2D       36        19.4
                               DP8KC        8        80.0
-                            FD1P3AX       51        13.0
-                            FD1S3AX       27        96.4
-                            FD1S3IX        2       100.0
-                           ORCALUT4      100         4.9
-                                VHI        3        23.1
+                            FD1P3AX       51         9.6
+                            FD1S3AX       27        84.4
+                            FD1S3IX        2        66.7
+                           ORCALUT4       92         4.6
+                                VHI        3        21.4
                                 VLO        3        15.0
 SUB MODULES 
                             fontrom        1       100.0
                           textmem4k        1       100.0
                             
-                         TOTAL           232           
+                         TOTAL           224           
 ----------------------------------------------------------------------
 Report for cell textmem4k.netlist
      Instance path:  textctrl.chars
                                           Cell usage:
                                cell       count    Res Usage(%)
                               DP8KC        4        40.0
-                           ORCALUT4        7         0.3
-                                VHI        1         7.7
+                                VHI        1         7.1
                                 VLO        1         5.0
                             
-                         TOTAL            13           
+                         TOTAL             6           
 ----------------------------------------------------------------------
 Report for cell fontrom.netlist
      Instance path:  textctrl.font
                                           Cell usage:
                                cell       count    Res Usage(%)
                               DP8KC        4        40.0
-                                VHI        1         7.7
+                                VHI        1         7.1
                                 VLO        1         5.0
                             
                          TOTAL             6           
@@ -101,14 +100,14 @@ Report for cell MC6809_cpu.netlist
      Instance path:  cpu0
                                           Cell usage:
                                cell       count    Res Usage(%)
-                              CCU2D      160        81.6
-                            FD1P3AX      338        86.0
+                              CCU2D      150        80.6
+                            FD1P3AX      478        90.4
                             FD1P3DX        6       100.0
-                                INV       18        94.7
-                            L6MUX21       26       100.0
-                           ORCALUT4     1924        95.1
-                              PFUMX      222       100.0
-                                VHI        9        69.2
+                                INV       19        95.0
+                            L6MUX21       16       100.0
+                           ORCALUT4     1921        95.4
+                              PFUMX      226       100.0
+                                VHI       10        71.4
                                 VLO       15        75.0
 SUB MODULES 
                                 alu        1       100.0
@@ -127,99 +126,100 @@ SUB MODULES
                              shift8        1       100.0
                      test_condition        1       100.0
                             
-                         TOTAL          2733           
+                         TOTAL          2856           
 ----------------------------------------------------------------------
 Report for cell test_condition.netlist
      Instance path:  cpu0.test_cond
                                           Cell usage:
                                cell       count    Res Usage(%)
-                            L6MUX21        1         3.8
-                           ORCALUT4       21         1.0
-                              PFUMX        2         0.9
+                            L6MUX21        1         6.2
+                           ORCALUT4       97         4.8
+                              PFUMX       11         4.9
                                 VLO        1         5.0
                             
-                         TOTAL            25           
+                         TOTAL           110           
 ----------------------------------------------------------------------
 Report for cell decode_alu.netlist
      Instance path:  cpu0.dec_alu
                                           Cell usage:
                                cell       count    Res Usage(%)
-                            L6MUX21        2         7.7
-                           ORCALUT4       65         3.2
-                              PFUMX        8         3.6
+                           ORCALUT4       58         2.9
+                              PFUMX        3         1.3
                                 VLO        1         5.0
                             
-                         TOTAL            76           
+                         TOTAL            62           
 ----------------------------------------------------------------------
 Report for cell decode_ea.netlist
      Instance path:  cpu0.dec_ea
                                           Cell usage:
                                cell       count    Res Usage(%)
-                           ORCALUT4        9         0.4
+                           ORCALUT4       53         2.6
                                 VLO        1         5.0
                             
-                         TOTAL            10           
+                         TOTAL            54           
 ----------------------------------------------------------------------
 Report for cell decode_op.netlist
      Instance path:  cpu0.dec_op
                                           Cell usage:
                                cell       count    Res Usage(%)
-                           ORCALUT4      177         8.7
-                              PFUMX        4         1.8
+                           ORCALUT4       62         3.1
+                              PFUMX        3         1.3
                                 VLO        1         5.0
                             
-                         TOTAL           182           
+                         TOTAL            66           
 ----------------------------------------------------------------------
 Report for cell decode_regs.netlist
      Instance path:  cpu0.dec_regs
                                           Cell usage:
                                cell       count    Res Usage(%)
-                            FD1P3AX       12         3.1
-                           ORCALUT4      277        13.7
-                              PFUMX       11         5.0
-                                VHI        1         7.7
+                            FD1P3AX       12         2.3
+                           ORCALUT4      248        12.3
+                              PFUMX        9         4.0
+                                VHI        1         7.1
                                 VLO        1         5.0
                             
-                         TOTAL           302           
+                         TOTAL           271           
 ----------------------------------------------------------------------
 Report for cell regblock.netlist
      Instance path:  cpu0.regs
                                           Cell usage:
                                cell       count    Res Usage(%)
-                              CCU2D       54        27.6
-                            FD1P3AX      112        28.5
-                            L6MUX21       18        69.2
-                           ORCALUT4      899        44.4
-                              PFUMX      128        57.7
-                                VHI        1         7.7
+                              CCU2D       45        24.2
+                            FD1P3AX      255        48.2
+                            L6MUX21        9        56.2
+                           ORCALUT4      849        42.2
+                              PFUMX      130        57.5
+                                VHI        2        14.3
                                 VLO        2        10.0
 SUB MODULES 
                             calc_ea        1       100.0
                             
-                         TOTAL          1215           
+                         TOTAL          1293           
 ----------------------------------------------------------------------
 Report for cell calc_ea.netlist
      Instance path:  cpu0.regs.ea
                                           Cell usage:
                                cell       count    Res Usage(%)
-                              CCU2D       27        13.8
-                           ORCALUT4      197         9.7
-                              PFUMX       21         9.5
+                              CCU2D       18         9.7
+                            FD1P3AX        8         1.5
+                           ORCALUT4      242        12.0
+                              PFUMX       40        17.7
+                                VHI        1         7.1
                                 VLO        1         5.0
                             
-                         TOTAL           246           
+                         TOTAL           310           
 ----------------------------------------------------------------------
 Report for cell alu.netlist
      Instance path:  cpu0.alu
                                           Cell usage:
                                cell       count    Res Usage(%)
-                              CCU2D       97        49.5
-                            FD1P3AX       81        20.6
-                                INV       17        89.5
-                            L6MUX21        5        19.2
-                           ORCALUT4      443        21.9
-                              PFUMX       61        27.5
-                                VHI        6        46.2
+                              CCU2D       87        46.8
+                            FD1P3AX       73        13.8
+                                INV       17        85.0
+                            L6MUX21        6        37.5
+                           ORCALUT4      437        21.7
+                              PFUMX       62        27.4
+                                VHI        6        42.9
                                 VLO        7        35.0
 SUB MODULES 
                               alu16        1       100.0
@@ -230,68 +230,69 @@ SUB MODULES
                              mul8x8        1       100.0
                              shift8        1       100.0
                             
-                         TOTAL           724           
+                         TOTAL           702           
 ----------------------------------------------------------------------
 Report for cell alu16.netlist
      Instance path:  cpu0.alu.alu16
                                           Cell usage:
                                cell       count    Res Usage(%)
-                              CCU2D       72        36.7
-                            FD1P3AX       44        11.2
-                                INV        8        42.1
-                           ORCALUT4      200         9.9
-                              PFUMX       27        12.2
-                                VHI        3        23.1
+                              CCU2D       72        38.7
+                            FD1P3AX       32         6.0
+                                INV       16        80.0
+                           ORCALUT4      214        10.6
+                              PFUMX       18         8.0
+                                VHI        3        21.4
                                 VLO        3        15.0
 SUB MODULES 
                             arith16        1       100.0
                              mul8x8        1       100.0
                             
-                         TOTAL           359           
+                         TOTAL           360           
 ----------------------------------------------------------------------
 Report for cell arith16.netlist
      Instance path:  cpu0.alu.alu16.a16
                                           Cell usage:
                                cell       count    Res Usage(%)
-                              CCU2D       36        18.4
-                                INV        8        42.1
+                              CCU2D       36        19.4
+                                INV       16        80.0
                            ORCALUT4       37         1.8
-                              PFUMX        1         0.5
-                                VHI        1         7.7
+                              PFUMX        1         0.4
+                                VHI        1         7.1
                                 VLO        1         5.0
                             
-                         TOTAL            84           
+                         TOTAL            92           
 ----------------------------------------------------------------------
 Report for cell mul8x8.netlist
      Instance path:  cpu0.alu.alu16.mulu
                                           Cell usage:
                                cell       count    Res Usage(%)
-                              CCU2D       36        18.4
-                            FD1P3AX       42        10.7
-                           ORCALUT4       75         3.7
-                              PFUMX        5         2.3
-                                VHI        1         7.7
+                              CCU2D       36        19.4
+                            FD1P3AX       30         5.7
+                           ORCALUT4       59         2.9
+                              PFUMX        1         0.4
+                                VHI        1         7.1
                                 VLO        1         5.0
                             
-                         TOTAL           160           
+                         TOTAL           128           
 ----------------------------------------------------------------------
 Report for cell alu8.netlist
      Instance path:  cpu0.alu.alu8
                                           Cell usage:
                                cell       count    Res Usage(%)
-                              CCU2D       25        12.8
-                                INV        9        47.4
-                            L6MUX21        5        19.2
-                           ORCALUT4      182         9.0
-                              PFUMX       31        14.0
-                                VHI        2        15.4
+                              CCU2D       15         8.1
+                            FD1P3AX        4         0.8
+                                INV        1         5.0
+                            L6MUX21        6        37.5
+                           ORCALUT4      172         8.5
+                              PFUMX       32        14.2
+                                VHI        2        14.3
                                 VLO        3        15.0
 SUB MODULES 
                              arith8        1       100.0
                              logic8        1       100.0
                              shift8        1       100.0
                             
-                         TOTAL           260           
+                         TOTAL           238           
 ----------------------------------------------------------------------
 Report for cell shift8.netlist
      Instance path:  cpu0.alu.alu8.s8
@@ -306,20 +307,18 @@ Report for cell arith8.netlist
      Instance path:  cpu0.alu.alu8.a8
                                           Cell usage:
                                cell       count    Res Usage(%)
-                              CCU2D       20        10.2
-                                INV        8        42.1
-                           ORCALUT4       33         1.6
-                              PFUMX        2         0.9
-                                VHI        1         7.7
+                              CCU2D       10         5.4
+                            FD1P3AX        2         0.4
+                           ORCALUT4       13         0.6
+                                VHI        1         7.1
                                 VLO        1         5.0
                             
-                         TOTAL            65           
+                         TOTAL            27           
 ----------------------------------------------------------------------
 Report for cell logic8.netlist
      Instance path:  cpu0.alu.alu8.l8
                                           Cell usage:
                                cell       count    Res Usage(%)
-                           ORCALUT4        8         0.4
-                              PFUMX        3         1.4
+                           ORCALUT4        7         0.3
                             
-                         TOTAL            11           
+                         TOTAL             7           

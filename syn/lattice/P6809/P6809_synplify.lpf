@@ -3,7 +3,7 @@
 #
 
 # Period Constraints 
-FREQUENCY PORT "clk40_i" 52.8 MHz;
+FREQUENCY PORT "clk40_i" 74.3 MHz;
 
 
 # Output Constraints 

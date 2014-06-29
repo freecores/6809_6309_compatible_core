@@ -1,5 +1,16 @@
 Changelong
 ----------
+22.06.14
+--------
+
+- decoders.v : fixed wrong left/right/dest paths for several extended, page 2, 3 opcodes.
+- MC6809_cpu.v : fixed jsr extended, indexed
+
+06.02.14
+--------
+
+- regblock.v : dropped double write of PC
+- MC6809_cpu.v : fixed loading of new PC from reset vector, rel8 displacement calculation.
 
 06.01.14
 --------

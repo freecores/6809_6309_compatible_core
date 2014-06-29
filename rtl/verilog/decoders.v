@@ -43,16 +43,16 @@ always @(opcode, postbyte0, page2_valid, page3_valid)
 					8'h93, 8'ha3, 8'hb3: path_right_addr = `RN_MEM16;
 					8'h9c, 8'hac, 8'hbc: path_right_addr = `RN_MEM16;
 					8'h9e, 8'hae, 8'hbe: path_right_addr = `RN_MEM16;
-					8'h9f, 8'haf, 8'hbf: path_right_addr = `RN_MEM16;
+					8'h9f, 8'haf, 8'hbf: path_right_addr = `RN_MEM16; // STY
 					8'hde, 8'hee, 8'hfe: path_right_addr = `RN_MEM16; // lds
 				endcase
 				casex(postbyte0) // dest
-					8'h83, 8'h93, 8'ha3, 8'hb3: begin end // cmpu/cmpd
-					8'h8c, 8'h9c, 8'hac, 8'hbc: begin end // cmpy/cmps
-					8'h8e, 8'h9e, 8'hae, 8'hbe: dest_reg = `RN_IY; 
+					8'h83, 8'h93, 8'ha3, 8'hb3: begin end // cmpd
+					8'h8c, 8'h9c, 8'hac, 8'hbc: begin end // cmpy
+					8'h8e, 8'h9e, 8'hae, 8'hbe: dest_reg = `RN_IY; // LDY
 					8'hce, 8'hde, 8'hee, 8'hfe: dest_reg = `RN_S; // LDS
-					8'h8f, 8'h9f, 8'haf, 8'hbf: dest_reg = `RN_MEM16; // STY
-					8'h9f, 8'haf, 8'hbf: dest_reg = `RN_MEM16; // STS
+					8'h9f, 8'haf, 8'hbf: dest_reg = `RN_MEM16; // STY
+					8'hdf, 8'hef, 8'hff: dest_reg = `RN_MEM16; // STS
 				endcase
 			end
 		if (page3_valid)
@@ -62,9 +62,9 @@ always @(opcode, postbyte0, page2_valid, page3_valid)
 					8'h8c, 8'h9c, 8'hac, 8'hbc: path_left_addr = `RN_S; // CMPS
 				endcase
 				casex (postbyte0) // right arm
-					8'h83, 8'h8c: path_right_addr = `RN_IMM16;
-					8'h93, 8'ha3, 8'hb3: path_right_addr = `RN_MEM16;
-					8'h9c, 8'hac, 8'hbc: path_right_addr = `RN_MEM16;
+					8'h83, 8'h8c: path_right_addr = `RN_IMM16; // CMPU, CMPS
+					8'h93, 8'ha3, 8'hb3: path_right_addr = `RN_MEM16; // CMPU
+					8'h9c, 8'hac, 8'hbc: path_right_addr = `RN_MEM16; // CMPS
 				endcase
 				casex(postbyte0) // dest
 					8'h83, 8'h93, 8'ha3, 8'hb3: begin end // cmpu
@@ -88,42 +88,40 @@ always @(opcode, postbyte0, page2_valid, page3_valid)
 					4'hf: begin dest_reg = `RN_MEM8; end // CLR, only dest
 					default: begin path_left_addr = `RN_MEM8; dest_reg = `RN_MEM8; end
 				endcase
-			8'h4x, 8'h8x, 8'h9x, 8'hax, 8'hbx: 
-				case (opcode[3:0]) 
+			8'h8x, 8'h9x, 8'hax, 8'hbx: 
+				case (opcode[3:0]) // default A->A
 					4'h1, 4'h5: path_left_addr = `RN_ACCA; // CMP, BIT
 					4'h3: begin path_left_addr = `RN_ACCD; dest_reg = `RN_ACCD; end
-					4'h7: begin path_left_addr = `RN_ACCA; dest_reg = `RN_MEM8; end
+					4'h7: begin path_left_addr = `RN_ACCA; dest_reg = `RN_MEM8; end // sta
 					4'hc: path_left_addr = `RN_IX; // cmpx
-					4'he, 4'hf: begin path_left_addr = `RN_IX; dest_reg = `RN_IX; end
 					4'hd: begin end // nothing active, jsr
+					4'he: begin path_left_addr = `RN_IX; dest_reg = `RN_IX; end // ldx
+					4'hf: begin path_left_addr = `RN_IX; dest_reg = `RN_MEM16; end // stx
 					default: begin path_left_addr = `RN_ACCA; dest_reg = `RN_ACCA; end
 				endcase
-			8'h5x, 8'hcx, 8'hdx, 8'hex, 8'hfx:
+			8'hcx, 8'hdx, 8'hex, 8'hfx:
 				case (opcode[3:0]) 
 					4'h1, 4'h5: path_left_addr = `RN_ACCB; // CMP, BIT
 					4'h3, 4'hc: begin path_left_addr = `RN_ACCD; dest_reg = `RN_ACCD; end
 					4'h7: begin path_left_addr = `RN_ACCB; dest_reg = `RN_MEM8; end // store to mem
-					4'he: begin path_left_addr = `RN_U; dest_reg = `RN_IX; end
-					4'hf: begin path_left_addr = `RN_IX; dest_reg = `RN_IX; end
-					4'hd: begin path_left_addr = `RN_ACCD; end
+					4'hd: begin path_left_addr = `RN_ACCD; end // LDD
+					4'he: begin path_left_addr = `RN_U; dest_reg = `RN_U; end // LDU
+					4'hf: begin path_left_addr = `RN_U; dest_reg = `RN_MEM16; end // STU
 					default: begin path_left_addr = `RN_ACCB; dest_reg = `RN_ACCB; end
 				endcase
 		endcase
 		casex (opcode) // right arm
 			// 8x and Cx
-			8'b1x00_000x, 8'b1x00_0010: path_right_addr = `RN_IMM8;
-			8'b1x00_0011, 8'b1x00_11x0, 8'b1x00_1111: path_right_addr = `RN_IMM16;
-			8'b1x00_010x, 8'b1x00_0110,
-			8'b1x00_10xx: path_right_addr = `RN_IMM8;
+			8'b1x00_000x, 8'b1x00_0010: path_right_addr = `RN_IMM8; // sub, cmp, scb
+			8'b1x00_0011, 8'b1x00_11x0: path_right_addr = `RN_IMM16; // cmpd, cmpx, ldx
+			8'b1x00_010x, 8'b1x00_0110,	8'b1x00_10xx: path_right_addr = `RN_IMM8;
 			// 9, A, B, D, E, F
 			8'b1x01_000x, 8'b1x01_0010: path_right_addr = `RN_MEM8;
-			8'b1x01_0011, 8'b1x01_11x0, 8'b1x01_1111: path_right_addr = `RN_MEM16;
-			8'b1x01_010x, 8'b1x01_0110,
-			8'b1x01_10xx: path_right_addr = `RN_MEM8;
+			8'b1x01_0011, 8'b1x01_11x0: path_right_addr = `RN_MEM16; // cmpd, cmpx, ldx
+			8'b1x01_010x, 8'b1x01_0110,	8'b1x01_10xx: path_right_addr = `RN_MEM8;
 			8'b1x1x_000x, 8'b1x1x_0010: path_right_addr = `RN_MEM8;
-			8'b1x1x_0011, 8'b1x1x_11x0, 8'b1x1x_1111: path_right_addr = `RN_MEM16;
-			8'b1x1x_010x, 8'b1x1x_0110,
-			8'b1x1x_10xx: path_right_addr = `RN_MEM8;
+			8'b1x1x_0011, 8'b1x1x_11x0: path_right_addr = `RN_MEM16;
+			8'b1x1x_010x, 8'b1x1x_0110,	8'b1x1x_10xx: path_right_addr = `RN_MEM8;
 		endcase
 	end
 always @(posedge cpu_clk)
@@ -207,7 +205,7 @@ always @(opcode, postbyte0, page2_valid, page3_valid, oplo)
 			8'b11xx1100: optype = `OP_LD; // LDD
 			8'b10xx1101: begin optype = `OP_JSR; end// bsr & jsr
 			8'b1xxx1110: optype = `OP_LD; // LDX, LDU
-			8'b1xxx1111, 8'b1xxx1101: optype = `OP_ST;
+			8'b1xxx1111, 8'b11xx1101: optype = `OP_ST;
 		endcase
 		if (page2_valid == 1'b1)
 			begin

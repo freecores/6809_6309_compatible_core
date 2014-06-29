@@ -1,7 +1,7 @@
 # Synospys Constraint Checker(syntax only), version maplat, Build 618R, built Mar 14 2013
 # Copyright (C) 1994-2012, Synopsys Inc. This software the associated documentation are confidential and proprietary to Synopsys, Inc. Your use or disclosure of this software subject to the terms and conditions of a written license agreement between you, or your company, and Synopsys, Inc.
 
-# Written on Sun Dec 29 07:16:30 2013
+# Written on Sun Jun 22 08:17:23 2014
 
 
 ##### DESIGN INFO #######################################################
@@ -25,5 +25,6 @@ Start                             Requested     Requested     Clock             
 Clock                             Frequency     Period        Type                               Group                
 ----------------------------------------------------------------------------------------------------------------------
 CC3_top|clk40_i                   1.0 MHz       1000.000      inferred                           Autoconstr_clkgroup_0
+CC3_top|div_derived_clock         1.0 MHz       1000.000      derived (from CC3_top|clk40_i)     Autoconstr_clkgroup_0
 CC3_top|cpu_clk_derived_clock     1.0 MHz       1000.000      derived (from CC3_top|clk40_i)     Autoconstr_clkgroup_0
 ======================================================================================================================

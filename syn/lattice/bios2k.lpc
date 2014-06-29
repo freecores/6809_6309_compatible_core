@@ -16,8 +16,8 @@ CoreRevision=7.2
 ModuleName=bios2k
 SourceFormat=Verilog HDL
 ParameterFileVersion=1.0
-Date=01/03/2014
-Time=08:42:51
+Date=02/06/2014
+Time=15:31:10
 
 [Parameters]
 Verilog=1
@@ -41,7 +41,7 @@ Optimization=Speed
 Reset=Sync
 Reset1=Sync
 Init=mem
-MemFile=test1.mem
+MemFile=/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/test1.mem
 MemFormat=orca
 EnECC=0
 Pipeline=0
@@ -50,4 +50,4 @@ WriteB=Normal
 init_data=0
 
 [FilesGenerated]
-test1.mem=mem
+/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/test1.mem=mem

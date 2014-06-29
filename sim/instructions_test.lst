@@ -1,4 +1,4 @@
-The Mamou Assembler Version 01.00      01/06/2014 06:54:14      Page 001
+The Mamou Assembler Version 01.00      06/22/2014 08:16:49      Page 001
 
 
 00001                    
@@ -64,7 +64,7 @@ The Mamou Assembler Version 01.00      01/06/2014 06:54:14      Page 001
 
 
 
-The Mamou Assembler Version 01.00      01/06/2014 06:54:14      Page 002
+The Mamou Assembler Version 01.00      06/22/2014 08:16:49      Page 002
 
 
 00061    0067 27F1                      beq       _loop1              ; another 

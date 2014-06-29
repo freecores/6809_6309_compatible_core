@@ -22,10 +22,10 @@ impl -add /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/
 #
 #implementation attributes
 
-set_option -vlog_std v2001
+set_option -vlog_std sysv
 set_option -project_relative_includes 1
 set_option -include_path {/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/}
-set_option -include_path {/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice}
+set_option -include_path {/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice;/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice;/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice}
 
 #device options
 set_option -technology MACHXO2
@@ -38,7 +38,7 @@ set_option -part_companion ""
 set_option -top_module "CC3_top"
 
 # mapper_options
-set_option -frequency 1
+set_option -frequency auto
 set_option -write_verilog 0
 set_option -write_vhdl 0
 set_option -srs_instrumentation 1
@@ -48,7 +48,7 @@ set_option -maxfan 1000
 set_option -disable_io_insertion 0
 set_option -retiming 0
 set_option -pipe 1
-set_option -forcegsr false
+set_option -forcegsr no
 set_option -fix_gated_and_generated_clocks 1
 set_option -RWCheckOnRam 1
 set_option -update_models_cp 0
@@ -66,8 +66,5 @@ set_option -multi_file_compilation_unit 1
 set_option -write_apr_constraint 1
 
 #set result format/file last
-project -result_file "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi"
-
-#set log file 
-set_option log_file "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.srf" 
+project -result_file "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809.edi"
 impl -active "P6809"

@@ -122,7 +122,7 @@ assign right_reg = (inc_pc | write_pc) ? `RN_PC:exg_dest_r;
 
 always @(posedge clk_in)
 	begin
-		if (write_exg | inc_pc | write_pc)
+		if (write_exg | inc_pc)// | write_pc)
 			case (right_reg)
 				0: `ACCD <= right;
 				1: IX <= right;

@@ -93,29 +93,30 @@ module arith8(
 	output reg overflow_out,
 	output reg half_c_out
 	);
+
+wire carry;
+assign carry = opcode_in[1] ? carry_in:1'b0;
 always @(*)
 	begin
-		case (opcode_in)
-			2'b00: { carry_out, q_out } = { 1'b0, a_in } + { 1'b0, b_in }; // ADD
-			2'b01: { carry_out, q_out } = { 1'b0, a_in } - { 1'b0, b_in }; // SUB
-			2'b10: { carry_out, q_out } = { 1'b0, a_in } + { 1'b0, b_in } + { 8'h0, carry_in }; // ADC
-			2'b11: { carry_out, q_out } = { 1'b0, a_in } - { 1'b0, b_in } - { 8'h0, carry_in }; // SBC
+		case (opcode_in[0])
+			1'b0: { carry_out, q_out } = { 1'b0, a_in } + { 1'b0, b_in } + { 8'h0, carry }; // ADD/ADC
+			1'b1: { carry_out, q_out } = { 1'b0, a_in } - { 1'b0, b_in } - { 8'h0, carry }; // SUB/SBC
 		endcase
 	end
 
 always @(*)
 	begin
-		case (opcode_in)
-			2'b00, 2'b10: overflow_out = (a_in[7] & b_in[7] & (~q_out[7])) | ((~a_in[7]) & (~b_in[7]) & q_out[7]);
-			2'b01, 2'b11: overflow_out = (a_in[7] & (~b_in[7]) & (~q_out[7])) | ((~a_in[7]) & b_in[7] & q_out[7]);
+		case (opcode_in[0])
+			1'b0: overflow_out = (a_in[7] & b_in[7] & (~q_out[7])) | ((~a_in[7]) & (~b_in[7]) & q_out[7]);
+			1'b1: overflow_out = (a_in[7] & (~b_in[7]) & (~q_out[7])) | ((~a_in[7]) & b_in[7] & q_out[7]);
 		endcase
 	end
 
 always @(*)
 	begin
-		case (opcode_in)
-			2'b00, 2'b10: half_c_out = (a_in[3] & b_in[3] & (~q_out[3])) | ((~a_in[3]) & (~b_in[3]) & q_out[3]);
-			2'b01, 2'b11: half_c_out = half_c_in;
+		case (opcode_in[0])
+			1'b0: half_c_out = (a_in[3] & b_in[3] & (~q_out[3])) | ((~a_in[3]) & (~b_in[3]) & q_out[3]);
+			1'b1: half_c_out = half_c_in;
 		endcase
 	end
 
