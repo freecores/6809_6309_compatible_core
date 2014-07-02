@@ -1,5 +1,13 @@
 Changelong
 ----------
+
+02.07.14
+--------
+- decoders.v : fixed dec, fixed inc (didn't read before write), fixed clr for ea direct, extended, indexed
+               added a path with the decoded sources/destination for the decode stage
+- MC6809_cpu.v : implemented two paths for source/dest from the decoder
+- rumsim.bat : added batch file for simulation
+
 22.06.14
 --------
 

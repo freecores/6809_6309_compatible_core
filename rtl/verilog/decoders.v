@@ -12,9 +12,12 @@ module decode_regs(
 	input wire [7:0] postbyte0,
 	input wire page2_valid, // is 1 when the postbyte0 is a valid opcode (after it was loaded)
 	input wire page3_valid, // is 1 when the postbyte0 is a valid opcode (after it was loaded)
-	output reg [3:0] path_left_addr_o,
-	output reg [3:0] path_right_addr_o,
-	output reg [3:0] dest_reg_o,
+	output wire [3:0] path_left_addr_o,
+	output wire [3:0] path_right_addr_o,
+	output wire [3:0] dest_reg_o,
+	output reg [3:0] path_left_addr_lo,
+	output reg [3:0] path_right_addr_lo,
+	output reg [3:0] dest_reg_lo,
 	output wire write_dest,
 	output wire source_size,
 	output wire result_size
@@ -24,6 +27,12 @@ reg [3:0] path_left_addr, path_right_addr, dest_reg;
 assign write_dest = (dest_reg != `RN_INV);
 assign source_size = (path_left_addr < `RN_ACCA);
 assign result_size = (dest_reg < `RN_IMM16) ? 1:0;
+
+assign path_right_addr_o = path_right_addr;
+assign path_left_addr_o = path_left_addr;
+assign dest_reg_o = dest_reg;
+
+
 always @(opcode, postbyte0, page2_valid, page3_valid)
 	begin
 		path_left_addr = `RN_INV;
@@ -82,8 +91,7 @@ always @(opcode, postbyte0, page2_valid, page3_valid)
 			8'h3d: begin path_left_addr = `RN_ACCA; path_right_addr = `RN_ACCB; dest_reg = `RN_ACCD; end // mul
 			8'h4x: begin path_left_addr = `RN_ACCA; dest_reg = `RN_ACCA; end
 			8'h5x: begin path_left_addr = `RN_ACCB; dest_reg = `RN_ACCB; end
-			8'h0x, 8'h7x: begin path_left_addr = `RN_MEM8; dest_reg = `RN_MEM8; end
-			8'h6x:
+			8'h0x, 8'h6x, 8'h7x:
 				case (opcode[3:0]) 
 					4'hf: begin dest_reg = `RN_MEM8; end // CLR, only dest
 					default: begin path_left_addr = `RN_MEM8; dest_reg = `RN_MEM8; end
@@ -124,12 +132,15 @@ always @(opcode, postbyte0, page2_valid, page3_valid)
 			8'b1x1x_010x, 8'b1x1x_0110,	8'b1x1x_10xx: path_right_addr = `RN_MEM8;
 		endcase
 	end
+// latched versions are used to fetch regsiters
+// not-latched version in the decoder
 always @(posedge cpu_clk)
 	begin
-		path_right_addr_o <= path_right_addr;
-		path_left_addr_o <= path_left_addr;
-		dest_reg_o <= dest_reg;
+		path_right_addr_lo <= path_right_addr;
+		path_left_addr_lo <= path_left_addr;
+		dest_reg_lo <= dest_reg;
 	end
+
 endmodule
 
 /* Decodes module and addressing mode for page 1 opcodes */
@@ -329,7 +340,7 @@ always @(*)
 			8'h07, 8'b01xx_0111: alu_opcode = `ASR;
 			8'h08, 8'b01xx_1000: alu_opcode = `LSL;
 			8'h09, 8'b01xx_1001: alu_opcode = `ROL;
-			8'h0a, 8'b01xx_1010: begin alu_opcode = `SUB; dec_alu_right_path_mod = `MOD_MINUS1; end // dec
+			8'h0a, 8'b01xx_1010: begin alu_opcode = `SUB; dec_alu_right_path_mod = `MOD_ONE; end // dec
 			8'h0c, 8'b01xx_1100: begin alu_opcode = `ADD; dec_alu_right_path_mod = `MOD_ONE; end // inc
 			8'h0d, 8'b01xx_1101: alu_opcode = `AND;
 			8'h0f, 8'b01xx_1111: begin alu_opcode = `LD; dec_alu_right_path_mod = `MOD_ZERO; end // CLR

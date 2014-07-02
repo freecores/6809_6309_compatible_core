@@ -59,6 +59,8 @@ wire [1:0] dec_o_right_path_mod; /* Modifier for alu's right path input */
 /* register decoder */
 wire dec_o_wdest, dec_o_source_size, dec_o_write_flags;
 wire [3:0] dec_o_left_path_addr, dec_o_right_path_addr, dec_o_dest_reg_addr;
+// latched versions, used for muxes, regs and alu
+wire [3:0] dec_lo_left_path_addr, dec_lo_right_path_addr, dec_lo_dest_reg_addr;
 /* test condition */
 wire dec_o_cond_taken;
 /* ALU outputs */
@@ -127,7 +129,7 @@ alu alu(
 regblock regs(
 	.clk_in(cpu_clk),
 	.path_left_addr(datamux_o_alu_in_left_path_addr),
-	.path_right_addr(dec_o_right_path_addr),
+	.path_right_addr(dec_lo_right_path_addr),
 	.write_reg_addr(datamux_o_dest_reg_addr),
 	.exg_dest_r(k_postbyte[7:4]),
 	.eapostbyte( k_ind_ea ),
@@ -165,6 +167,9 @@ decode_regs dec_regs(
 	.path_left_addr_o(dec_o_left_path_addr),
 	.path_right_addr_o(dec_o_right_path_addr),
 	.dest_reg_o(dec_o_dest_reg_addr),
+	.path_left_addr_lo(dec_lo_left_path_addr),
+	.path_right_addr_lo(dec_lo_right_path_addr),
+	.dest_reg_lo(dec_lo_dest_reg_addr),
 	.write_dest(dec_o_wdest),
 	.source_size(dec_o_source_size),
 	.result_size(dec_o_alu_size)
@@ -227,7 +232,7 @@ always @(*)
 		if (k_pp_active_reg != `RN_INV)
 			datamux_o_alu_in_left_path_addr = k_pp_active_reg;
 		else
-			datamux_o_alu_in_left_path_addr = dec_o_left_path_addr;
+			datamux_o_alu_in_left_path_addr = dec_lo_left_path_addr;
 	end
 
 /* Destination register address MUX
@@ -237,7 +242,7 @@ always @(*)
 		if (k_pp_active_reg != `RN_INV)
 			datamux_o_dest_reg_addr = k_pp_active_reg;
 		else
-			datamux_o_dest_reg_addr = dec_o_dest_reg_addr;
+			datamux_o_dest_reg_addr = dec_lo_dest_reg_addr;
 	end
 
 /* Destination register data mux
@@ -262,7 +267,7 @@ always @(*)
 
 always @(*)
 	begin
-		if (dec_o_left_path_addr == `RN_MEM8)
+		if (dec_lo_left_path_addr == `RN_MEM8)
 			datamux_o_alu_in_left_path_data = { k_memhi, k_memlo };
 		else
 		case (dec_o_p1_optype)
@@ -297,7 +302,7 @@ always @(*)
 /* ALU right input mux */
 always @(*)
 	begin
-		case (dec_o_right_path_addr)
+		case (dec_lo_right_path_addr)
 			`RN_MEM8:
 				datamux_o_alu_in_right_path_data = { 8'h00, k_memlo };
 			`RN_MEM16:
