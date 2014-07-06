@@ -43,24 +43,23 @@ set_option -resolve_multiple_driver 0
 
 
 #-- add_file options
-set_option -include_path {/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice}
-add_file -verilog {/usr/local/diamond/2.2_x64/cae_library/synthesis/verilog/machxo2.v}
-add_file -verilog {/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/CC3_top.v}
-add_file -verilog {/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v}
-add_file -verilog {/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/decoders.v}
-add_file -verilog {/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/defs.v}
-add_file -verilog {/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v}
-add_file -verilog {/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v}
-add_file -verilog {/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/bios2k.v}
-add_file -verilog {/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/vgatext.v}
-add_file -verilog {/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/fontrom.v}
-add_file -verilog {/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/textmem4k.v}
+set_option -include_path {C:/02_Elektronik/020_V6809/trunk/syn/lattice}
+add_file -verilog {C:/02_Elektronik/020_V6809/trunk/syn/lattice/CC3_top.v}
+add_file -verilog {C:/02_Elektronik/020_V6809/trunk/syn/lattice/../../rtl/verilog/alu16.v}
+add_file -verilog {C:/02_Elektronik/020_V6809/trunk/syn/lattice/../../rtl/verilog/decoders.v}
+add_file -verilog {C:/02_Elektronik/020_V6809/trunk/syn/lattice/../../rtl/verilog/defs.v}
+add_file -verilog {C:/02_Elektronik/020_V6809/trunk/syn/lattice/../../rtl/verilog/MC6809_cpu.v}
+add_file -verilog {C:/02_Elektronik/020_V6809/trunk/syn/lattice/../../rtl/verilog/regblock.v}
+add_file -verilog {C:/02_Elektronik/020_V6809/trunk/syn/lattice/bios2k.v}
+add_file -verilog {C:/02_Elektronik/020_V6809/trunk/syn/lattice/vgatext.v}
+add_file -verilog {C:/02_Elektronik/020_V6809/trunk/syn/lattice/fontrom.v}
+add_file -verilog {C:/02_Elektronik/020_V6809/trunk/syn/lattice/textmem4k.v}
 
 #-- top module name
 set_option -top_module CC3_top
 
 #-- set result format/file last
-project -result_file {/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_P6809.edi}
+project -result_file {C:/02_Elektronik/020_V6809/trunk/syn/lattice/P6809/P6809_P6809.edi}
 
 #-- error message log file
 project -log_file {P6809_P6809.srf}

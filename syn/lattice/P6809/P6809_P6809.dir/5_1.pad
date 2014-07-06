@@ -6,7 +6,7 @@ Performance Grade:      4
 PACKAGE:          TQFP144
 Package Status:                     Final          Version 1.36
 
-Thu Feb  6 15:35:45 2014
+Sun Jul 06 07:47:07 2014
 
 Pinout by Port Name:
 +-------------+----------+---------------+-------+-----------+-----------+----------------------------------------------------------+
@@ -530,11 +530,11 @@ LOCATE  COMP  "wen_o"  SITE  "112";
 
 
 
-PAR: Place And Route Diamond (64-bit) 2.2.0.101.
+PAR: Place And Route Diamond (64-bit) 3.1.0.96.
 Copyright (c) 1991-1994 by NeoCAD Inc. All rights reserved.
 Copyright (c) 1995 AT&T Corp.   All rights reserved.
 Copyright (c) 1995-2001 Lucent Technologies Inc.  All rights reserved.
 Copyright (c) 2001 Agere Systems   All rights reserved.
-Copyright (c) 2002-2013 Lattice Semiconductor Corporation,  All rights reserved.
-Thu Feb  6 15:35:45 2014
+Copyright (c) 2002-2014 Lattice Semiconductor Corporation,  All rights reserved.
+Sun Jul 06 07:47:07 2014
 

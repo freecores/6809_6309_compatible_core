@@ -1,5 +1,17 @@
 Known bugs are described here
 
+06.07.14
+--------
+
+- no known bugs, core passes cpu-check
+
+29.06.14-06.07.14
+-----------------
+
+- Multiple opcodes fail: direct, extended opcodes, jmp, inc, dec, daa
+  sex, long branches, indirect indexed opcodes don't load the indirect
+  address
+
 07.02.14
 --------
 

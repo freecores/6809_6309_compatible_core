@@ -1,9 +1,10 @@
 #
-# Logical Preferences generated for Lattice by Synplify maplat, Build 618R.
+# Logical Preferences generated for Lattice by Synplify maplat, Build 800R.
 #
 
 # Period Constraints 
-FREQUENCY PORT "clk40_i" 74.3 MHz;
+FREQUENCY PORT "clk40_i" 73.3 MHz;
+FREQUENCY NET "cpu_clk" 73.3 MHz;
 
 
 # Output Constraints 

@@ -2,7 +2,7 @@
 <HEAD><TITLE>Project Summary</TITLE>
 <STYLE TYPE="text/css">
 <!--
- body,pre{    font-family:'Courier New', monospace;    color: #000000;    font-size:88%;    background-color: #ffffff;}h1 {    font-weight: bold;    margin-top: 24px;    margin-bottom: 10px;    border-bottom: 3px solid #000;    font-size: 1em;}h2 {    font-weight: bold;    margin-top: 18px;    margin-bottom: 5px;    font-size: 0.90em;}h3 {    font-weight: bold;    margin-top: 12px;    margin-bottom: 5px;    font-size: 0.80em;}p {    font-size:78%;}P.Table {    margin-top: 4px;    margin-bottom: 4px;    margin-right: 4px;    margin-left: 4px;}table{    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    border-collapse: collapse;}th {    font-weight:bold;    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    text-align:left;    font-size:78%;}td {    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    font-size:78%;}a {    color:#013C9A;    text-decoration:none;}a:visited {    color:#013C9A;}a:hover, a:active {    text-decoration:underline;    color:#5BAFD4;}.pass{background-color: #00ff00;}.fail{background-color: #ff0000;}.comment{    font-size: 90%;    font-style: italic;}
+ body,pre{    font-family:'Courier New', monospace;    color: #000000;    font-size:88%;    background-color: #ffffff;}h1 {    font-weight: bold;    margin-top: 24px;    margin-bottom: 10px;    border-bottom: 3px solid #000;    font-size: 1em;}h2 {    font-weight: bold;    margin-top: 18px;    margin-bottom: 5px;    font-size: 0.90em;}h3 {    font-weight: bold;    margin-top: 12px;    margin-bottom: 5px;    font-size: 0.80em;}p {    font-size:78%;}P.Table {    margin-top: 4px;    margin-bottom: 4px;    margin-right: 4px;    margin-left: 4px;}table{    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    border-collapse: collapse;}th {    font-weight:bold;    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    text-align:left;    font-size:78%;}td {    padding: 4px;    border-width: 1px 1px 1px 1px;    border-style: solid solid solid solid;    border-color: black black black black;    vertical-align:top;    font-size:78%;}a {    color:#013C9A;    text-decoration:none;}a:visited {    color:#013C9A;}a:hover, a:active {    text-decoration:underline;    color:#5BAFD4;}.pass{background-color: #00ff00;}.fail{background-color: #ff0000;}.comment{    font-size: 90%;    font-style: italic;}
 -->
 </STYLE>
 </HEAD>
@@ -13,29 +13,28 @@
 
 Command line:   map -a MachXO2 -p LCMXO2-7000HE -t TQFP144 -s 4 -oc Commercial
      P6809_P6809.ngd -o P6809_P6809_map.ncd -pr P6809_P6809.prf -mp
-     P6809_P6809.mrp /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/s
-     yn/lattice/P6809.lpf -c 0
+     P6809_P6809.mrp C:/02_Elektronik/020_V6809/trunk/syn/lattice/P6809.lpf -c 0
+     -gui
 Target Vendor:  LATTICE
 Target Device:  LCMXO2-7000HETQFP144
 Target Performance:   4
-Mapper:  xo2c00,  version:  Diamond (64-bit) 2.2.0.101
-Mapped on:  02/06/14  15:35:16
+Mapper:  xo2c00,  version:  Diamond (64-bit) 3.1.0.96
+Mapped on:  07/06/14  07:46:52
 
 
 <A name="mrp_ds"></A><B><U><big>Design Summary</big></U></B>
-   Number of registers:    580
-      PFU registers:    570
-      PIO registers:    10
-   Number of SLICEs:          1208 out of  3432 (35%)
-      SLICEs(logic/ROM):       858 out of   858 (100%)
-      SLICEs(logic/ROM/RAM):   350 out of  2574 (14%)
-          As RAM:            0 out of  2574 (0%)
-          As Logic/ROM:    350 out of  2574 (14%)
-   Number of logic LUT4s:     2034
-   Number of distributed RAM:   0 (0 LUT4s)
-   Number of ripple logic:    186 (372 LUT4s)
-   Number of shift registers:   0
-   Total number of LUT4s:     2406
+   Number of registers:    489 out of  7209 (7%)
+      PFU registers:          479 out of  6864 (7%)
+      PIO registers:           10 out of   345 (3%)
+   Number of SLICEs:      1234 out of  3432 (36%)
+      SLICEs as Logic/ROM:   1234 out of  3432 (36%)
+      SLICEs as RAM:            0 out of  2574 (0%)
+      SLICEs as Carry:        183 out of  3432 (5%)
+   Number of LUT4s:        2457 out of  6864 (36%)
+      Number of logic LUTs:      2091
+      Number of distributed RAM:   0 (0 LUT4s)
+      Number of ripple logic:    183 (366 LUT4s)
+      Number of shift registers:   0
    Number of PIO sites used: 69 + 4(JTAG) out of 115 (63%)
    Number of block RAMs:  10 out of 26 (38%)
    Number of GSRs:  1 out of 1 (100%)
@@ -62,85 +61,82 @@ Mapped on:  02/06/14  15:35:16
       2. Number of logic LUT4s does not include count of distributed RAM and
      ripple logic.
    Number of clocks:  1
-     Net cpu_clkgen: 367 loads, 367 rising, 0 falling (Driver: PIO clk40_i )
-   Number of Clock Enables:  37
+     Net clk40_i_c: 318 loads, 318 rising, 0 falling (Driver: PIO clk40_i )
+   Number of Clock Enables:  38
      Net cpu0_we: 8 loads, 0 LSLICEs
-
      Net textctrl/video_en_RNIFLVI: 8 loads, 0 LSLICEs
-     Net textctrl/N_75_i: 4 loads, 4 LSLICEs
-     Net textctrl/y_cnte: 4 loads, 4 LSLICEs
-     Net textctrl/N_76_i: 4 loads, 4 LSLICEs
-     Net textctrl/N_4: 6 loads, 6 LSLICEs
+
      Net textctrl/tshift_1_sqmuxa: 4 loads, 4 LSLICEs
+     Net textctrl/N_77_i: 4 loads, 4 LSLICEs
+     Net textctrl/y_cnte: 4 loads, 4 LSLICEs
+     Net textctrl/x_cnte: 4 loads, 4 LSLICEs
+     Net textctrl/N_4: 6 loads, 6 LSLICEs
      Net textctrl/line_cnte: 2 loads, 2 LSLICEs
      Net textctrl/vsync_cnt_0_sqmuxa: 4 loads, 4 LSLICEs
      Net un1_bios_en_0: 4 loads, 0 LSLICEs
-     Net cpu0/k_new_pc26_1_i_RNI1GUPD: 3 loads, 3 LSLICEs
-     Net cpu0/k_ealo_cnv_0[0]: 16 loads, 16 LSLICEs
-     Net cpu0/next_state_0_sqmuxa_4_RNIMOT3B: 3 loads, 3 LSLICEs
-     Net cpu0/G_9: 80 loads, 80 LSLICEs
-     Net cpu0/k_ofshi_1_sqmuxa_RNIHOKL: 4 loads, 4 LSLICEs
-     Net cpu0/k_pp_regs60_RNI18KD3: 4 loads, 4 LSLICEs
-     Net cpu0/state82_RNI5IM34: 4 loads, 4 LSLICEs
-     Net cpu0/k_memhi_0_sqmuxa_RNIN4F02: 4 loads, 4 LSLICEs
-     Net cpu0/un1_state_23_1_RNI2Q3P1: 4 loads, 4 LSLICEs
-     Net cpu0/PC_1_sqmuxa_2_RNIK4633: 37 loads, 37 LSLICEs
-     Net cpu0/k_new_pc28_RNILK8D5: 4 loads, 4 LSLICEs
-     Net cpu0/regs/cff_1_sqmuxa_2_RNI1FDN: 18 loads, 18 LSLICEs
-     Net cpu0/regs/eflag_0_sqmuxa_0_RNIOVLR: 4 loads, 4 LSLICEs
-     Net cpu0/regs/IY_1_sqmuxa_2_1_0_RNIVEBV1: 25 loads, 25 LSLICEs
-     Net cpu0/regs/IX_0_sqmuxa_1_1_RNI2C2L3: 25 loads, 25 LSLICEs
-     Net cpu0/regs/DP_1_sqmuxa_1_1_0_RNIIANF1: 9 loads, 9 LSLICEs
-     Net cpu0/regs/ACCB_0_sqmuxa_1_RNILJP21: 9 loads, 9 LSLICEs
-     Net cpu0/regs/ACCB22_RNIDCT43: 4 loads, 4 LSLICEs
-     Net cpu0/un1_state_85_RNI07AH3: 2 loads, 2 LSLICEs
-     Net cpu0/un1_state_18_2_RNINGR01: 4 loads, 4 LSLICEs
-     Net cpu0/un1_state_7_3_RNIREBA3: 8 loads, 8 LSLICEs
-     Net cpu0/state_3_sqmuxa_5_RNIE8SO9: 8 loads, 8 LSLICEs
-     Net cpu0/un1_state_75_RNISTJ21: 2 loads, 2 LSLICEs
-     Net cpu0/un1_state_21_RNI6VAF: 4 loads, 4 LSLICEs
-     Net cpu0/k_new_pc29_RNILU7S1: 4 loads, 4 LSLICEs
-     Net cpu0/un1_state_101_RNI9RM81: 2 loads, 2 LSLICEs
+     Net cpu0/un1_dec_o_ea_ofs8_1_i_RNI5818M: 3 loads, 3 LSLICEs
+     Net cpu0/k_ealo_cnv_0[0]: 17 loads, 17 LSLICEs
+     Net cpu0/state57_RNIVE7GE[0]: 2 loads, 2 LSLICEs
+     Net cpu0/un1_state_75_1_RNIFQ0HB: 4 loads, 4 LSLICEs
+     Net cpu0/G_9: 111 loads, 111 LSLICEs
+     Net cpu0/un1_next_state_2_sqmuxa_4_9_RNIH3541: 3 loads, 3 LSLICEs
+     Net cpu0/un1_next_state_2_sqmuxa_2_RNI9IU0S: 2 loads, 2 LSLICEs
+     Net cpu0/un1_state_53_RNIHGM19: 4 loads, 4 LSLICEs
+     Net cpu0/k_new_pc27_RNILUNB8: 4 loads, 4 LSLICEs
+     Net cpu0/k_ind_ea_1_sqmuxa_1_RNIDOOO1: 4 loads, 4 LSLICEs
+     Net cpu0/un1_state_17_1_RNI0AA81: 4 loads, 4 LSLICEs
+     Net cpu0/regs/cff_0_sqmuxa_1_i_o2_RNI101G: 1 loads, 1 LSLICEs
+     Net cpu0/un1_state_18_RNIBNKS: 4 loads, 4 LSLICEs
+     Net cpu0/k_cpu_we_3_RNIEO9N: 8 loads, 8 LSLICEs
+     Net cpu0/regs/cff_0_sqmuxa_1_i_o2_RNITELD: 5 loads, 5 LSLICEs
+     Net cpu0/regs/eflag_RNO: 1 loads, 1 LSLICEs
+     Net cpu0/regs/PC_0_sqmuxa_1_i_o2_RNIHDJD1: 16 loads, 16 LSLICEs
+     Net cpu0/regs/IY_0_sqmuxa_i_a2_0_RNIK8531: 8 loads, 8 LSLICEs
+     Net cpu0/regs/ACCB_1_sqmuxa_i_a2_1_RNI30EL1: 8 loads, 8 LSLICEs
+     Net cpu0/regs/DP_0_sqmuxa_i_a2_1_RNIARVN: 4 loads, 4 LSLICEs
+     Net cpu0/regs/ACCB_1_sqmuxa_i_a2_RNIAEJ01: 4 loads, 4 LSLICEs
+     Net cpu0/regs/ACCB22_i_a2_RNIOV3S3: 4 loads, 4 LSLICEs
+     Net cpu0/k_memhi_0_sqmuxa_RNIC8VU1: 4 loads, 4 LSLICEs
+     Net cpu0/un1_state_71_RNIBU403: 2 loads, 2 LSLICEs
+     Net cpu0/k_pp_regs_0_sqmuxa_2_RNIPNRUH: 8 loads, 8 LSLICEs
+     Net cpu0/k_ofslo_cnv[0]: 4 loads, 4 LSLICEs
+     Net cpu0/k_ofshi_cnv[0]: 4 loads, 4 LSLICEs
      Net cpu0/k_mem_dest_RNO[0]: 1 loads, 1 LSLICEs
    Number of local set/reset loads for net reset_o_c merged into GSR:  6
-   Number of LSRs:  2
-     Net reset_cnt[0]: 1 loads, 1 LSLICEs
+   Number of LSRs:  1
      Net textctrl.vsync_cnt[10]: 3 loads, 2 LSLICEs
    Number of nets driven by tri-state buffers:  0
    Top 10 highest fanout non-clock nets:
-     Net cpu0/G_9: 93 loads
-     Net state_o_c[5]: 85 loads
-     Net state_o_c[4]: 79 loads
-     Net state_o_c[1]: 78 loads
-     Net cpu0/use_s_1: 75 loads
-     Net state_o_c[2]: 73 loads
-     Net cpu0/alu/rop_in[1]: 72 loads
-     Net state_o_c[3]: 69 loads
-     Net cpu0/alu/rop_in[0]: 67 loads
-     Net cpu0/k_opcode[3]: 59 loads
+     Net cpu0/G_9: 126 loads
+     Net state_o_c[1]: 84 loads
+     Net state_o_c[0]: 81 loads
+     Net state_o_c[5]: 80 loads
+     Net state_o_c[2]: 78 loads
+     Net cpu0/alu/rop_in[0]: 77 loads
+     Net cpu0/use_s_1: 77 loads
+     Net cpu0/alu/rop_in[1]: 74 loads
+     Net state_o_c[4]: 68 loads
+     Net cpu0/k_opcode[0]: 66 loads
 
 
 
 
+   Number of warnings:  23
 
 
-
-
-   Number of warnings:  22
    Number of errors:    0
-
 
 
 
 <A name="mrp_dwe"></A><B><U><big>Design Errors/Warnings</big></U></B>
 
-WARNING - map: /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lat
-     tice/P6809.lpf (46): Error in LOCATE COMP "wenh_o" SITE "68" ;
-: COMP
-     "wenh_o" not found in design. Disbale this preference.
-WARNING - map: Preference parsing results:  1 semantic error detected
-WARNING - map: There are errors in the preference file, "/home/pacito/02_Elektro
-     nik/020_V6809/6809/opencores/trunk/syn/lattice/P6809.lpf".
+WARNING - map: C:/02_Elektronik/020_V6809/trunk/syn/lattice/P6809.lpf(94):
+     Semantic error in "FREQUENCY NET "cpu_clkgen" 40.000000 MHz ;": cpu_clkgen
+     matches no clock nets in the design.  Disable this preference.
+WARNING - map: C:/02_Elektronik/020_V6809/trunk/syn/lattice/P6809.lpf(46):
+     Semantic error in "LOCATE COMP "wenh_o" SITE "68" ;": COMP "wenh_o" not
+     found in design. Disable this preference.
+WARNING - map: Preference parsing results:  2 semantic errors detected
 WARNING - map: Using local reset signal 'reset_o_c' to infer global GSR net.
 WARNING - map: IO buffer missing for top level port data_io[15:0](15)...logic
      will be discarded.
@@ -184,8 +180,8 @@ WARNING - map: The reset of EBR 'textctrl/font/fontrom_0_0_3' cannot be
      reset, either connect the local reset to a control signal or force the GSR
      property to be enabled.
 WARNING - map: The reset of EBR 'textctrl/font/fontrom_0_1_2' cannot be
-
      controlled. The local reset is not connected to any control signal and set
+
      to GND. The global reset is disabled via GSR property. To control the EBR
      reset, either connect the local reset to a control signal or force the GSR
      property to be enabled.
@@ -209,6 +205,8 @@ WARNING - map: The reset of EBR 'bios/bios2k_0_0_1' cannot be controlled. The
      global reset is disabled via GSR property. To control the EBR reset, either
      connect the local reset to a control signal or force the GSR property to be
      enabled.
+WARNING - map: There are semantic errors in the preference file
+     C:/02_Elektronik/020_V6809/trunk/syn/lattice/P6809.lpf.
 
 
 
@@ -241,8 +239,8 @@ WARNING - map: The reset of EBR 'bios/bios2k_0_0_1' cannot be controlled. The
 | ldata_io[0]         | OUTPUT    | LVCMOS25  |            |
 +---------------------+-----------+-----------+------------+
 | lcen_o              | OUTPUT    | LVCMOS25  |            |
-+---------------------+-----------+-----------+------------+
 
++---------------------+-----------+-----------+------------+
 | lwen_o              | OUTPUT    | LVCMOS25  |            |
 +---------------------+-----------+-----------+------------+
 | loen_o              | OUTPUT    | LVCMOS25  |            |
@@ -298,8 +296,8 @@ WARNING - map: The reset of EBR 'bios/bios2k_0_0_1' cannot be controlled. The
 | state_o[0]          | OUTPUT    | LVCMOS25  |            |
 +---------------------+-----------+-----------+------------+
 | data_io[7]          | BIDIR     | LVCMOS25  |            |
-+---------------------+-----------+-----------+------------+
 
++---------------------+-----------+-----------+------------+
 | data_io[6]          | BIDIR     | LVCMOS25  |            |
 +---------------------+-----------+-----------+------------+
 | data_io[5]          | BIDIR     | LVCMOS25  |            |
@@ -355,8 +353,8 @@ WARNING - map: The reset of EBR 'bios/bios2k_0_0_1' cannot be controlled. The
 | addr_o[1]           | OUTPUT    | LVCMOS25  |            |
 +---------------------+-----------+-----------+------------+
 | addr_o[0]           | OUTPUT    | LVCMOS25  |            |
-+---------------------+-----------+-----------+------------+
 
++---------------------+-----------+-----------+------------+
 | reset_o             | OUTPUT    | LVCMOS25  |            |
 +---------------------+-----------+-----------+------------+
 
@@ -366,12 +364,11 @@ WARNING - map: The reset of EBR 'bios/bios2k_0_0_1' cannot be controlled. The
 
 Block VCC undriven or does not drive anything - clipped.
 Block cpu0/VCC undriven or does not drive anything - clipped.
-Block cpu0/alu/GND undriven or does not drive anything - clipped.
 Block cpu0/alu/VCC undriven or does not drive anything - clipped.
+Block cpu0/alu/GND undriven or does not drive anything - clipped.
+Block cpu0/alu/mulu/VCC undriven or does not drive anything - clipped.
 Block cpu0/alu/alu8/s8/GND undriven or does not drive anything - clipped.
 Block cpu0/alu/alu16/VCC undriven or does not drive anything - clipped.
-Block cpu0/alu/alu16/GND undriven or does not drive anything - clipped.
-Block cpu0/alu/alu16/mulu/VCC undriven or does not drive anything - clipped.
 Block cpu0/regs/VCC undriven or does not drive anything - clipped.
 Block cpu0/regs/ea/VCC undriven or does not drive anything - clipped.
 Block cpu0/dec_regs/VCC undriven or does not drive anything - clipped.
@@ -381,9 +378,10 @@ Block cpu0/dec_ea/GND undriven or does not drive anything - clipped.
 Block cpu0/dec_alu/GND undriven or does not drive anything - clipped.
 Block cpu0/test_cond/GND undriven or does not drive anything - clipped.
 Signal cpu0/GND undriven or does not drive anything - clipped.
+Signal cpu0/alu/mulu/GND undriven or does not drive anything - clipped.
 Signal cpu0/alu/alu8/GND undriven or does not drive anything - clipped.
 Signal cpu0/alu/alu8/a8/GND undriven or does not drive anything - clipped.
-Signal cpu0/alu/alu16/mulu/GND undriven or does not drive anything - clipped.
+Signal cpu0/alu/alu16/GND undriven or does not drive anything - clipped.
 Signal cpu0/alu/alu16/a16/GND undriven or does not drive anything - clipped.
 Signal cpu0/regs/GND undriven or does not drive anything - clipped.
 Signal cpu0/regs/ea/GND undriven or does not drive anything - clipped.
@@ -398,27 +396,64 @@ Signal cpu0/un1_k_cpu_addr_1_s_15_0_S1 undriven or does not drive anything -
      clipped.
 Signal cpu0/un1_k_cpu_addr_1_s_15_0_COUT undriven or does not drive anything -
      clipped.
-Signal cpu0/un1_regs_o_pc_cry_0_0_S1 undriven or does not drive anything -
+Signal cpu0/alu/mulu/pipe0_1_5_cry_1_0_S1 undriven or does not drive anything -
      clipped.
-Signal cpu0/un1_regs_o_pc_cry_0_0_S0 undriven or does not drive anything -
+Signal cpu0/alu/mulu/pipe0_1_5_cry_1_0_S0 undriven or does not drive anything -
      clipped.
-Signal cpu0/N_2 undriven or does not drive anything - clipped.
-Signal cpu0/un1_regs_o_pc_s_15_0_S1 undriven or does not drive anything -
+Signal cpu0/alu/mulu/N_1 undriven or does not drive anything - clipped.
+Signal cpu0/alu/mulu/pipe0_1_5_cry_8_0_COUT undriven or does not drive anything
+     - clipped.
+Signal cpu0/alu/mulu/pipe0_1_4_cry_1_0_S1 undriven or does not drive anything -
      clipped.
-Signal cpu0/un1_regs_o_pc_s_15_0_COUT undriven or does not drive anything -
+Signal cpu0/alu/mulu/pipe0_1_4_cry_1_0_S0 undriven or does not drive anything -
      clipped.
+Signal cpu0/alu/mulu/N_2 undriven or does not drive anything - clipped.
+Signal cpu0/alu/mulu/pipe0_1_4_cry_8_0_COUT undriven or does not drive anything
+     - clipped.
+Signal cpu0/alu/mulu/pipe0_1_cry_0_0_S1 undriven or does not drive anything -
+
+     clipped.
+Signal cpu0/alu/mulu/pipe0_1_cry_0_0_S0 undriven or does not drive anything -
+     clipped.
+Signal cpu0/alu/mulu/N_3 undriven or does not drive anything - clipped.
+Signal cpu0/alu/mulu/pipe0_1_s_11_0_S1 undriven or does not drive anything -
+     clipped.
+Signal cpu0/alu/mulu/pipe0_1_s_11_0_COUT undriven or does not drive anything -
+     clipped.
+Signal cpu0/alu/mulu/pipe1_1_0_cry_5_0_S1 undriven or does not drive anything -
+     clipped.
+Signal cpu0/alu/mulu/pipe1_1_0_cry_5_0_S0 undriven or does not drive anything -
+     clipped.
+Signal cpu0/alu/mulu/N_4 undriven or does not drive anything - clipped.
+Signal cpu0/alu/mulu/pipe1_1_0_cry_14_0_COUT undriven or does not drive anything
+     - clipped.
+Signal cpu0/alu/mulu/pipe1_1_6_cry_0_0_S1 undriven or does not drive anything -
+     clipped.
+Signal cpu0/alu/mulu/pipe1_1_6_cry_0_0_S0 undriven or does not drive anything -
+     clipped.
+Signal cpu0/alu/mulu/N_5 undriven or does not drive anything - clipped.
+Signal cpu0/alu/mulu/pipe1_1_6_cry_8_0_S1 undriven or does not drive anything -
+     clipped.
+Signal cpu0/alu/mulu/pipe1_1_6_cry_8_0_COUT undriven or does not drive anything
+     - clipped.
+Signal cpu0/alu/alu8/un5_daa_p0_r_1_cry_0_0_S1 undriven or does not drive
+     anything - clipped.
+Signal cpu0/alu/alu8/un5_daa_p0_r_1_cry_0_0_S0 undriven or does not drive
+     anything - clipped.
+Signal cpu0/alu/alu8/N_1 undriven or does not drive anything - clipped.
+Signal cpu0/alu/alu8/un5_daa_p0_r_1_cry_5_0_COUT undriven or does not drive
+     anything - clipped.
 Signal cpu0/alu/alu8/neg8_w_cry_0_0_S1 undriven or does not drive anything -
      clipped.
 Signal cpu0/alu/alu8/neg8_w_cry_0_0_S0 undriven or does not drive anything -
      clipped.
-Signal cpu0/alu/alu8/N_1 undriven or does not drive anything - clipped.
+Signal cpu0/alu/alu8/N_2 undriven or does not drive anything - clipped.
 Signal cpu0/alu/alu8/neg8_w_s_7_0_S1 undriven or does not drive anything -
      clipped.
-
 Signal cpu0/alu/alu8/neg8_w_s_7_0_COUT undriven or does not drive anything -
      clipped.
-Signal cpu0/alu/alu8/a8/q_out_1_cry_0_0_S0_0 undriven or does not drive anything
-     - clipped.
+Signal cpu0/alu/alu8/a8/q_out_1_cry_0_0_S0 undriven or does not drive anything -
+     clipped.
 Signal cpu0/alu/alu8/a8/N_1 undriven or does not drive anything - clipped.
 Signal cpu0/alu/alu8/a8/q_out_1_cry_7_0_COUT undriven or does not drive anything
      - clipped.
@@ -429,78 +464,39 @@ Signal cpu0/alu/alu8/a8/un9_q_out_cry_0_0_S0 undriven or does not drive anything
 Signal cpu0/alu/alu8/a8/N_2 undriven or does not drive anything - clipped.
 Signal cpu0/alu/alu8/a8/un9_q_out_cry_7_0_COUT undriven or does not drive
      anything - clipped.
-Signal cpu0/alu/alu16/mulu/pipe0_1_cry_2_0_S1 undriven or does not drive
-     anything - clipped.
-Signal cpu0/alu/alu16/mulu/pipe0_1_cry_2_0_S0 undriven or does not drive
-     anything - clipped.
-Signal cpu0/alu/alu16/mulu/N_1 undriven or does not drive anything - clipped.
-Signal cpu0/alu/alu16/mulu/pipe0_1_s_11_0_S1 undriven or does not drive anything
+Signal cpu0/alu/alu16/k_new_pc_2_cry_0_0_S1 undriven or does not drive anything
      - clipped.
-Signal cpu0/alu/alu16/mulu/pipe0_1_s_11_0_COUT undriven or does not drive
-     anything - clipped.
-Signal cpu0/alu/alu16/mulu/pipe0_1_5_cry_1_0_S1 undriven or does not drive
-     anything - clipped.
-Signal cpu0/alu/alu16/mulu/pipe0_1_5_cry_1_0_S0 undriven or does not drive
-     anything - clipped.
-Signal cpu0/alu/alu16/mulu/N_2 undriven or does not drive anything - clipped.
-Signal cpu0/alu/alu16/mulu/pipe0_1_5_cry_8_0_COUT undriven or does not drive
-     anything - clipped.
-Signal cpu0/alu/alu16/mulu/pipe0_1_4_cry_1_0_S1 undriven or does not drive
-     anything - clipped.
-Signal cpu0/alu/alu16/mulu/pipe0_1_4_cry_1_0_S0 undriven or does not drive
-     anything - clipped.
-Signal cpu0/alu/alu16/mulu/N_3 undriven or does not drive anything - clipped.
-Signal cpu0/alu/alu16/mulu/pipe0_1_4_cry_8_0_COUT undriven or does not drive
-     anything - clipped.
-Signal cpu0/alu/alu16/mulu/pipe1_1_4_cry_1_0_S1 undriven or does not drive
-     anything - clipped.
-Signal cpu0/alu/alu16/mulu/pipe1_1_4_cry_1_0_S0 undriven or does not drive
-     anything - clipped.
-Signal cpu0/alu/alu16/mulu/N_4 undriven or does not drive anything - clipped.
-Signal cpu0/alu/alu16/mulu/pipe1_1_4_cry_8_0_COUT undriven or does not drive
-     anything - clipped.
-Signal cpu0/alu/alu16/mulu/pipe1_1_cry_0_0_S1 undriven or does not drive
-     anything - clipped.
-Signal cpu0/alu/alu16/mulu/pipe1_1_cry_0_0_S0 undriven or does not drive
-     anything - clipped.
-Signal cpu0/alu/alu16/mulu/N_5 undriven or does not drive anything - clipped.
-Signal cpu0/alu/alu16/mulu/pipe1_1_s_15_0_S1 undriven or does not drive anything
+Signal cpu0/alu/alu16/k_new_pc_2_cry_0_0_S0 undriven or does not drive anything
      - clipped.
-Signal cpu0/alu/alu16/mulu/pipe1_1_s_15_0_COUT undriven or does not drive
-     anything - clipped.
-Signal cpu0/alu/alu16/mulu/pipe1_1_6_cry_0_0_S1 undriven or does not drive
-     anything - clipped.
-Signal cpu0/alu/alu16/mulu/pipe1_1_6_cry_0_0_S0 undriven or does not drive
 
-     anything - clipped.
-Signal cpu0/alu/alu16/mulu/N_6 undriven or does not drive anything - clipped.
-Signal cpu0/alu/alu16/mulu/pipe1_1_6_cry_8_0_S1 undriven or does not drive
-     anything - clipped.
-Signal cpu0/alu/alu16/mulu/pipe1_1_6_cry_8_0_COUT undriven or does not drive
-     anything - clipped.
-Signal cpu0/alu/alu16/a16/q_out_2_cry_0_0_S0 undriven or does not drive anything
+Signal cpu0/alu/alu16/N_1 undriven or does not drive anything - clipped.
+Signal cpu0/alu/alu16/k_new_pc_2_s_15_0_S1 undriven or does not drive anything -
+     clipped.
+Signal cpu0/alu/alu16/k_new_pc_2_s_15_0_COUT undriven or does not drive anything
      - clipped.
-Signal cpu0/alu/alu16/a16/N_1 undriven or does not drive anything - clipped.
-Signal cpu0/alu/alu16/a16/q_out_2_cry_15_0_COUT undriven or does not drive
+Signal cpu0/alu/alu16/a16/q_out_2_i_m2_cry_0_0_S0 undriven or does not drive
      anything - clipped.
-Signal cpu0/alu/alu16/a16/q_out_1_0_cry_0_0_S0 undriven or does not drive
+Signal cpu0/alu/alu16/a16/N_1 undriven or does not drive anything - clipped.
+Signal cpu0/alu/alu16/a16/q_out_2_i_m2_cry_15_0_COUT undriven or does not drive
+     anything - clipped.
+Signal cpu0/alu/alu16/a16/q_out_1_i_m2_cry_0_0_S0 undriven or does not drive
      anything - clipped.
 Signal cpu0/alu/alu16/a16/N_2 undriven or does not drive anything - clipped.
-Signal cpu0/alu/alu16/a16/q_out_1_0_cry_15_0_COUT undriven or does not drive
+Signal cpu0/alu/alu16/a16/q_out_1_i_m2_cry_15_0_COUT undriven or does not drive
+     anything - clipped.
+Signal cpu0/alu/alu16/a16/q_out_1_cry_0_0_S1 undriven or does not drive anything
+     - clipped.
+Signal cpu0/alu/alu16/a16/q_out_1_cry_0_0_S0_0 undriven or does not drive
+     anything - clipped.
+Signal cpu0/alu/alu16/a16/N_3 undriven or does not drive anything - clipped.
+Signal cpu0/alu/alu16/a16/q_out_1_cry_15_0_COUT undriven or does not drive
      anything - clipped.
 Signal cpu0/alu/alu16/a16/un8_q_out_cry_0_0_S1 undriven or does not drive
      anything - clipped.
 Signal cpu0/alu/alu16/a16/un8_q_out_cry_0_0_S0 undriven or does not drive
      anything - clipped.
-Signal cpu0/alu/alu16/a16/N_3 undriven or does not drive anything - clipped.
-Signal cpu0/alu/alu16/a16/un8_q_out_cry_15_0_COUT undriven or does not drive
-     anything - clipped.
-Signal cpu0/alu/alu16/a16/q_out_1_cry_0_0_S1 undriven or does not drive anything
-     - clipped.
-Signal cpu0/alu/alu16/a16/q_out_1_cry_0_0_S0 undriven or does not drive anything
-     - clipped.
 Signal cpu0/alu/alu16/a16/N_4 undriven or does not drive anything - clipped.
-Signal cpu0/alu/alu16/a16/q_out_1_cry_15_0_COUT undriven or does not drive
+Signal cpu0/alu/alu16/a16/un8_q_out_cry_15_0_COUT undriven or does not drive
      anything - clipped.
 Signal cpu0/regs/right_cry_0_0_S0 undriven or does not drive anything - clipped.
 Signal cpu0/regs/N_1 undriven or does not drive anything - clipped.
@@ -517,25 +513,25 @@ Signal cpu0/regs/SU_lcry_0_S0 undriven or does not drive anything - clipped.
 Signal cpu0/regs/N_3 undriven or does not drive anything - clipped.
 Signal cpu0/regs/SU_cry_0_COUT[14] undriven or does not drive anything -
      clipped.
-Signal cpu0/regs/ea/ea_reg_post_o_cry_0_0_S1 undriven or does not drive anything
-     - clipped.
-Signal cpu0/regs/ea/ea_reg_post_o_cry_0_0_S0 undriven or does not drive anything
-     - clipped.
-Signal cpu0/regs/ea/N_1 undriven or does not drive anything - clipped.
-Signal cpu0/regs/ea/ea_reg_post_o_s_15_0_S1 undriven or does not drive anything
-     - clipped.
-Signal cpu0/regs/ea/ea_reg_post_o_s_15_0_COUT undriven or does not drive
-     anything - clipped.
 Signal cpu0/regs/ea/eamem_addr_o_cry_0_0_S1 undriven or does not drive anything
      - clipped.
-
 Signal cpu0/regs/ea/eamem_addr_o_cry_0_0_S0 undriven or does not drive anything
      - clipped.
-Signal cpu0/regs/ea/N_2 undriven or does not drive anything - clipped.
+Signal cpu0/regs/ea/N_1 undriven or does not drive anything - clipped.
 Signal cpu0/regs/ea/eamem_addr_o_s_15_0_S1 undriven or does not drive anything -
      clipped.
 Signal cpu0/regs/ea/eamem_addr_o_s_15_0_COUT undriven or does not drive anything
      - clipped.
+Signal cpu0/regs/ea/ea_reg_post_o_cry_0_0_S1 undriven or does not drive anything
+     - clipped.
+Signal cpu0/regs/ea/ea_reg_post_o_cry_0_0_S0 undriven or does not drive anything
+
+     - clipped.
+Signal cpu0/regs/ea/N_2 undriven or does not drive anything - clipped.
+Signal cpu0/regs/ea/ea_reg_post_o_s_15_0_S1 undriven or does not drive anything
+     - clipped.
+Signal cpu0/regs/ea/ea_reg_post_o_s_15_0_COUT undriven or does not drive
+     anything - clipped.
 Signal cpu0/un1_k_cpu_addr_1_cry_0_0_S1 undriven or does not drive anything -
      clipped.
 Signal cpu0/un1_k_cpu_addr_1_cry_0_0_S0 undriven or does not drive anything -
@@ -546,10 +542,10 @@ Signal bios/bios2k_0_0_1_DOB7 undriven or does not drive anything - clipped.
 Signal bios/bios2k_0_0_1_DOB6 undriven or does not drive anything - clipped.
 Signal bios/bios2k_0_0_1_DOB5 undriven or does not drive anything - clipped.
 Signal bios/bios2k_0_0_1_DOB4 undriven or does not drive anything - clipped.
-Signal bios/bios2k_0_0_1_DOB3 undriven or does not drive anything - clipped.
-Signal bios/bios2k_0_0_1_DOB2 undriven or does not drive anything - clipped.
-Signal bios/bios2k_0_0_1_DOB1 undriven or does not drive anything - clipped.
-Signal bios/bios2k_0_0_1_DOB0 undriven or does not drive anything - clipped.
+Signal bios/QB_1[3] undriven or does not drive anything - clipped.
+Signal bios/QB_1[2] undriven or does not drive anything - clipped.
+Signal bios/QB_1[1] undriven or does not drive anything - clipped.
+Signal bios/QB_1[0] undriven or does not drive anything - clipped.
 Signal bios/bios2k_0_0_1_DOA8 undriven or does not drive anything - clipped.
 Signal bios/bios2k_0_0_1_DOA7 undriven or does not drive anything - clipped.
 Signal bios/bios2k_0_0_1_DOA6 undriven or does not drive anything - clipped.
@@ -560,10 +556,10 @@ Signal bios/bios2k_0_1_0_DOB7 undriven or does not drive anything - clipped.
 Signal bios/bios2k_0_1_0_DOB6 undriven or does not drive anything - clipped.
 Signal bios/bios2k_0_1_0_DOB5 undriven or does not drive anything - clipped.
 Signal bios/bios2k_0_1_0_DOB4 undriven or does not drive anything - clipped.
-Signal bios/bios2k_0_1_0_DOB3 undriven or does not drive anything - clipped.
-Signal bios/bios2k_0_1_0_DOB2 undriven or does not drive anything - clipped.
-Signal bios/bios2k_0_1_0_DOB1 undriven or does not drive anything - clipped.
-Signal bios/bios2k_0_1_0_DOB0 undriven or does not drive anything - clipped.
+Signal bios/QB_1[7] undriven or does not drive anything - clipped.
+Signal bios/QB_1[6] undriven or does not drive anything - clipped.
+Signal bios/QB_1[5] undriven or does not drive anything - clipped.
+Signal bios/QB_1[4] undriven or does not drive anything - clipped.
 Signal bios/bios2k_0_1_0_DOA8 undriven or does not drive anything - clipped.
 Signal bios/bios2k_0_1_0_DOA7 undriven or does not drive anything - clipped.
 Signal bios/bios2k_0_1_0_DOA6 undriven or does not drive anything - clipped.
@@ -585,8 +581,8 @@ Signal textctrl/vsync_cnt_cry_0_S0[0] undriven or does not drive anything -
      clipped.
 Signal textctrl/N_3 undriven or does not drive anything - clipped.
 Signal textctrl/vsync_cnt_cry_0_COUT[9] undriven or does not drive anything -
-
      clipped.
+
 Signal textctrl/y_cnt_cry_0_S0[0] undriven or does not drive anything - clipped.
 Signal textctrl/N_5 undriven or does not drive anything - clipped.
 Signal textctrl/y_cnt_cry_0_COUT[5] undriven or does not drive anything -
@@ -642,8 +638,8 @@ Signal textctrl/font/fontrom_0_3_0_DOA3 undriven or does not drive anything -
      clipped.
 Signal textctrl/font/fontrom_0_3_0_DOA2 undriven or does not drive anything -
      clipped.
-
 Signal textctrl/font/fontrom_0_2_1_DOB8 undriven or does not drive anything -
+
      clipped.
 Signal textctrl/font/fontrom_0_2_1_DOB7 undriven or does not drive anything -
      clipped.
@@ -699,8 +695,8 @@ Signal textctrl/font/fontrom_0_1_2_DOA7 undriven or does not drive anything -
      clipped.
 Signal textctrl/font/fontrom_0_1_2_DOA6 undriven or does not drive anything -
      clipped.
-
 Signal textctrl/font/fontrom_0_1_2_DOA5 undriven or does not drive anything -
+
      clipped.
 Signal textctrl/font/fontrom_0_1_2_DOA4 undriven or does not drive anything -
      clipped.
@@ -756,8 +752,8 @@ Signal textctrl/chars/textmem4k_0_3_0_DOB2 undriven or does not drive anything -
      clipped.
 Signal textctrl/chars/textmem4k_0_3_0_DOA8 undriven or does not drive anything -
      clipped.
-
 Signal textctrl/chars/textmem4k_0_3_0_DOA7 undriven or does not drive anything -
+
      clipped.
 Signal textctrl/chars/textmem4k_0_3_0_DOA6 undriven or does not drive anything -
      clipped.
@@ -813,8 +809,8 @@ Signal textctrl/chars/textmem4k_0_1_2_DOB2 undriven or does not drive anything -
      clipped.
 Signal textctrl/chars/textmem4k_0_1_2_DOA8 undriven or does not drive anything -
      clipped.
-
 Signal textctrl/chars/textmem4k_0_1_2_DOA7 undriven or does not drive anything -
+
      clipped.
 Signal textctrl/chars/textmem4k_0_1_2_DOA6 undriven or does not drive anything -
      clipped.
@@ -855,9 +851,10 @@ Signal textctrl/chars/textmem4k_0_0_3_DOA3 undriven or does not drive anything -
 Signal textctrl/chars/textmem4k_0_0_3_DOA2 undriven or does not drive anything -
      clipped.
 Block cpu0/GND was optimized away.
+Block cpu0/alu/mulu/GND was optimized away.
 Block cpu0/alu/alu8/GND was optimized away.
 Block cpu0/alu/alu8/a8/GND was optimized away.
-Block cpu0/alu/alu16/mulu/GND was optimized away.
+Block cpu0/alu/alu16/GND was optimized away.
 Block cpu0/alu/alu16/a16/GND was optimized away.
 Block cpu0/regs/GND was optimized away.
 Block cpu0/regs/ea/GND was optimized away.
@@ -986,8 +983,8 @@ GSR Property:
 -------------------------
 
    Total CPU Time: 1 secs
-   Total REAL Time: 5 secs
-   Peak Memory Usage: 196 MB
+   Total REAL Time: 2 secs
+   Peak Memory Usage: 75 MB
 
 
 
@@ -1003,7 +1000,7 @@ Copyright (c) 1995-2001 Lucent
      Technologies Inc.  All rights reserved.
 Copyright (c) 2001 Agere Systems
      All rights reserved.
-Copyright (c) 2002-2013 Lattice Semiconductor
+Copyright (c) 2002-2014 Lattice Semiconductor
      Corporation,  All rights reserved.
 
 

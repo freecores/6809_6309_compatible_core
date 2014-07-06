@@ -1,6 +1,22 @@
 Changelong
 ----------
 
+06.07.14
+--------
+- decoders.v : fixed missing left/dest paths for sex
+- alu16.v : fixed sex, mul, c flag for shifts, ror
+- MC6809_cpu.v : fixed indirect indexed
+05.07.14
+--------
+- decoders.v : fixed missing left/dest paths for daa
+- alu16.v : fixed daa, h flag store and generation
+
+04.07.14
+--------
+- decoders.v : fixed page 2&3 operands, jmp, cmp
+- MC6809_cpu.v : fixed jmp
+
+
 02.07.14
 --------
 - decoders.v : fixed dec, fixed inc (didn't read before write), fixed clr for ea direct, extended, indexed

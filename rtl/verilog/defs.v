@@ -34,14 +34,14 @@
 `define SBC    5'b01011 // in arith8
 
 `define LSR    5'b10000
-`define ROR    5'b10001
-`define LSL    5'b10011
+`define LSL    5'b10001
+`define ROR    5'b10010
 `define ROL    5'b10011
 `define ASR    5'b10100
 `define NEG    5'b10101
 `define COM    5'b10110
-`define ORCC   5'b11000
-`define ANDCC  5'b11001
+`define INC    5'b11000 // encoding of least 2 bits must be like ADD/SUB
+`define DEC    5'b11001
 `define DAA    5'b11010  
 `define MUL    5'b11011
 `define LEA    5'b11100
@@ -149,7 +149,7 @@
 `define	OP_PULL		3'h2
 `define OP_RTS		3'h3
 `define OP_JSR		3'h4
-`define OP_ST		3'h5
+`define OP_JMP		3'h5
 `define OP_LD		3'h6
 `define OP_LEA		3'h7
 

@@ -37,7 +37,7 @@ initial
 		#0
 		#46
 		reset = 0;
-		#7000
+		#111500
 		$finish;
 	end
 
@@ -74,14 +74,14 @@ always @(negedge oe)
 	begin
 		$display("R %04x = %02x %t", addr, mem[addr], $time);
 	end
-//`define READTESTBIN
+`define READTESTBIN
 integer i;
 initial
 	begin
 `ifdef READTESTBIN
-		$readmemh("instructions_test.hex", mem);
+		$readmemh("test09.hex", mem);//instructions_test.hex", mem);
 		$display("instructions_test.hex read");
-		mem[16'hfffe] = 8'hf0; // setup reset
+		mem[16'hfffe] = 8'h00; // setup reset
 		mem[16'hffff] = 8'h00;
 `else
 		for (i = 0; i < 65536; i=i+1)

@@ -1,66 +1,84 @@
 Running in Lattice mode
 
-Starting:    /usr/local/diamond/2.2_x64/synpbase/linux_a_64/mbin/synplify
-Install:     /usr/local/diamond/2.2_x64/synpbase
-Date:        Sun Jun 22 08:17:15 2014
-Version:     G-2012.09L-SP1 
 
-Arguments:   -product synplify_pro  -tcl /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/launch_synplify.tcl
+Starting:    C:\lscc\diamond\3.1_x64\synpbase\win64\mbin\synbatch.exe
+Install:     C:\lscc\diamond\3.1_x64\synpbase
+Date:        Sun Jul 06 07:46:25 2014
+Version:     I-2013.09L 
+
+Arguments:   -product synplify_pro  -batch P6809_P6809_synplify.tcl
 ProductType: synplify_pro
 
 
 
 
 
-No project opened.
-Removed file: /usr/local/diamond/2.2_x64/cae_library/synthesis/verilog/machxo2.v
 
-Removed file: /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/CC3_top.v
+log file: "C:\02_Elektronik\020_V6809\trunk\syn\lattice\P6809\P6809_P6809.srr"
 
-Removed file: /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v
 
-Removed file: /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/decoders.v
 
-Removed file: /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/defs.v
 
-Removed file: /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v
 
-Removed file: /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v
+Running proj_1|P6809
 
-Removed file: /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/bios2k.v
 
-Removed file: /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/vgatext.v
+Running: Compile on proj_1|P6809
 
-Removed file: /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/fontrom.v
 
-Removed file: /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/textmem4k.v
+Running: Compile Process on proj_1|P6809
 
-TCL script complete: "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/launch_synplify.tcl"
-log file: "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809.srr"
 
-Running P6809_syn|P6809
-Running Compile on P6809_syn|P6809
-Running Compile Process on P6809_syn|P6809
-Running Compile Input on P6809_syn|P6809
-Copied /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/synwork/P6809_compiler.srs to /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809.srs
+Running: Compile Input on proj_1|P6809
+
+Copied C:\02_Elektronik\020_V6809\trunk\syn\lattice\P6809\synwork\P6809_P6809_comp.srs to C:\02_Elektronik\020_V6809\trunk\syn\lattice\P6809\P6809_P6809.srs
+
 compiler Completed with warnings
 Return Code: 1
-Run Time:00h:00m:04s
+Run Time:0h:00m:04s
 
-Job Compile Process completed on P6809_syn|P6809
-Running Premap on P6809_syn|P6809
+
+Copied C:\02_Elektronik\020_V6809\trunk\syn\lattice\P6809\P6809_P6809.srr to C:\02_Elektronik\020_V6809\trunk\syn\lattice\P6809\P6809_P6809.srf
+
+Complete: Compile Process on proj_1|P6809
+
+
+Running: Premap on proj_1|P6809
+
 premap Completed with warnings
 Return Code: 1
-Run Time:00h:00m:01s
+Run Time:0h:00m:01s
 
-Job Compile completed on P6809_syn|P6809
-Running Map on P6809_syn|P6809
-Running Map & Optimize on P6809_syn|P6809
+
+Complete: Compile on proj_1|P6809
+
+
+Running: Map on proj_1|P6809
+
+
+Running: Map & Optimize on proj_1|P6809
+
 fpga_mapper Completed with warnings
 Return Code: 1
-Run Time:00h:00m:20s
+Run Time:0h:00m:18s
 
-Job Map completed on P6809_syn|P6809
-Job Logic Synthesis completed on P6809_syn|P6809
+
+Complete: Map on proj_1|P6809
+
+Copied C:\02_Elektronik\020_V6809\trunk\syn\lattice\P6809\P6809_P6809.srr to C:\02_Elektronik\020_V6809\trunk\syn\lattice\P6809\P6809_P6809.srf
+
+Complete: Logic Synthesis on proj_1|P6809
+
+TCL script complete: "P6809_P6809_synplify.tcl"
+
 exit status=0
+
+
+exit status=0
+
+
+Save changes for project:
+C:\02_Elektronik\020_V6809\trunk\syn\lattice\P6809\proj_1.prj
+
+batch mode default:no
 

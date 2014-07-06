@@ -26,7 +26,11 @@ reg [3:0] path_left_addr, path_right_addr, dest_reg;
 // for registers, memory writes are handled differently
 assign write_dest = (dest_reg != `RN_INV);
 assign source_size = (path_left_addr < `RN_ACCA);
-assign result_size = (dest_reg < `RN_IMM16) ? 1:0;
+// result size is used to determine the size of the argument
+// to load, compare has no result, thus the source is used instead,
+// why do we need the result size ?... because of tfr&exg 
+assign result_size = (dest_reg == `RN_INV) ? (path_left_addr < `RN_ACCA):
+                     (dest_reg < `RN_IMM16) ? 1:0;
 
 assign path_right_addr_o = path_right_addr;
 assign path_left_addr_o = path_left_addr;
@@ -82,6 +86,9 @@ always @(opcode, postbyte0, page2_valid, page3_valid)
 			end
 		// destination
 		casex(opcode)
+			8'h1a, 8'h1c: begin path_left_addr = `RN_CC; path_right_addr = `RN_IMM8; dest_reg = `RN_CC; end // ANDCC, ORCC
+			8'h19: begin path_left_addr = `RN_ACCA; dest_reg = `RN_ACCA; end // DAA
+			8'h1d: begin path_left_addr = `RN_ACCB; dest_reg = `RN_ACCA; end // SEX
 			8'h1e, 8'h1f: begin dest_reg = postbyte0[3:0]; path_left_addr = postbyte0[7:4]; path_right_addr = postbyte0[3:0]; end // tfr, exg
 			8'h30: dest_reg = `RN_IX;
 			8'h31: dest_reg = `RN_IY;
@@ -92,7 +99,8 @@ always @(opcode, postbyte0, page2_valid, page3_valid)
 			8'h4x: begin path_left_addr = `RN_ACCA; dest_reg = `RN_ACCA; end
 			8'h5x: begin path_left_addr = `RN_ACCB; dest_reg = `RN_ACCB; end
 			8'h0x, 8'h6x, 8'h7x:
-				case (opcode[3:0]) 
+				case (opcode[3:0]) 	
+					4'he: begin end // no source or dest for jmp
 					4'hf: begin dest_reg = `RN_MEM8; end // CLR, only dest
 					default: begin path_left_addr = `RN_MEM8; dest_reg = `RN_MEM8; end
 				endcase
@@ -169,6 +177,7 @@ always @(opcode, postbyte0, page2_valid, page3_valid, oplo)
 		// Addressing mode
 		casex(opcode)
 			8'h0x: begin mode = `DIRECT; end
+			//8'h0e: begin optype = `OP_JMP; end
 			8'h12, 8'h13, 8'h19: mode = `INHERENT;
 			8'h14, 8'h15, 8'h18, 8'h1b: mode = `NONE; // undefined opcodes
 			8'h16: mode = `REL16;
@@ -189,7 +198,9 @@ always @(opcode, postbyte0, page2_valid, page3_valid, oplo)
 			8'h4x: begin mode = `INHERENT; end
 			8'h5x: begin mode = `INHERENT; end
 			8'h6x: begin mode = `INDEXED; end
+			//8'h6e: begin optype = `OP_JMP; end
 			8'h7x: begin mode = `EXTENDED; end
+			//8'h7e: begin optype = `OP_JMP; end
 			8'h8x: 
 				begin
 					case (oplo)
@@ -212,17 +223,17 @@ always @(opcode, postbyte0, page2_valid, page3_valid, oplo)
 		// Opcode type
 		casex(opcode)
 			8'b1xxx0110: optype = `OP_LD;
-			8'b1xxx0111: optype = `OP_ST;
+			8'h0e, 8'h6e, 8'h7e: optype = `OP_JMP;
 			8'b11xx1100: optype = `OP_LD; // LDD
 			8'b10xx1101: begin optype = `OP_JSR; end// bsr & jsr
 			8'b1xxx1110: optype = `OP_LD; // LDX, LDU
-			8'b1xxx1111, 8'b11xx1101: optype = `OP_ST;
+			//8'b1xxx1111, 8'b11xx1101: optype = `OP_ST;
 		endcase
 		if (page2_valid == 1'b1)
 			begin
 				casex(postbyte0)
-					8'h1x: mode = `REL16;
-					8'h2f: mode = `INHERENT;
+					8'h2x: mode = `REL16;
+					8'h3f: mode = `INHERENT;
 					8'h83: begin  mode = `IMMEDIATE; size = 1; end
 					//8'h93, 8'ha3, 8'hb3: begin mem16 = 1; size = 1; end
 					8'h8c: begin  mode = `IMMEDIATE; size = 1; end
@@ -241,13 +252,13 @@ always @(opcode, postbyte0, page2_valid, page3_valid, oplo)
 				endcase
 				casex( postbyte0)
 					8'b1xxx1110: optype = `OP_LD; // LDY, LDS
-					8'b1xxx1111, 8'b1xxx1101: optype = `OP_ST; // STY, STS
+					//8'b1xxx1111, 8'b1xxx1101: optype = `OP_ST; // STY, STS
 				endcase
 			end
 		if (page3_valid == 1'b1)
 			begin
 				casex(postbyte0)
-					8'h2f: mode = `INHERENT;
+					8'h3f: mode = `INHERENT;
 					8'h83: begin mode = `IMMEDIATE; size = 1; end // CMPD
 					//8'h93, 8'ha3, 8'hb3: begin mem16 = 1; size = 1; end // CMPD
 					8'h8c: begin mode = `IMMEDIATE; size = 1; end
@@ -307,8 +318,8 @@ module decode_alu(
 	output reg [1:0] dec_alu_right_path_mod,
 	output wire dest_flags
 	);
-
-assign dest_flags = alu_opcode != `NOP;
+// flags are written for alu opcodes as long as the opcode is not ANDCC or ORCC
+assign dest_flags = (alu_opcode != `NOP) && (opcode != 8'h1a) && (opcode != 8'h1c);
 always @(*)
 	begin
 		alu_opcode = `NOP;
@@ -340,14 +351,14 @@ always @(*)
 			8'h07, 8'b01xx_0111: alu_opcode = `ASR;
 			8'h08, 8'b01xx_1000: alu_opcode = `LSL;
 			8'h09, 8'b01xx_1001: alu_opcode = `ROL;
-			8'h0a, 8'b01xx_1010: begin alu_opcode = `SUB; dec_alu_right_path_mod = `MOD_ONE; end // dec
-			8'h0c, 8'b01xx_1100: begin alu_opcode = `ADD; dec_alu_right_path_mod = `MOD_ONE; end // inc
+			8'h0a, 8'b01xx_1010: begin alu_opcode = `DEC; dec_alu_right_path_mod = `MOD_ONE; end // dec
+			8'h0c, 8'b01xx_1100: begin alu_opcode = `INC; dec_alu_right_path_mod = `MOD_ONE; end // inc
 			8'h0d, 8'b01xx_1101: alu_opcode = `AND;
 			8'h0f, 8'b01xx_1111: begin alu_opcode = `LD; dec_alu_right_path_mod = `MOD_ZERO; end // CLR
 			
 			8'h19: alu_opcode = `DAA;
-			8'h1a: alu_opcode = `ORCC;
-			8'h1c, 8'h3c: alu_opcode = `ANDCC;
+			8'h1a: alu_opcode = `OR;
+			8'h1c: alu_opcode = `AND;
 			8'h1d: alu_opcode = `SEXT;
 			//8'h1e: alu_opcode = `EXG;
 			8'b0011_000x: alu_opcode = `LEA;
@@ -356,14 +367,14 @@ always @(*)
 		if (page2_valid)
 			casex (postbyte0)
 				8'b10xx_0011,
-				8'b10xx_1010: alu_opcode = `SUB; //CMP
+				8'b10xx_1100: alu_opcode = `SUB; //CMP
 				8'b1xxx_1110: alu_opcode = `LD;
 				8'b1xxx_1111: alu_opcode = `ST;
 			endcase
 		if (page3_valid)
 			casex (postbyte0)
 				8'b10xx_0011,
-				8'b10xx_1010: alu_opcode = `SUB; //CMP
+				8'b10xx_1100: alu_opcode = `SUB; //CMP
 				8'b1xxx_1110: alu_opcode = `LD;
 				8'b1xxx_1111: alu_opcode = `ST;
 			endcase
@@ -384,7 +395,8 @@ wire [7:0] op = page2_valid ? postbyte0:opcode;
 always @(*)
 	begin
 		cond_taken = 1'b0;
-		if ((op == 8'h16) || (op == 8'h17) || (op == 8'h8D))
+		if ((op == 8'h16) || (op == 8'h17) || (op == 8'h8D) ||
+			(op == 8'h0e) || (op == 8'h6e) || (op == 8'h7e)) // jmp
 			cond_taken = 1'b1; // LBRA/LBSR, BSR
 		if (op[7:4] == 4'h2)
 			case (op[3:0])

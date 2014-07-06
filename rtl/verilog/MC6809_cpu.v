@@ -37,6 +37,7 @@ reg [5:0] state, // state of the main state machine
 		  next_push_state; // next state to exit to from push multiple state machine
 reg k_write_tfr, k_write_exg;
 reg k_cpu_oe, k_cpu_we, k_inc_pc;
+reg k_indirect_loaded; // set when in indirect indexed and the address has been loaded
 reg [15:0] k_cpu_addr, k_new_pc;
 reg k_write_pc, k_inc_su, k_dec_su, k_set_e, k_clear_e;
 reg [1:0] k_mem_dest;
@@ -572,45 +573,45 @@ always @(posedge cpu_clk or posedge k_reset)
 							`DIRECT:
 								begin
 									state <= `SEQ_PC_READ_L; // loads address
-									if (dec_o_p1_optype == `OP_JSR) // jsr
-										begin
-											next_state <= `SEQ_JSR_PUSH;
-										end
-									else
-										begin
-											k_mem_dest <= `MEMDEST_MH; // operand to memlo/memhi
-											if ((dec_o_right_path_addr == `RN_MEM8) || (dec_o_right_path_addr == `RN_MEM16) ||
-												(dec_o_left_path_addr == `RN_MEM8))
-												begin
-													next_state <= `SEQ_MEM_READ_H;
-													next_mem_state <= `SEQ_GRAL_ALU; // read then alu
-												end
-											else
-												next_state <= `SEQ_GRAL_ALU; // no read
-											k_eahi <= regs_o_dp;
-										end
+									case (dec_o_p1_optype)
+										`OP_JSR: next_state <= `SEQ_JSR_PUSH;
+										`OP_JMP: next_state <= `SEQ_JMP_LOAD_PC;
+										default:
+											begin
+												k_mem_dest <= `MEMDEST_MH; // operand to memlo/memhi
+												if ((dec_o_right_path_addr == `RN_MEM8) || (dec_o_right_path_addr == `RN_MEM16) ||
+													(dec_o_left_path_addr == `RN_MEM8))
+													begin
+														next_state <= `SEQ_MEM_READ_H;
+														next_mem_state <= `SEQ_GRAL_ALU; // read then alu
+													end
+												else
+													next_state <= `SEQ_GRAL_ALU; // no read
+												k_eahi <= regs_o_dp;
+											end
+									endcase
 								end
 							`INDEXED:
 								state <= `SEQ_IND_READ_EA;
 							`EXTENDED:
 								begin
 									state <= `SEQ_PC_READ_H; // loads address
-									if (dec_o_p1_optype == `OP_JSR) // jsr
-										begin
-											next_state <= `SEQ_JSR_PUSH;
-										end
-									else
-										begin
-											k_mem_dest <= `MEMDEST_MH; // operand to memlo/memhi
-											if ((dec_o_right_path_addr == `RN_MEM8) || (dec_o_right_path_addr == `RN_MEM16) ||
-												(dec_o_left_path_addr == `RN_MEM8))
-												begin
-													next_state <= `SEQ_MEM_READ_H;
-													next_mem_state <= `SEQ_GRAL_ALU; // read then alu
-												end
-											else
-												next_state <= `SEQ_GRAL_ALU; // no read
-										end
+									case (dec_o_p1_optype)
+										`OP_JSR: next_state <= `SEQ_JSR_PUSH;
+										`OP_JMP: next_state <= `SEQ_JMP_LOAD_PC;
+										default:
+											begin
+												k_mem_dest <= `MEMDEST_MH; // operand to memlo/memhi
+												if ((dec_o_right_path_addr == `RN_MEM8) || (dec_o_right_path_addr == `RN_MEM16) ||
+													(dec_o_left_path_addr == `RN_MEM8))
+													begin
+														next_state <= `SEQ_MEM_READ_H;
+														next_mem_state <= `SEQ_GRAL_ALU; // read then alu
+													end
+												else
+													next_state <= `SEQ_GRAL_ALU; // no read
+											end
+									endcase
 								end
 							`REL8:
 								begin
@@ -713,7 +714,7 @@ always @(posedge cpu_clk or posedge k_reset)
 									default: 
 										begin 
 											state <= `SEQ_FETCH; 
-											k_write_post_incdec <= dec_o_ea_wpost; 
+											k_write_post_incdec <= dec_o_ea_wpost & (dec_o_p1_mode == `INDEXED); 
 										end
 								endcase
 						endcase
@@ -817,6 +818,7 @@ always @(posedge cpu_clk or posedge k_reset)
 					end
 				`SEQ_IND_DECODE: // here we have to see what we need for indexed...
 					begin
+						k_indirect_loaded <= 1'b0;
 						if (dec_o_ea_ofs8)
 							begin // load 1 byte offset
 								state <= `SEQ_PC_READ_L;
@@ -838,9 +840,11 @@ always @(posedge cpu_clk or posedge k_reset)
 										if ((dec_o_right_path_addr == `RN_MEM8) || (dec_o_right_path_addr == `RN_MEM16) ||
 											(dec_o_left_path_addr == `RN_MEM8))
 											begin
-												k_mem_dest <= `MEMDEST_MH; // operand land in k_memhi/lo
+												k_mem_dest <= `MEMDEST_MH; // operand lands in k_memhi/lo
 												next_mem_state <= `SEQ_GRAL_ALU;
 												state <= `SEQ_MEM_READ_H;
+												if (dec_o_ea_indirect)
+													k_forced_mem_size <= 1; // to load indirect address
 											end
 										else
 											state <= `SEQ_GRAL_ALU; // no load, then store
@@ -860,6 +864,8 @@ always @(posedge cpu_clk or posedge k_reset)
 										k_mem_dest <= `MEMDEST_MH; // operand land in k_memhi/lo
 										next_mem_state <= `SEQ_GRAL_ALU;
 										state <= `SEQ_MEM_READ_H;
+										if (dec_o_ea_indirect)
+											k_forced_mem_size <= 1; // to load indirect address
 									end
 								else
 									state <= `SEQ_GRAL_ALU; // no load, then store
@@ -1011,7 +1017,11 @@ always @(posedge cpu_clk or posedge k_reset)
 					begin
 						case (dec_o_p1_mode)
 							`NONE: begin k_cpu_addr <= regs_o_su; k_inc_su <= 1; end // pull, rts, rti
-							`INDEXED: k_cpu_addr <= regs_o_eamem_addr;
+							`INDEXED: 
+								if (k_indirect_loaded)
+									k_cpu_addr <= { k_memhi, k_memlo };
+								else
+									k_cpu_addr <= regs_o_eamem_addr;
 							default: k_cpu_addr <= { k_eahi, k_ealo };
 						endcase
 						if (k_forced_mem_size | dec_o_source_size | (k_pp_active_reg <  `RN_ACCA))
@@ -1063,7 +1073,18 @@ always @(posedge cpu_clk or posedge k_reset)
 						endcase
 						if (next_mem_state == `SEQ_LOADPC)
 							k_write_pc <= 1;
-						state <= next_mem_state;
+						case (dec_o_p1_mode)
+							`INDEXED: // address loaded, load argument
+								if (k_indirect_loaded | (!dec_o_ea_indirect))
+									state <= next_mem_state;
+								else
+									begin
+										state <= `SEQ_MEM_READ_H;
+										k_indirect_loaded <= 1'b1;
+									end
+							default:
+								state <= next_mem_state;
+						endcase
 					end
 				`SEQ_MEM_WRITE_H: // writes high byte
 					begin
@@ -1111,5 +1132,6 @@ initial
 		k_write_exg = 0;
 		k_mul_cnt = 0;
 		k_write_dest = 0;
+		k_indirect_loaded = 0;
 	end
 endmodule

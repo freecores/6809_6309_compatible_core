@@ -1,4 +1,7 @@
 Unfinished tasks are described here
+06.07.14
+--------
+- HD6309 compatibility totally missing. Only the ALU paths have been layed out.
 
 30.12.13
 --------

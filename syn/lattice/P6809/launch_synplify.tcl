@@ -1,9 +1,9 @@
 #-- Lattice Semiconductor Corporation Ltd.
-#-- Synplify OEM project file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/launch_synplify.tcl
-#-- Written on Sun Jun 22 08:17:11 2014
+#-- Synplify OEM project file C:/02_Elektronik/020_V6809/trunk/syn/lattice/P6809/launch_synplify.tcl
+#-- Written on Wed Jul  2 14:52:13 2014
 
 project -close
-set filename "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809_syn.prj"
+set filename "C:/02_Elektronik/020_V6809/trunk/syn/lattice/P6809/P6809_syn.prj"
 if ([file exists "$filename"]) {
 	project -load "$filename"
 	project_file -remove *
@@ -44,19 +44,18 @@ if {$create_new == 1} {
 	
 }
 #-- add_file options
-set_option -include_path "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice"
-add_file -verilog "/usr/local/diamond/2.2_x64/cae_library/synthesis/verilog/machxo2.v"
-add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/CC3_top.v"
-add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v"
-add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/decoders.v"
-add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/defs.v"
-add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v"
-add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v"
-add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/bios2k.v"
-add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/vgatext.v"
-add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/fontrom.v"
-add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/textmem4k.v"
+set_option -include_path "C:/02_Elektronik/020_V6809/trunk/syn/lattice"
+add_file -verilog "C:/02_Elektronik/020_V6809/trunk/syn/lattice/CC3_top.v"
+add_file -verilog "C:/02_Elektronik/020_V6809/trunk/syn/lattice/../../rtl/verilog/alu16.v"
+add_file -verilog "C:/02_Elektronik/020_V6809/trunk/syn/lattice/../../rtl/verilog/decoders.v"
+add_file -verilog "C:/02_Elektronik/020_V6809/trunk/syn/lattice/../../rtl/verilog/defs.v"
+add_file -verilog "C:/02_Elektronik/020_V6809/trunk/syn/lattice/../../rtl/verilog/MC6809_cpu.v"
+add_file -verilog "C:/02_Elektronik/020_V6809/trunk/syn/lattice/../../rtl/verilog/regblock.v"
+add_file -verilog "C:/02_Elektronik/020_V6809/trunk/syn/lattice/bios2k.v"
+add_file -verilog "C:/02_Elektronik/020_V6809/trunk/syn/lattice/vgatext.v"
+add_file -verilog "C:/02_Elektronik/020_V6809/trunk/syn/lattice/fontrom.v"
+add_file -verilog "C:/02_Elektronik/020_V6809/trunk/syn/lattice/textmem4k.v"
 #-- top module name
 set_option -top_module CC3_top
-project -result_file {/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/P6809.edi}
+project -result_file {C:/02_Elektronik/020_V6809/trunk/syn/lattice/P6809/P6809.edi}
 project -save "$filename"

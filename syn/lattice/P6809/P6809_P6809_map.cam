@@ -2,9 +2,10 @@
 [ END MERGED ]
 [ START CLIPPED ]
 cpu0/GND
+cpu0/alu/mulu/GND
 cpu0/alu/alu8/GND
 cpu0/alu/alu8/a8/GND
-cpu0/alu/alu16/mulu/GND
+cpu0/alu/alu16/GND
 cpu0/alu/alu16/a16/GND
 cpu0/regs/GND
 cpu0/regs/ea/GND
@@ -17,64 +18,63 @@ textctrl/chars/GND
 VCC
 cpu0/un1_k_cpu_addr_1_s_15_0_S1
 cpu0/un1_k_cpu_addr_1_s_15_0_COUT
-cpu0/un1_regs_o_pc_cry_0_0_S1
-cpu0/un1_regs_o_pc_cry_0_0_S0
-cpu0/N_2
-cpu0/un1_regs_o_pc_s_15_0_S1
-cpu0/un1_regs_o_pc_s_15_0_COUT
+cpu0/alu/mulu/pipe0_1_5_cry_1_0_S1
+cpu0/alu/mulu/pipe0_1_5_cry_1_0_S0
+cpu0/alu/mulu/N_1
+cpu0/alu/mulu/pipe0_1_5_cry_8_0_COUT
+cpu0/alu/mulu/pipe0_1_4_cry_1_0_S1
+cpu0/alu/mulu/pipe0_1_4_cry_1_0_S0
+cpu0/alu/mulu/N_2
+cpu0/alu/mulu/pipe0_1_4_cry_8_0_COUT
+cpu0/alu/mulu/pipe0_1_cry_0_0_S1
+cpu0/alu/mulu/pipe0_1_cry_0_0_S0
+cpu0/alu/mulu/N_3
+cpu0/alu/mulu/pipe0_1_s_11_0_S1
+cpu0/alu/mulu/pipe0_1_s_11_0_COUT
+cpu0/alu/mulu/pipe1_1_0_cry_5_0_S1
+cpu0/alu/mulu/pipe1_1_0_cry_5_0_S0
+cpu0/alu/mulu/N_4
+cpu0/alu/mulu/pipe1_1_0_cry_14_0_COUT
+cpu0/alu/mulu/pipe1_1_6_cry_0_0_S1
+cpu0/alu/mulu/pipe1_1_6_cry_0_0_S0
+cpu0/alu/mulu/N_5
+cpu0/alu/mulu/pipe1_1_6_cry_8_0_S1
+cpu0/alu/mulu/pipe1_1_6_cry_8_0_COUT
+cpu0/alu/alu8/un5_daa_p0_r_1_cry_0_0_S1
+cpu0/alu/alu8/un5_daa_p0_r_1_cry_0_0_S0
+cpu0/alu/alu8/N_1
+cpu0/alu/alu8/un5_daa_p0_r_1_cry_5_0_COUT
 cpu0/alu/alu8/neg8_w_cry_0_0_S1
 cpu0/alu/alu8/neg8_w_cry_0_0_S0
-cpu0/alu/alu8/N_1
+cpu0/alu/alu8/N_2
 cpu0/alu/alu8/neg8_w_s_7_0_S1
 cpu0/alu/alu8/neg8_w_s_7_0_COUT
-cpu0/alu/alu8/a8/q_out_1_cry_0_0_S0_0
+cpu0/alu/alu8/a8/q_out_1_cry_0_0_S0
 cpu0/alu/alu8/a8/N_1
 cpu0/alu/alu8/a8/q_out_1_cry_7_0_COUT
 cpu0/alu/alu8/a8/un9_q_out_cry_0_0_S1
 cpu0/alu/alu8/a8/un9_q_out_cry_0_0_S0
 cpu0/alu/alu8/a8/N_2
 cpu0/alu/alu8/a8/un9_q_out_cry_7_0_COUT
-cpu0/alu/alu16/mulu/pipe0_1_cry_2_0_S1
-cpu0/alu/alu16/mulu/pipe0_1_cry_2_0_S0
-cpu0/alu/alu16/mulu/N_1
-cpu0/alu/alu16/mulu/pipe0_1_s_11_0_S1
-cpu0/alu/alu16/mulu/pipe0_1_s_11_0_COUT
-cpu0/alu/alu16/mulu/pipe0_1_5_cry_1_0_S1
-cpu0/alu/alu16/mulu/pipe0_1_5_cry_1_0_S0
-cpu0/alu/alu16/mulu/N_2
-cpu0/alu/alu16/mulu/pipe0_1_5_cry_8_0_COUT
-cpu0/alu/alu16/mulu/pipe0_1_4_cry_1_0_S1
-cpu0/alu/alu16/mulu/pipe0_1_4_cry_1_0_S0
-cpu0/alu/alu16/mulu/N_3
-cpu0/alu/alu16/mulu/pipe0_1_4_cry_8_0_COUT
-cpu0/alu/alu16/mulu/pipe1_1_4_cry_1_0_S1
-cpu0/alu/alu16/mulu/pipe1_1_4_cry_1_0_S0
-cpu0/alu/alu16/mulu/N_4
-cpu0/alu/alu16/mulu/pipe1_1_4_cry_8_0_COUT
-cpu0/alu/alu16/mulu/pipe1_1_cry_0_0_S1
-cpu0/alu/alu16/mulu/pipe1_1_cry_0_0_S0
-cpu0/alu/alu16/mulu/N_5
-cpu0/alu/alu16/mulu/pipe1_1_s_15_0_S1
-cpu0/alu/alu16/mulu/pipe1_1_s_15_0_COUT
-cpu0/alu/alu16/mulu/pipe1_1_6_cry_0_0_S1
-cpu0/alu/alu16/mulu/pipe1_1_6_cry_0_0_S0
-cpu0/alu/alu16/mulu/N_6
-cpu0/alu/alu16/mulu/pipe1_1_6_cry_8_0_S1
-cpu0/alu/alu16/mulu/pipe1_1_6_cry_8_0_COUT
-cpu0/alu/alu16/a16/q_out_2_cry_0_0_S0
+cpu0/alu/alu16/k_new_pc_2_cry_0_0_S1
+cpu0/alu/alu16/k_new_pc_2_cry_0_0_S0
+cpu0/alu/alu16/N_1
+cpu0/alu/alu16/k_new_pc_2_s_15_0_S1
+cpu0/alu/alu16/k_new_pc_2_s_15_0_COUT
+cpu0/alu/alu16/a16/q_out_2_i_m2_cry_0_0_S0
 cpu0/alu/alu16/a16/N_1
-cpu0/alu/alu16/a16/q_out_2_cry_15_0_COUT
-cpu0/alu/alu16/a16/q_out_1_0_cry_0_0_S0
+cpu0/alu/alu16/a16/q_out_2_i_m2_cry_15_0_COUT
+cpu0/alu/alu16/a16/q_out_1_i_m2_cry_0_0_S0
 cpu0/alu/alu16/a16/N_2
-cpu0/alu/alu16/a16/q_out_1_0_cry_15_0_COUT
+cpu0/alu/alu16/a16/q_out_1_i_m2_cry_15_0_COUT
+cpu0/alu/alu16/a16/q_out_1_cry_0_0_S1
+cpu0/alu/alu16/a16/q_out_1_cry_0_0_S0_0
+cpu0/alu/alu16/a16/N_3
+cpu0/alu/alu16/a16/q_out_1_cry_15_0_COUT
 cpu0/alu/alu16/a16/un8_q_out_cry_0_0_S1
 cpu0/alu/alu16/a16/un8_q_out_cry_0_0_S0
-cpu0/alu/alu16/a16/N_3
-cpu0/alu/alu16/a16/un8_q_out_cry_15_0_COUT
-cpu0/alu/alu16/a16/q_out_1_cry_0_0_S1
-cpu0/alu/alu16/a16/q_out_1_cry_0_0_S0
 cpu0/alu/alu16/a16/N_4
-cpu0/alu/alu16/a16/q_out_1_cry_15_0_COUT
+cpu0/alu/alu16/a16/un8_q_out_cry_15_0_COUT
 cpu0/regs/right_cry_0_0_S0
 cpu0/regs/N_1
 cpu0/regs/right_s_15_0_S1
@@ -87,16 +87,16 @@ cpu0/regs/SU_lcry_0_S1
 cpu0/regs/SU_lcry_0_S0
 cpu0/regs/N_3
 cpu0/regs/SU_cry_0_COUT[14]
-cpu0/regs/ea/ea_reg_post_o_cry_0_0_S1
-cpu0/regs/ea/ea_reg_post_o_cry_0_0_S0
-cpu0/regs/ea/N_1
-cpu0/regs/ea/ea_reg_post_o_s_15_0_S1
-cpu0/regs/ea/ea_reg_post_o_s_15_0_COUT
 cpu0/regs/ea/eamem_addr_o_cry_0_0_S1
 cpu0/regs/ea/eamem_addr_o_cry_0_0_S0
-cpu0/regs/ea/N_2
+cpu0/regs/ea/N_1
 cpu0/regs/ea/eamem_addr_o_s_15_0_S1
 cpu0/regs/ea/eamem_addr_o_s_15_0_COUT
+cpu0/regs/ea/ea_reg_post_o_cry_0_0_S1
+cpu0/regs/ea/ea_reg_post_o_cry_0_0_S0
+cpu0/regs/ea/N_2
+cpu0/regs/ea/ea_reg_post_o_s_15_0_S1
+cpu0/regs/ea/ea_reg_post_o_s_15_0_COUT
 cpu0/un1_k_cpu_addr_1_cry_0_0_S1
 cpu0/un1_k_cpu_addr_1_cry_0_0_S0
 cpu0/N_1
@@ -105,10 +105,10 @@ bios/bios2k_0_0_1_DOB7
 bios/bios2k_0_0_1_DOB6
 bios/bios2k_0_0_1_DOB5
 bios/bios2k_0_0_1_DOB4
-bios/bios2k_0_0_1_DOB3
-bios/bios2k_0_0_1_DOB2
-bios/bios2k_0_0_1_DOB1
-bios/bios2k_0_0_1_DOB0
+bios/QB_1[3]
+bios/QB_1[2]
+bios/QB_1[1]
+bios/QB_1[0]
 bios/bios2k_0_0_1_DOA8
 bios/bios2k_0_0_1_DOA7
 bios/bios2k_0_0_1_DOA6
@@ -119,10 +119,10 @@ bios/bios2k_0_1_0_DOB7
 bios/bios2k_0_1_0_DOB6
 bios/bios2k_0_1_0_DOB5
 bios/bios2k_0_1_0_DOB4
-bios/bios2k_0_1_0_DOB3
-bios/bios2k_0_1_0_DOB2
-bios/bios2k_0_1_0_DOB1
-bios/bios2k_0_1_0_DOB0
+bios/QB_1[7]
+bios/QB_1[6]
+bios/QB_1[5]
+bios/QB_1[4]
 bios/bios2k_0_1_0_DOA8
 bios/bios2k_0_1_0_DOA7
 bios/bios2k_0_1_0_DOA6
@@ -280,7 +280,7 @@ textctrl/chars/textmem4k_0_0_3_DOA2
 [ END CLIPPED ]
 [ START DESIGN PREFS ]
 SCHEMATIC START ;
-# map:  version Diamond (64-bit) 2.2.0.101 -- WARNING: Map write only section -- Thu Feb  6 15:35:20 2014
+# map:  version Diamond (64-bit) 3.1.0.96 -- WARNING: Map write only section -- Sun Jul 06 07:46:54 2014
 
 SYSCONFIG SDM_PORT=DISABLE SLAVE_SPI_PORT=DISABLE I2C_PORT=DISABLE MASTER_SPI_PORT=DISABLE COMPRESS_CONFIG=ON CONFIGURATION=CFG MY_ASSP=OFF ONE_TIME_PROGRAM=OFF CONFIG_SECURE=OFF MCCLK_FREQ=2.08 JTAG_PORT=ENABLE ENABLE_TRANSFR=DISABLE SHAREDEBRINIT=DISABLE MUX_CONFIGURATION_PORTS=DISABLE ;
 LOCATE COMP "data_io[0]" SITE "132" ;
@@ -351,6 +351,5 @@ LOCATE COMP "addr_o[2]" SITE "50" ;
 LOCATE COMP "addr_o[1]" SITE "49" ;
 LOCATE COMP "addr_o[0]" SITE "45" ;
 LOCATE COMP "reset_o" SITE "22" ;
-FREQUENCY NET "cpu_clkgen" 40.000000 MHz ;
 SCHEMATIC END ;
 [ END DESIGN PREFS ]

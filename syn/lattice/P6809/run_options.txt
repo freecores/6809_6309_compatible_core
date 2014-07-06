@@ -1,21 +1,21 @@
 #--  Synopsys, Inc.
-#--  Version G-2012.09L-SP1 
-#--  Project file /home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/P6809/run_options.txt
-#--  Written on Sun Jun 22 08:17:19 2014
+#--  Version I-2013.09L 
+#--  Project file C:\02_Elektronik\020_V6809\trunk\syn\lattice\P6809\run_options.txt
+#--  Written on Sun Jul 06 07:46:25 2014
 
 
 #project files
-add_file -verilog "/usr/local/diamond/2.2_x64/cae_library/synthesis/verilog/machxo2.v"
-add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/CC3_top.v"
-add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/alu16.v"
-add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/decoders.v"
-add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/defs.v"
-add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/MC6809_cpu.v"
-add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/rtl/verilog/regblock.v"
-add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/bios2k.v"
-add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/vgatext.v"
-add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/fontrom.v"
-add_file -verilog "/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice/textmem4k.v"
+add_file -verilog "C:/02_Elektronik/020_V6809/trunk/syn/lattice/CC3_top.v"
+add_file -verilog "C:/02_Elektronik/020_V6809/trunk/syn/lattice/../../rtl/verilog/alu16.v"
+add_file -verilog "C:/02_Elektronik/020_V6809/trunk/syn/lattice/../../rtl/verilog/decoders.v"
+add_file -verilog "C:/02_Elektronik/020_V6809/trunk/syn/lattice/../../rtl/verilog/defs.v"
+add_file -verilog "C:/02_Elektronik/020_V6809/trunk/syn/lattice/../../rtl/verilog/MC6809_cpu.v"
+add_file -verilog "C:/02_Elektronik/020_V6809/trunk/syn/lattice/../../rtl/verilog/regblock.v"
+add_file -verilog "C:/02_Elektronik/020_V6809/trunk/syn/lattice/bios2k.v"
+add_file -verilog "C:/02_Elektronik/020_V6809/trunk/syn/lattice/vgatext.v"
+add_file -verilog "C:/02_Elektronik/020_V6809/trunk/syn/lattice/fontrom.v"
+add_file -verilog "C:/02_Elektronik/020_V6809/trunk/syn/lattice/textmem4k.v"
+
 
 
 #implementation: "P6809"
@@ -24,9 +24,9 @@ impl -add P6809 -type fpga
 #
 #implementation attributes
 
-set_option -vlog_std sysv
+set_option -vlog_std v2001
 set_option -project_relative_includes 1
-set_option -include_path {/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice;/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice;/home/pacito/02_Elektronik/020_V6809/6809/opencores/trunk/syn/lattice}
+set_option -include_path {C:/02_Elektronik/020_V6809/trunk/syn/lattice}
 
 #device options
 set_option -technology MACHXO2
@@ -39,7 +39,7 @@ set_option -part_companion ""
 set_option -top_module "CC3_top"
 
 # mapper_options
-set_option -frequency auto
+set_option -frequency 1
 set_option -write_verilog 0
 set_option -write_vhdl 0
 set_option -srs_instrumentation 1
@@ -49,7 +49,7 @@ set_option -maxfan 1000
 set_option -disable_io_insertion 0
 set_option -retiming 0
 set_option -pipe 1
-set_option -forcegsr no
+set_option -forcegsr false
 set_option -fix_gated_and_generated_clocks 1
 set_option -RWCheckOnRam 1
 set_option -update_models_cp 0
@@ -67,5 +67,8 @@ set_option -multi_file_compilation_unit 1
 set_option -write_apr_constraint 1
 
 #set result format/file last
-project -result_file "./P6809.edi"
+project -result_file "./P6809_P6809.edi"
+
+#set log file 
+set_option log_file "C:/02_Elektronik/020_V6809/trunk/syn/lattice/P6809/P6809_P6809.srf" 
 impl -active "P6809"
