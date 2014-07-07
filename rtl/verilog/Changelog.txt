@@ -6,6 +6,7 @@ Changelong
 - decoders.v : fixed missing left/dest paths for sex
 - alu16.v : fixed sex, mul, c flag for shifts, ror
 - MC6809_cpu.v : fixed indirect indexed
+
 05.07.14
 --------
 - decoders.v : fixed missing left/dest paths for daa

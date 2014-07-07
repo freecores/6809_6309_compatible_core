@@ -83,6 +83,7 @@ initial
 		$display("instructions_test.hex read");
 		mem[16'hfffe] = 8'h00; // setup reset
 		mem[16'hffff] = 8'h00;
+		
 `else
 		for (i = 0; i < 65536; i=i+1)
 			mem[i] = 8'ha5;

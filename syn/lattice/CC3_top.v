@@ -153,7 +153,7 @@ bios2k bios(
 	.QB()
 	);
 
-
+/* 80x38 VGA Controller, using 40 MHz clock, 800x600@60 Hz timing */
 vgatext textctrl(
 	.CLK(clk40_i),
 	.RESET(cpu_reset),
